@@ -1,5 +1,13 @@
 # CEDT Mathematics Exam Generation Pipeline
 
+## New: configurable university-mathematics generation
+
+Use [BULK_GENERATION.md](BULK_GENERATION.md) for the new 1,000-question, ten-topic
+pipeline, batch/resume commands, family-based splits and persistent cross-run
+duplicate screening. Its config is `config/generation.university_math.json`.
+The original seed-data workflow below remains available unchanged.
+
+
 ระบบ Pipeline แบบ reproducible สำหรับข้อสอบ **GEN_001–GEN_030** ที่สร้างไว้แล้ว รวมถึงเป็นต้นแบบสำหรับสร้าง/แก้ไขชุดข้อสอบใหม่ตาม Blueprint เดิม
 
 > **สำคัญ**: โหมดเริ่มต้นนำ Dataset ที่มีอยู่มา validate → export → prepare prompts โดยไม่เรียก AI API เอง จึงทำงานแบบออฟไลน์และไม่ใช้ API key. การสร้าง/ตรวจโจทย์ใหม่ใช้ prompt packets ที่นำไปใช้ใน ChatGPT ได้ แล้ว import กลับมาผ่าน `ingest`.

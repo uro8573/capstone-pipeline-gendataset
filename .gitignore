@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
+krugrade-questions-pipeline/CEDT_KruGradeAI_Direct_Pipeline/question_generation/output/university_math_*/
+krugrade-questions-pipeline/CEDT_KruGradeAI_Direct_Pipeline/question_generation/output/math_round*/

@@ -1,0 +1,224 @@
+{
+  "version": 1,
+  "dataset_id": "university_math_1000_v1",
+  "subject": "University Mathematics",
+  "seed": 42,
+  "language": "Thai with standard mathematical notation",
+  "topics": [
+    {
+      "topic": "Single-variable Calculus",
+      "count": 100,
+      "subtopics": [
+        "Limits and continuity",
+        "Differentiation and applications",
+        "Integration techniques",
+        "Sequences and series",
+        "Taylor approximation"
+      ],
+      "concept_tags": [
+        "Limits and continuity",
+        "Differentiation and applications",
+        "Integration techniques",
+        "Sequences and series",
+        "Taylor approximation"
+      ]
+    },
+    {
+      "topic": "Multivariable Calculus",
+      "count": 100,
+      "subtopics": [
+        "Partial derivatives",
+        "Multiple integrals",
+        "Constrained extrema",
+        "Vector calculus",
+        "Change of variables"
+      ],
+      "concept_tags": [
+        "Partial derivatives",
+        "Multiple integrals",
+        "Constrained extrema",
+        "Vector calculus",
+        "Change of variables"
+      ]
+    },
+    {
+      "topic": "Linear Algebra",
+      "count": 100,
+      "subtopics": [
+        "Linear systems",
+        "Vector spaces and bases",
+        "Eigenvalues and diagonalization",
+        "Orthogonality and projections",
+        "Linear transformations"
+      ],
+      "concept_tags": [
+        "Linear systems",
+        "Vector spaces and bases",
+        "Eigenvalues and diagonalization",
+        "Orthogonality and projections",
+        "Linear transformations"
+      ]
+    },
+    {
+      "topic": "Differential Equations",
+      "count": 100,
+      "subtopics": [
+        "First-order ODEs",
+        "Second-order linear ODEs",
+        "Initial value problems",
+        "Systems of ODEs",
+        "Laplace transforms"
+      ],
+      "concept_tags": [
+        "First-order ODEs",
+        "Second-order linear ODEs",
+        "Initial value problems",
+        "Systems of ODEs",
+        "Laplace transforms"
+      ]
+    },
+    {
+      "topic": "Probability",
+      "count": 100,
+      "subtopics": [
+        "Conditional probability and Bayes theorem",
+        "Discrete random variables",
+        "Continuous distributions",
+        "Joint distributions",
+        "Expectation and variance"
+      ],
+      "concept_tags": [
+        "Conditional probability and Bayes theorem",
+        "Discrete random variables",
+        "Continuous distributions",
+        "Joint distributions",
+        "Expectation and variance"
+      ]
+    },
+    {
+      "topic": "Statistics",
+      "count": 100,
+      "subtopics": [
+        "Estimation and confidence intervals",
+        "Hypothesis testing",
+        "Linear regression",
+        "Sampling distributions",
+        "Goodness of fit"
+      ],
+      "concept_tags": [
+        "Estimation and confidence intervals",
+        "Hypothesis testing",
+        "Linear regression",
+        "Sampling distributions",
+        "Goodness of fit"
+      ]
+    },
+    {
+      "topic": "Discrete Mathematics",
+      "count": 100,
+      "subtopics": [
+        "Logic and proofs",
+        "Combinatorics",
+        "Graph theory",
+        "Recurrence relations",
+        "Modular arithmetic"
+      ],
+      "concept_tags": [
+        "Logic and proofs",
+        "Combinatorics",
+        "Graph theory",
+        "Recurrence relations",
+        "Modular arithmetic"
+      ]
+    },
+    {
+      "topic": "Numerical Methods",
+      "count": 100,
+      "subtopics": [
+        "Root finding",
+        "Numerical linear algebra",
+        "Interpolation",
+        "Numerical integration",
+        "Error and convergence"
+      ],
+      "concept_tags": [
+        "Root finding",
+        "Numerical linear algebra",
+        "Interpolation",
+        "Numerical integration",
+        "Error and convergence"
+      ]
+    },
+    {
+      "topic": "Optimization",
+      "count": 100,
+      "subtopics": [
+        "Linear programming",
+        "Convexity",
+        "Unconstrained optimization",
+        "Lagrange multipliers and KKT",
+        "Gradient methods"
+      ],
+      "concept_tags": [
+        "Linear programming",
+        "Convexity",
+        "Unconstrained optimization",
+        "Lagrange multipliers and KKT",
+        "Gradient methods"
+      ]
+    },
+    {
+      "topic": "Complex Variables",
+      "count": 100,
+      "subtopics": [
+        "Complex arithmetic and geometry",
+        "Analytic functions",
+        "Cauchy-Riemann equations",
+        "Contour integrals",
+        "Residues and poles"
+      ],
+      "concept_tags": [
+        "Complex arithmetic and geometry",
+        "Analytic functions",
+        "Cauchy-Riemann equations",
+        "Contour integrals",
+        "Residues and poles"
+      ]
+    }
+  ],
+  "difficulty_weights": {
+    "Easy": 20,
+    "Medium": 50,
+    "Hard": 30
+  },
+  "question_types": [
+    "Calculation with reasoning",
+    "Derivation or proof",
+    "Conceptual explanation",
+    "Error diagnosis and correction",
+    "Applied scenario",
+    "Compare methods or representations"
+  ],
+  "variation_strategies": [
+    "Change mathematical structure, not just numerical constants",
+    "Require boundary-case and assumption analysis",
+    "Infer unknown parameters from observations",
+    "Compare two systems or representations",
+    "Construct a counterexample or test a claim"
+  ],
+  "points_by_difficulty": {
+    "Easy": 5,
+    "Medium": 10,
+    "Hard": 15
+  },
+  "variants_per_family": 2,
+  "split_weights": {
+    "train": 80,
+    "validation": 10,
+    "test": 10
+  },
+  "near_duplicate_threshold": 0.9,
+  "model": null,
+  "timeout_seconds": 300,
+  "conventions": "State domains and assumptions explicitly. Use standard university mathematics notation and LaTeX. Define every symbol. No unavailable figures, external datasets, or unstated numerical conventions. For numerical methods give tolerances and rounding rules."
+}

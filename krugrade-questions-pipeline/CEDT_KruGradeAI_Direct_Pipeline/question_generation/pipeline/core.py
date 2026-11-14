@@ -105,10 +105,10 @@ def build_blueprint(data: dict[str, list[dict]]) -> dict:
     return {
         "blueprint_version": "1.0",
         "source_note": "Inferred from a solutions-and-rubric reference PDF; not independently confirmed original questions.",
-        "target_question_count": 30,
-        "target_total_score": 190,
-        "topic_distribution": TOPIC_TARGET,
-        "difficulty_distribution": DIFFICULTY_TARGET,
+        "target_question_count": len(slots),
+        "target_total_score": sum(s["rubric_max_score"] for s in slots),
+        "topic_distribution": dict(Counter(s["topic"] for s in slots)),
+        "difficulty_distribution": dict(Counter(s["difficulty"] for s in slots)),
         "slots": slots,
     }
 
@@ -119,7 +119,11 @@ def validate(data: dict[str, list[dict]], blueprint: dict) -> dict:
         "Structural checks do not independently prove the mathematical validity of questions or solutions.",
         "Inherited validation_status=PASS must not be interpreted as external expert review.",
     ]
-    all_ids = [f"GEN_{i:03d}" for i in range(1, int(blueprint["target_question_count"])+1)]
+    all_ids = [s["question_id"] for s in blueprint["slots"]]
+    if len(all_ids) != len(set(all_ids)):
+        errors.append("Duplicate IDs in blueprint slots")
+    if len(all_ids) != int(blueprint["target_question_count"]):
+        errors.append("Blueprint slot count does not match target_question_count")
     id_set = set(all_ids)
     indexed = {}
     for table in ("questions", "solutions", "metadata"):
