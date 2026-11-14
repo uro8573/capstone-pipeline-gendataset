@@ -1,0 +1,701 @@
+[
+  {
+    "question_id": "GEN_001",
+    "reference_question_ids": [
+      "REF_001"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Transform & Sampling",
+    "subtopic": "Multi-bandwidth sinc signal",
+    "concept_tags": [
+      "CTFT",
+      "sinc",
+      "time-domain sampling",
+      "impulse train",
+      "spectral replication",
+      "frequency-domain interpretation"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Derivation + Sketching",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Derive and interpret the sampled spectrum of a signal composed of components with different bandwidths.",
+    "question_text": "Consider the continuous-time signal\n\\[x(t)=\\operatorname{sinc}\\left(\\frac{\\pi t}{\\tau}\\right)+\\frac12\\operatorname{sinc}\\left(\\frac{2\\pi t}{\\tau}\\right),\\quad \\tau>0.\\]\nIt is uniformly sampled by \\[p(t)=\\sum_{m=-\\infty}^{\\infty}\\delta\\left(t-\\frac{m\\tau}{5}\\right),\\qquad g(t)=x(t)p(t).\\]\nUse \\(X(j\\omega)=\\int_{-\\infty}^{\\infty}x(t)e^{-j\\omega t}\\,dt\\) and \\(\\operatorname{sinc}(u)=\\sin(u)/u\\) (with sinc(0)=1).\n1. (1 point) Derive \\(X(j\\omega)\\) and identify its frequency support.\n2. (1 point) Derive \\(P(j\\omega)\\) and identify frequency spacing between impulses.\n3. (1 point) Express \\(g(t)\\) as a weighted impulse train. Determine impulse weights at \\(t=0\\) and \\(t=\\pm\\tau\\).\n4. (1 point) Derive \\(G(j\\omega)\\) in terms of shifted copies of \\(X(j\\omega)\\).\n5. (1 point) Sketch the magnitude spectra of \\(X\\) and \\(G\\), labeling heights, boundaries and replica centers. Explain whether spectral overlapping occurs.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_002",
+    "reference_question_ids": [
+      "REF_001"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Transform & Sampling",
+    "subtopic": "Inverse CTFT and sampling",
+    "concept_tags": [
+      "Inverse CTFT",
+      "time shifting",
+      "cosine modulation in frequency",
+      "sampling",
+      "spectral replication"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Inverse Derivation + Sketching",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Recover a time-domain signal from its frequency-domain representation and predict its sampled spectrum.",
+    "question_text": "A continuous-time signal has frequency representation\n\\[X(j\\omega)=\\tau\\operatorname{rect}\\left(\\frac{\\omega\\tau}{2\\pi}\\right)\\left[1+\\cos\\left(\\frac{\\omega\\tau}{2}\\right)\\right],\\quad\\tau>0.\\]\nSample using an impulse train of period \\(T_s=\\tau/4\\).\n1. (1 point) Find \\(x(t)\\).\n2. (1 point) Express \\(g(t)\\) as an impulse train and determine weights for \\(m=0,\\pm2\\).\n3. (1 point) Derive \\(P(j\\omega)\\) and replica spacing.\n4. (1 point) Derive \\(G(j\\omega)\\).\n5. (1 point) Sketch central and nearest two replicas, label heights/support and determine aliasing.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_003",
+    "reference_question_ids": [
+      "REF_001"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Transform & Sampling",
+    "subtopic": "Squared sinc and sampling comparison",
+    "concept_tags": [
+      "CTFT",
+      "convolution theorem",
+      "squared sinc",
+      "triangular spectrum",
+      "sampling frequency",
+      "spectral replicas"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Derivation + Comparison + Sketching",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Derive the spectrum of a squared-sinc signal and compare the effects of two sampling intervals.",
+    "question_text": "Consider \\[x(t)=\\operatorname{sinc}^2(\\pi t/\\tau),\\quad\\tau>0.\\]\nSystem A samples at \\(T_A=\\tau/3\\); System B samples at \\(T_B=\\tau/4\\). In both cases \\(p_i(t)=\\sum_m\\delta(t-mT_i)\\), \\(g_i(t)=x(t)p_i(t)\\). You may use the sinc transform pair and multiplication-convolution theorem.\n1. (1 point) Derive \\(X(j\\omega)\\) in terms of \\(\\Lambda(u)=\\max(1-|u|,0)\\).\n2. (1 point) Express \\(g_A,g_B\\) as weighted impulse trains and find first positive zero-weight indices.\n3. (1 point) Derive \\(G_A,G_B\\).\n4. (1 point) Find replica centers, peak heights and bandwidths of both systems.\n5. (1 point) Sketch both spectra, compare replica separation and identify aliasing.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_004",
+    "reference_question_ids": [
+      "REF_001"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Transform & Sampling",
+    "subtopic": "Reconstructing bandpass from sampled spectrum",
+    "concept_tags": [
+      "Inverse CTFT",
+      "spectral replication",
+      "frequency shifting",
+      "bandpass signals",
+      "sampling reconstruction"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Inverse Reasoning + Sketching",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Infer the original signal and sampling parameters from a known nonoverlapping sampled spectrum.",
+    "question_text": "An unknown real continuous-time signal \\(x(t)\\) is sampled by \\(p(t)=\\sum_m\\delta(t-mT_s)\\), giving \\(g=xp\\). The original signal is bandlimited to \\(|\\omega|<5\\pi/\\tau\\), \\(\\tau>0\\). The measured \\(G(j\\omega)\\) consists of rectangular bands of height 5, repeated every \\(20\\pi/\\tau\\). In the central spectral group, the nonzero intervals are \\((-4\\pi/\\tau,-2\\pi/\\tau)\\) and \\((2\\pi/\\tau,4\\pi/\\tau)\\). Every other group is an identical copy shifted by integer multiples of \\(20\\pi/\\tau\\); assume no overlap.\n1. (1 point) Find \\(T_s\\) and \\(P(j\\omega)\\).\n2. (1 point) Recover \\(X(j\\omega)\\).\n3. (1 point) Find \\(x(t)\\) explicitly.\n4. (1 point) Express \\(g(t)\\) as a weighted impulse train; give weights \\(m=0,\\pm5\\).\n5. (1 point) Sketch central and nearest groups, explain recovery without aliasing.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_005",
+    "reference_question_ids": [
+      "REF_002"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Linear / Circular Convolution",
+    "subtopic": "Missing-sample convolution matching",
+    "concept_tags": [
+      "Discrete convolution",
+      "circular convolution",
+      "missing sample reconstruction",
+      "signal matching",
+      "convolution sum property"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Matching + Calculation + Proof",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Identify convolution operations from partially observed outputs, recover missing samples, and detect an inconsistent output.",
+    "question_text": "Three sequences indexed from n=0 to 3 are\n\\[a[n]=(1,-1,2,0),\\quad b[n]=(1,1,-1,0),\\quad c[n]=(2,0,-1,1).\\]\nFour recordings are produced; each valid output uses either full linear or 4-point circular convolution of two DISTINCT sequences from a,b,c. Some measurements are missing (□); one output is inconsistent with all permitted convolutions:\n\\[Y_1=(2,2,-3,\\square,2,-1,0),\\]\n\\[Y_2=(2,-2,3,2,\\square,2,0),\\]\n\\[Y_3=(\\square,0,0,3),\\]\n\\[Y_4=(1,0,0,2,-2,0,0).\\]\n1. (2 points) Identify pair/type for Y1, recover missing sample.\n2. (2 points) Identify pair/type for Y2, recover missing sample.\n3. (2 points) Identify pair/type for Y3, recover missing sample.\n4. (2 points) Is Y4 possible? Justify using a mathematical property of convolution. Show calculations; circular convolution length N=4.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_006",
+    "reference_question_ids": [
+      "REF_002"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Linear / Circular Convolution",
+    "subtopic": "Same-pair linear vs circular",
+    "concept_tags": [
+      "Linear convolution",
+      "circular convolution",
+      "time-domain aliasing",
+      "modular indexing",
+      "output interpretation"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Calculation + Matching + Explanation",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Distinguish full linear versus circular convolution and explain circular folding instead of truncation.",
+    "question_text": "Given \\(a[n]=(2,-1,1,2)\\), \\(b[n]=(1,2,-1,1)\\), both on \\(0\\le n\\le3\\), zero elsewhere. A lab produces\n\\[R_A=(2,3,-3,7,2,-1,2),\\quad R_B=(4,2,\\square,7),\\quad R_C=(2,3,-3,7).\\]\nPermitted operations are full linear convolution or 4-point circular convolution of a,b; a recording may be an incorrect or truncated representation.\n1. (2 points) Calculate all seven samples of \\(y=a*b\\).\n2. (2 points) Calculate the four samples of \\(z=a*_4b\\).\n3. (2 points) Classify RA,RB,RC and recover missing RB value.\n4. (2 points) Determine whether circular convolution is just the first four samples of linear convolution, with mathematical justification.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_007",
+    "reference_question_ids": [
+      "REF_002"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Linear / Circular Convolution",
+    "subtopic": "Sparse support and periodicity",
+    "concept_tags": [
+      "Discrete impulses",
+      "linear convolution",
+      "circular convolution",
+      "support analysis",
+      "periodic indexing",
+      "output validity"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Matching + Support Proof",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Use impulse support and modular indexing to determine which convolution operation can produce each recording.",
+    "question_text": "\\[x[n]=\\delta[n]+2\\delta[n-4],\\quad h_1[n]=\\delta[n]-\\delta[n-3],\\quad h_2[n]=\\delta[n]+\\delta[n-2].\\]\nEach valid lab recording comes from full linear or 6-point circular convolution of x with h1 or h2:\nA: finite output nonzero at (index,value) {(0,1),(3,-1),(4,2),(7,-2)}.\nB: 6-periodic, one period (1,-2,0,-1,2,0).\nC: 6-periodic, one period (3,0,1,0,2,0).\nD: 6-periodic, one period (3,0,1,0,0,2).\nUnspecified finite-output samples are zero; periodic outputs repeat indefinitely.\n1. (2 points) Identify operation/filter for A.\n2. (2 points) Identify B and justify nonzero locations.\n3. (2 points) Identify C and explain wrap-around.\n4. (2 points) Determine whether D can be produced; justify by convolution support.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_008",
+    "reference_question_ids": [
+      "REF_002"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Linear / Circular Convolution",
+    "subtopic": "Nonunique cancellation matching",
+    "concept_tags": [
+      "Linear convolution",
+      "circular convolution",
+      "signal cancellation",
+      "finite differences",
+      "periodicity",
+      "nonunique matching"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Matching + Cancellation Explanation",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Understand how cancellation permits distinct input-filter pairs to produce the same linear and circular outputs.",
+    "question_text": "Inputs \\(r[n]=(1,1,1,1)\\), \\(s[n]=(1,-1,1,-1)\\), and filters \\(h_+[n]=(1,1)\\), \\(h_-[n]=(1,-1)\\); all start at n=0 and are zero elsewhere.\nRecorded outputs: \\(Y_A=(1,0,0,0,-1)\\), \\(Y_B=(1,2,2,2,1)\\), \\(Y_C=(1,-2,2,-2,1)\\), \\(Y_D=(0,0,0,0)\\).\nRecords A–C are linear convolution; D is one period of 4-point circular convolution. More than one pair may be correct.\n1. (2 points) Identify ALL input-filter combinations for YA.\n2. (2 points) Identify combination for YB.\n3. (2 points) Identify combination for YC.\n4. (2 points) Identify ALL combinations for YD and explain cancellation.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_009",
+    "reference_question_ids": [
+      "REF_003"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Series",
+    "subtopic": "Periodic rectangular pulse properties",
+    "concept_tags": [
+      "Complex Fourier series",
+      "DC component",
+      "harmonic coefficients",
+      "time shifting",
+      "discontinuity",
+      "coefficient decay"
+    ],
+    "difficulty": "Medium",
+    "question_type": "True/False with Justification",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Evaluate coefficient and convergence claims for a periodic rectangular signal.",
+    "question_text": "A continuous-time periodic signal has \\(T=6\\), defined on \\(-3\\le t<3\\):\n\\[x(t)=\\begin{cases}2,&|t|<1,\\\\0,&1\\le|t|<3.\\end{cases}\\]\nLet \\(a_k\\) be complex Fourier-series coefficients and \\(y(t)=x(t-1)\\) have coefficients \\(b_k\\). Classify each as True or False and justify (1 point each):\n9.1 DC coefficient \\(a_0=2/3\\).\n9.2 Third harmonic \\(a_3=0\\).\n9.3 First shifted coefficient \\(b_1\\) is purely imaginary.\n9.4 At \\(t=1\\), Fourier series converges to 1.\n9.5 Coefficients decay at least as fast as \\(1/k^2\\), i.e. \\(a_k=O(1/k^2)\\).",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_010",
+    "reference_question_ids": [
+      "REF_003"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Series",
+    "subtopic": "Triangular pulse properties",
+    "concept_tags": [
+      "Fourier coefficients",
+      "even symmetry",
+      "triangular pulse",
+      "coefficient decay",
+      "time shifting",
+      "continuity"
+    ],
+    "difficulty": "Medium",
+    "question_type": "True/False with Justification",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Analyze symmetry, continuity and time shifting of a periodic triangular pulse.",
+    "question_text": "Periodic \\(x(t)\\) of period \\(T=4\\), defined for \\(-2\\le t<2\\):\n\\[x(t)=\\begin{cases}1-|t|,&|t|\\le1,\\\\0,&1<|t|<2.\\end{cases}\\]\nLet \\(a_k\\) be the complex Fourier coefficients. Define \\(y(t)=x(t-1)\\) with coefficients \\(b_k\\). True/False with mathematical justification (1 point each):\n10.1 \\(a_0=1/4\\).\n10.2 Every \\(a_k\\) is real.\n10.3 \\(a_k=O(1/k^2)\\) as \\(|k|\\to\\infty\\).\n10.4 At \\(t=1\\) Fourier series converges to 1/2.\n10.5 \\(b_1=2j/\\pi^2\\).",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_011",
+    "reference_question_ids": [
+      "REF_003"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Series",
+    "subtopic": "Odd periodic square-wave properties",
+    "concept_tags": [
+      "Odd symmetry",
+      "Fourier coefficients",
+      "DC component",
+      "harmonic zeros",
+      "time shifting",
+      "convergence",
+      "coefficient decay"
+    ],
+    "difficulty": "Medium",
+    "question_type": "True/False with Justification",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Analyze Fourier-series properties of an odd periodic signal including harmonic structure and convergence.",
+    "question_text": "Consider the \\(T=2\\pi\\) periodic signal defined over \\(-\\pi<t<\\pi\\):\n\\[x(t)=\\begin{cases}-1,&-\\pi<t<0,\\\\1,&0<t<\\pi,\\\\0,&t=0.\\end{cases}\\]\nLet \\(a_k\\) denote its complex Fourier-series coefficients and \\(y(t)=x(t-\\pi/2)\\) have coefficients \\(b_k\\). Determine True/False and justify (1 point each):\n11.1 \\(a_0=0\\).\n11.2 Every nonzero even-harmonic coefficient \\(a_{2m}\\) is zero.\n11.3 Shifted first-harmonic coefficient \\(b_1=-2/\\pi\\).\n11.4 At t=0, Fourier series converges to 1.\n11.5 \\(a_k=O(1/k^2)\\) as |k|→∞.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_012",
+    "reference_question_ids": [
+      "REF_004"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "CTFT Convolution Identity",
+    "subtopic": "Rational kernels of different widths",
+    "concept_tags": [
+      "Fourier duality",
+      "CTFT scaling",
+      "convolution theorem",
+      "transform uniqueness"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Mathematical Proof",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Prove convolution of different-width rational kernels with CTFT methods.",
+    "question_text": "Given \\(e^{-|t|}\\longleftrightarrow2/(1+\\omega^2)\\), use Fourier duality, scaling and the convolution theorem to prove\n\\[\\frac1{t^2+1}*\\frac1{t^2+4}=\\frac{3\\pi}{2(t^2+9)}.\\]\nDo not evaluate the convolution integral directly.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_013",
+    "reference_question_ids": [
+      "REF_004"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "CTFT Convolution Identity",
+    "subtopic": "Difference of rational kernels",
+    "concept_tags": [
+      "CTFT linearity",
+      "scaling",
+      "convolution theorem",
+      "superposition",
+      "transform uniqueness"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Mathematical Proof",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Prove convolution of a linear combination of rational functions by Fourier superposition.",
+    "question_text": "Let \\(f(t)=1/(t^2+1)-2/(t^2+4)\\) and \\(g(t)=1/(t^2+9)\\). Given\n\\[\\mathcal F\\{1/(t^2+a^2)\\}=(\\pi/a)e^{-a|\\omega|},\\quad a>0,\\]\nprove\n\\[(f*g)(t)=\\frac{4\\pi}{3(t^2+16)}-\\frac{5\\pi}{3(t^2+25)}.\\]",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_014",
+    "reference_question_ids": [
+      "REF_004"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "CTFT Convolution Identity",
+    "subtopic": "Second-derivative convolution",
+    "concept_tags": [
+      "Time differentiation",
+      "second derivative",
+      "CTFT",
+      "convolution theorem",
+      "transform uniqueness"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Mathematical Proof",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Prove a second-derivative convolution identity via the Fourier differentiation property.",
+    "question_text": "Let \\(f(t)=1/(t^2+1)\\) and \\(\\mathcal F\\{f(t)\\}=\\pi e^{-|\\omega|}\\). Use the second derivative and convolution theorem to prove\n\\[\\frac{6t^2-2}{(t^2+1)^3}*\\frac1{t^2+1}=\\frac{4\\pi(3t^2-4)}{(t^2+4)^3}.\\]",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_015",
+    "reference_question_ids": [
+      "REF_004"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "CTFT Convolution Identity",
+    "subtopic": "Opposite time shifts",
+    "concept_tags": [
+      "CTFT time shifting",
+      "scaling",
+      "convolution theorem",
+      "phase factors",
+      "transform uniqueness"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Mathematical Proof",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Prove convolution identity for independently shifted rational kernels and explain center shifts.",
+    "question_text": "Let \\(f(t)=1/((t-1)^2+1)\\) and \\(g(t)=1/((t+2)^2+4)\\). Given \\(\\mathcal F\\{1/(t^2+a^2)\\}=(\\pi/a)e^{-a|\\omega|}\\), prove\n\\[(f*g)(t)=\\frac{3\\pi}{2((t+1)^2+9)}.\\]\nExplain why the resulting convolution is centered at t=-1.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_016",
+    "reference_question_ids": [
+      "REF_005"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Inverse DTFT",
+    "subtopic": "Mixed harmonics and two geometric terms",
+    "concept_tags": [
+      "Trigonometric identities",
+      "complex exponentials",
+      "inverse DTFT",
+      "partial fractions",
+      "causal sequences"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Inverse DTFT Calculation (2 parts)",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Invert DTFT using harmonic expansion and rational partial fractions.",
+    "question_text": "Find the inverse DTFT of both expressions, showing all steps.\nPart A (3 points): \\[X_A(e^{j\\omega})=(1+j\\sin\\omega)\\cos3\\omega.\\]\nPart B (5 points): \\[X_B(e^{j\\omega})=\\frac{1+2e^{-j\\omega}}{(1-\\frac12e^{-j\\omega})(1+\\frac13e^{-j\\omega})}.\\]\nFor Part B assume the causal geometric-series expansion.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_017",
+    "reference_question_ids": [
+      "REF_005"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Inverse DTFT",
+    "subtopic": "Symmetric harmonics and alternating causal terms",
+    "concept_tags": [
+      "Product-to-sum",
+      "symmetric impulse sequences",
+      "partial fractions",
+      "alternating geometric sequences"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Inverse DTFT Calculation (2 parts)",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Use symmetry to invert trigonometric spectra and distinguish geometric components.",
+    "question_text": "Find both inverse DTFT sequences.\nPart A (3 points): \\[X_A(e^{j\\omega})=2\\cos\\omega\\cos2\\omega.\\]\nPart B (5 points): \\[X_B(e^{j\\omega})=\\frac{3+\\frac16e^{-j\\omega}}{(1-\\frac12e^{-j\\omega})(1+\\frac13e^{-j\\omega})}.\\]\nUse the causal expansion in Part B.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_018",
+    "reference_question_ids": [
+      "REF_005"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Inverse DTFT",
+    "subtopic": "Time-advanced finite and infinite sequences",
+    "concept_tags": [
+      "DTFT time shifting",
+      "impulse index signs",
+      "partial fractions",
+      "causal expansion",
+      "left-sided advancement"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Inverse DTFT Calculation (2 parts)",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Apply frequency-domain time advance to both finite and infinite DTFT sequences.",
+    "question_text": "Find the inverse DTFTs:\nPart A (3 points): \\[X_A(e^{j\\omega})=e^{j2\\omega}(1-\\cos2\\omega).\\]\nPart B (5 points): \\[X_B(e^{j\\omega})=e^{j2\\omega}\\frac{1+e^{-j\\omega}}{(1-\\frac12e^{-j\\omega})(1+\\frac14e^{-j\\omega})}.\\]\nFor Part B invert the rational factor with the causal expansion first, then use time shifting.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_019",
+    "reference_question_ids": [
+      "REF_005"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Inverse DTFT",
+    "subtopic": "Mixed harmonics and three-pole rational inverse",
+    "concept_tags": [
+      "Inverse DTFT",
+      "trigonometric products",
+      "complex exponentials",
+      "three-term partial fractions",
+      "causal sequences"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Inverse DTFT Calculation (2 parts)",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Recover finite impulse output from mixed harmonics and causal output from three-factor rational DTFT.",
+    "question_text": "Find inverse DTFTs:\nPart A (3 points): \\[X_A(e^{j\\omega})=(1-j\\sin2\\omega)\\cos\\omega.\\]\nPart B (5 points): For \\(z=e^{-j\\omega}\\), \\[X_B(z)=\\frac{2+\\frac54z-\\frac58z^2}{(1-\\frac12z)(1+\\frac12z)(1-\\frac14z)}.\\]\nAssume causal expansion for Part B.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_020",
+    "reference_question_ids": [
+      "REF_006"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "DFT & DTFS",
+    "subtopic": "Weighted-neighbor interpolation",
+    "concept_tags": [
+      "DFT",
+      "weighted interpolation",
+      "even/odd decomposition",
+      "index mapping",
+      "DTFS"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Algebraic Derivation (2 parts)",
+    "rubric_max_score": 7.0,
+    "learning_objective": "Derive DFT relation for unequal adjacent-sample interpolation and associated periodic DTFS.",
+    "question_text": "Let \\(a[n]\\) be length 4 with modulo-4 indexing and \\(A[k]=\\sum_{r=0}^3a[r]e^{-j2\\pi kr/4}\\). Construct length-8 \\(b[n]\\) by\n\\[b[2r]=a[r],\\quad b[2r+1]=\\frac34a[r]+\\frac14a[r+1],\\quad r=0,1,2,3.\\]\nLet \\(B[k]\\) be its 8-point DFT.\n1. (5 points) Prove for k=0,…,7:\n\\[B[k]=(1+\\cos(\\pi k/4)-\\frac j2\\sin(\\pi k/4))A[k\\bmod4].\\]\n2. (2 points) Express period-8 DTFS coefficients \\(c_k\\) in terms of A and find \\(c_0\\).",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_021",
+    "reference_question_ids": [
+      "REF_006"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "DFT & DTFS",
+    "subtopic": "Neighbor-difference interleaving",
+    "concept_tags": [
+      "DFT",
+      "neighbor differencing",
+      "circular indexing",
+      "frequency multiplier",
+      "DTFS"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Algebraic Derivation (2 parts)",
+    "rubric_max_score": 7.0,
+    "learning_objective": "Derive DFT relationship for odd samples formed by differences instead of averages.",
+    "question_text": "Let \\(a[n]\\) be length 4, modulo-4 indexing, with 4-point DFT \\(A[k]\\). Construct length-8 \\(b\\):\n\\[b[2r]=a[r],\\qquad b[2r+1]=\\tfrac12(a[r]-a[r+1]),\\qquad r=0,1,2,3.\\]\n1. (5 points) Derive \\(B[k]\\) in terms of \\(A[k\\bmod4]\\) and show\n\\[B[k]=(1-j\\sin(\\pi k/4))A[k\\bmod4].\\]\n2. (2 points) Find DTFS coefficients and explain why \\(B[0]=B[4]=A[0]\\).",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_022",
+    "reference_question_ids": [
+      "REF_006"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "DFT & DTFS",
+    "subtopic": "Circularly shifted interleaving",
+    "concept_tags": [
+      "DFT",
+      "circular shift",
+      "interleaving",
+      "modular indices",
+      "phase rotation",
+      "DTFS"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Algebraic Derivation (2 parts)",
+    "rubric_max_score": 7.0,
+    "learning_objective": "Derive how circular shifting an interleaved branch affects a longer DFT and DTFS.",
+    "question_text": "Let a[n] be length 4 and indexed modulo 4, with DFT A[k]. Construct b[n] of length 8:\n\\[b[2r]=a[r],\\qquad b[2r+1]=a[(r+2)\\bmod4],\\quad r=0,1,2,3.\\]\n1. (5 points) Prove \\[B[k]=(1+(-1)^ke^{-j\\pi k/4})A[k\\bmod4].\\]\n2. (2 points) For \\(a[n]=(1,0,-1,2)\\), find period-8 DTFS coefficients \\(c_0,c_4\\) and explain why the latter is zero.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_023",
+    "reference_question_ids": [
+      "REF_006"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "DFT & DTFS",
+    "subtopic": "Mixed circular shift and interpolation",
+    "concept_tags": [
+      "DFT",
+      "circular shift",
+      "interpolation",
+      "even/odd indexing",
+      "DTFS",
+      "frequency-zero analysis"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Algebraic Derivation (2 parts)",
+    "rubric_max_score": 7.0,
+    "learning_objective": "Derive mixed even-branch shift and odd-branch interpolation DFT mapping.",
+    "question_text": "Let a[n] be length 4 modulo-indexed, with 4-point DFT A[k]. Construct length-8 b[n]:\n\\[b[2r]=a[(r-1)\\bmod4],\\qquad b[2r+1]=\\frac12(a[r]+a[r+1]),\\quad r=0,1,2,3.\\]\n1. (5 points) Prove\n\\[B[k]=(e^{-j\\pi k/2}+\\cos(\\pi k/4))A[k\\bmod4].\\]\n2. (2 points) Derive DTFS coefficients and show \\(B[4]=0\\) for arbitrary a[n].",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_024",
+    "reference_question_ids": [
+      "REF_007"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "First-Order Frequency Response",
+    "subtopic": "Mechanical system with nonunit derivative coefficient",
+    "concept_tags": [
+      "First-order ODE",
+      "Fourier transform",
+      "frequency response",
+      "magnitude",
+      "phase",
+      "low-pass behavior"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Modeling + Graph + Calculation",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Derive first-order frequency response and predict sinusoidal steady-state response.",
+    "question_text": "The velocity v(t) satisfies \\[2\\frac{dv}{dt}+4v(t)=F(t).\\] Assume zero initial conditions and LTI behavior.\n1. (2 points) Derive \\(H(j\\omega)=V(j\\omega)/F(j\\omega)\\).\n2. (2 points) Find magnitude and phase response; sketch qualitative behavior for positive and negative frequencies.\n3. (2 points) For \\(F(t)=10\\cos3t\\), find steady-state velocity and identify low-pass behavior.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_025",
+    "reference_question_ids": [
+      "REF_007"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "First-Order Frequency Response",
+    "subtopic": "Identify ODE parameters from frequency data",
+    "concept_tags": [
+      "First-order ODE",
+      "frequency-response identification",
+      "magnitude",
+      "phase",
+      "low-pass filter"
+    ],
+    "difficulty": "Medium",
+    "question_type": "System Identification + Calculation",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Recover unknown first-order parameters from two measured magnitudes and predict an output.",
+    "question_text": "Stable LTI system: \\[\\frac{dy}{dt}+ay(t)=Ku(t),\\quad a>0,K>0.\\]\nMeasurements: \\(|H(0)|=2\\), \\(|H(j3)|=8/5\\).\n1. (2 points) Determine a, K and H(jω).\n2. (2 points) Derive magnitude and phase and explain low-pass behavior.\n3. (2 points) Find steady-state output for \\(u(t)=5\\cos3t\\).",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_026",
+    "reference_question_ids": [
+      "REF_007"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "First-Order Frequency Response",
+    "subtopic": "Compare two low-pass systems",
+    "concept_tags": [
+      "Transfer functions",
+      "magnitude comparison",
+      "phase shift",
+      "low-pass behavior",
+      "sinusoidal response"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Comparison + Calculation",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Compare attenuation and phase of two first-order systems having equal DC gain.",
+    "question_text": "System A: \\[\\frac{dy_A}{dt}+y_A=u(t).\\]\nSystem B: \\[\\frac{dy_B}{dt}+4y_B=4u(t).\\]\n1. (2 points) Derive HA(jω), HB(jω) and compare DC gains.\n2. (2 points) Find magnitudes and phases at ω=2; determine which attenuates less.\n3. (2 points) For \\(u(t)=6\\cos2t\\), find both steady-state outputs and explain low-pass behavior.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_027",
+    "reference_question_ids": [
+      "REF_007"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "First-Order Frequency Response",
+    "subtopic": "Two-tone steady-state response",
+    "concept_tags": [
+      "Fourier transform of ODE",
+      "frequency response",
+      "sinusoidal steady state",
+      "superposition",
+      "low-pass filtering"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Modeling + Superposition",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Predict response of a first-order LTI system to a two-frequency input.",
+    "question_text": "A first-order LTI system satisfies \\[2\\frac{dy}{dt}+6y(t)=4u(t).\\]\nInput: \\(u(t)=3\\cos t+5\\sin4t\\). Assume zero initial conditions for frequency-response determination.\n1. (2 points) Derive H(jω), magnitude and phase.\n2. (2 points) Calculate the steady-state response to each sinusoidal component separately.\n3. (2 points) Sum to obtain complete steady-state response and identify which component is attenuated more strongly.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_028",
+    "reference_question_ids": [
+      "REF_008"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "LTI Inverse & Echo Cancellation",
+    "subtopic": "Two-echo inverse with second-order recurrence",
+    "concept_tags": [
+      "Inverse LTI system",
+      "convolution identity",
+      "multiple echoes",
+      "second-order recurrence",
+      "partial fractions"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Proof + Recurrence",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Derive a closed-form causal inverse filter for a two-echo channel.",
+    "question_text": "Acoustic channel\n\\[h(t)=\\delta(t)-\\frac34\\delta(t-T)+\\frac18\\delta(t-2T),\\quad T>0.\\]\nCompensation filter \\(g(t)=\\sum_{k=0}^{\\infty}g_k\\delta(t-kT)\\) should exactly recover arbitrary input.\n1. (2 points) Derive necessary and sufficient condition for perfect recovery.\n2. (1 point) Derive recurrence for gk, including g0,g1,g2.\n3. (2 points) Obtain closed form gk and write complete inverse impulse response.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_029",
+    "reference_question_ids": [
+      "REF_008"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "LTI Inverse & Echo Cancellation",
+    "subtopic": "Noncausal inverse with unavoidable advance",
+    "concept_tags": [
+      "Delayed LTI system",
+      "inverse convolution",
+      "causality",
+      "noncausal filter",
+      "coefficient recurrence"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Causality Proof + Recurrence",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Determine whether a causal inverse exists and derive one with a required time advance.",
+    "question_text": "Acoustic channel\n\\[h(t)=\\delta(t-T)+\\frac13\\delta(t-2T),\\quad T>0.\\]\nCompensation filter requires exact zero-delay recovery \\(g*h*x=x\\) for arbitrary inputs.\n1. (2 points) Can a causal inverse achieve this without added delay? Justify.\n2. (3 points) Permit one advanced impulse:\n\\[g(t)=\\sum_{n=-1}^{\\infty}g_n\\delta(t-nT).\\]\nDerive coefficient recurrence and closed-form g_n.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  },
+  {
+    "question_id": "GEN_030",
+    "reference_question_ids": [
+      "REF_008"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "LTI Inverse & Echo Cancellation",
+    "subtopic": "Finite inverse approximation and residual echo",
+    "concept_tags": [
+      "Inverse convolution",
+      "geometric recurrence",
+      "finite inverse filter",
+      "residual echo",
+      "approximation error"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Proof + Approximation",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Derive a finite inverse approximation and quantify residual echoes due to truncation.",
+    "question_text": "Echo channel\n\\[h(t)=\\delta(t)+\\frac23\\delta(t-T),\\quad T>0.\\]\nApproximate ideal inverse by \\(g_M(t)=\\sum_{k=0}^Mg_k\\delta(t-kT)\\).\n1. (1 point) State/justify perfect inverse condition.\n2. (1 point) Derive recurrence for ideal gk.\n3. (2 points) For M=2, obtain g2(t) and compute overall h*g2.\n4. (1 point) Find smallest integer M≥0 for which residual echo coefficient magnitude is strictly below 0.1.",
+    "question_language": "English",
+    "math_notation": "LaTeX"
+  }
+]

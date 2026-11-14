@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "validation_scope": "structural_integrity_only",
+  "independent_mathematical_review": "NOT_PERFORMED",
+  "expected_questions": 30,
+  "questions": 30,
+  "solutions": 30,
+  "rubric_criteria": 141,
+  "metadata_records": 30,
+  "rubric_score_total": 190.0,
+  "topic_distribution": {
+    "Fourier Transform & Sampling": 4,
+    "Linear / Circular Convolution": 4,
+    "Fourier Series": 3,
+    "CTFT Convolution Identity": 4,
+    "Inverse DTFT": 4,
+    "DFT & DTFS": 4,
+    "First-Order Frequency Response": 4,
+    "LTI Inverse & Echo Cancellation": 3
+  },
+  "difficulty_distribution": {
+    "Medium": 19,
+    "Hard": 11
+  },
+  "errors": [],
+  "warnings": [
+    "Structural checks do not independently prove the mathematical validity of questions or solutions.",
+    "Inherited validation_status=PASS must not be interpreted as external expert review."
+  ],
+  "source_files_sha256": {
+    "questions.csv": "c295f2c1866689509cbc9cf4462a5d1bcb02c61de48d8cce33b2105478312541",
+    "solutions.csv": "47eca051def8384a4dc37cfff3b294c56b3f8d74ead6a274a7206dec0f1ef589",
+    "rubrics.csv": "98a665e3175808b14377cec291062b9c5132819840d1d14192581ea8cdc3b764",
+    "metadata.csv": "3774eff008e97381024f4dd633eb75b5544744177c67e8402382a1f7a2b9b4c5"
+  }
+}

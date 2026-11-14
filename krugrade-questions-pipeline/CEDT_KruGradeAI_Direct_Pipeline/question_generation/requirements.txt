@@ -1,0 +1,2 @@
+# Standard-library-only build. No pip packages required.
+# Optional PDF text extraction needs the external Poppler 'pdftotext' command.

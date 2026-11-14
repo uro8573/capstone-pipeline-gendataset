@@ -1,0 +1,1976 @@
+[
+  {
+    "question_id": "GEN_001",
+    "criterion_id": "GEN_001_R1",
+    "rubric_order": 1,
+    "criterion": "Original CTFT",
+    "description": "Original CTFT",
+    "max_points": 1.0,
+    "full_credit": "Correct two rectangle terms, amplitudes and support",
+    "partial_credit": "0.5 for correct transform of only one component or correct support with scale error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_001",
+    "criterion_id": "GEN_001_R2",
+    "rubric_order": 2,
+    "criterion": "Sampling transform",
+    "description": "Sampling transform",
+    "max_points": 1.0,
+    "full_credit": "Correct impulse locations and 10π/τ coefficient",
+    "partial_credit": "0.5 for correct spacing with incorrect coefficient",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_001",
+    "criterion_id": "GEN_001_R3",
+    "rubric_order": 3,
+    "criterion": "Sampled signal",
+    "description": "Sampled signal",
+    "max_points": 1.0,
+    "full_credit": "Correct weighted train and specified weights",
+    "partial_credit": "0.5 for correct train with one weight error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_001",
+    "criterion_id": "GEN_001_R4",
+    "rubric_order": 4,
+    "criterion": "Sampled CTFT",
+    "description": "Sampled CTFT",
+    "max_points": 1.0,
+    "full_credit": "Correct replication formula and scaling",
+    "partial_credit": "0.5 for replication formula with missing scale",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_001",
+    "criterion_id": "GEN_001_R5",
+    "rubric_order": 5,
+    "criterion": "Interpretation",
+    "description": "Interpretation",
+    "max_points": 1.0,
+    "full_credit": "Both spectra correctly labeled and no-overlap justification",
+    "partial_credit": "0.5 for mostly correct shape with incomplete heights or explanation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_002",
+    "criterion_id": "GEN_002_R1",
+    "rubric_order": 1,
+    "criterion": "Inverse CTFT",
+    "description": "Inverse CTFT",
+    "max_points": 1.0,
+    "full_credit": "Correct three-term time-domain signal",
+    "partial_credit": "0.5 for correct shift locations with coefficient error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_002",
+    "criterion_id": "GEN_002_R2",
+    "rubric_order": 2,
+    "criterion": "Sampling weights",
+    "description": "Sampling weights",
+    "max_points": 1.0,
+    "full_credit": "Correct g(t), w0 and w±2",
+    "partial_credit": "0.5 for correct sampling formula but incomplete weights",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_002",
+    "criterion_id": "GEN_002_R3",
+    "rubric_order": 3,
+    "criterion": "Impulse train CTFT",
+    "description": "Impulse train CTFT",
+    "max_points": 1.0,
+    "full_credit": "Correct spacing and amplitude",
+    "partial_credit": "0.5 for correct frequency locations only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_002",
+    "criterion_id": "GEN_002_R4",
+    "rubric_order": 4,
+    "criterion": "Spectral replication",
+    "description": "Spectral replication",
+    "max_points": 1.0,
+    "full_credit": "Correct shifted expression and scaling",
+    "partial_credit": "0.5 for correct structure with scaling/sign error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_002",
+    "criterion_id": "GEN_002_R5",
+    "rubric_order": 5,
+    "criterion": "Spectral interpretation",
+    "description": "Spectral interpretation",
+    "max_points": 1.0,
+    "full_credit": "Correct peak, support, replica positions and aliasing explanation",
+    "partial_credit": "0.5 for substantially correct sketches but incomplete labeling",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_003",
+    "criterion_id": "GEN_003_R1",
+    "rubric_order": 1,
+    "criterion": "Original spectrum",
+    "description": "Original spectrum",
+    "max_points": 1.0,
+    "full_credit": "Correct triangular transform with height and support",
+    "partial_credit": "0.5 for triangular shape with scale error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_003",
+    "criterion_id": "GEN_003_R2",
+    "rubric_order": 2,
+    "criterion": "Sampled signals",
+    "description": "Sampled signals",
+    "max_points": 1.0,
+    "full_credit": "Correct weighted trains and zero indices",
+    "partial_credit": "0.5 for one correct configuration",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_003",
+    "criterion_id": "GEN_003_R3",
+    "rubric_order": 3,
+    "criterion": "Sampled transforms",
+    "description": "Sampled transforms",
+    "max_points": 1.0,
+    "full_credit": "Correct expressions for both systems",
+    "partial_credit": "0.5 for one correct expression",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_003",
+    "criterion_id": "GEN_003_R4",
+    "rubric_order": 4,
+    "criterion": "Spectral characteristics",
+    "description": "Spectral characteristics",
+    "max_points": 1.0,
+    "full_credit": "Correct centers, heights and widths",
+    "partial_credit": "0.5 for most characteristics with isolated errors",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_003",
+    "criterion_id": "GEN_003_R5",
+    "rubric_order": 5,
+    "criterion": "Spectral interpretation",
+    "description": "Spectral interpretation",
+    "max_points": 1.0,
+    "full_credit": "Correct sketches, gaps and aliasing explanation",
+    "partial_credit": "0.5 for correct comparison but incomplete justification",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_004",
+    "criterion_id": "GEN_004_R1",
+    "rubric_order": 1,
+    "criterion": "Sampling parameters",
+    "description": "Sampling parameters",
+    "max_points": 1.0,
+    "full_credit": "Correct Ts, P(jω) and impulse spacing",
+    "partial_credit": "0.5 for correct Ts but incomplete transform",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_004",
+    "criterion_id": "GEN_004_R2",
+    "rubric_order": 2,
+    "criterion": "Original spectrum",
+    "description": "Original spectrum",
+    "max_points": 1.0,
+    "full_credit": "Correct two shifted rectangles, supports and heights",
+    "partial_credit": "0.5 for correct supports but incorrect scaling",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_004",
+    "criterion_id": "GEN_004_R3",
+    "rubric_order": 3,
+    "criterion": "Inverse CTFT",
+    "description": "Inverse CTFT",
+    "max_points": 1.0,
+    "full_credit": "Correct sinc-cosine expression",
+    "partial_credit": "0.5 for correct idea with shift or coefficient error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_004",
+    "criterion_id": "GEN_004_R4",
+    "rubric_order": 4,
+    "criterion": "Sampled signal",
+    "description": "Sampled signal",
+    "max_points": 1.0,
+    "full_credit": "Correct weighted impulse train and specified weights",
+    "partial_credit": "0.5 for correct general expression but wrong values",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_004",
+    "criterion_id": "GEN_004_R5",
+    "rubric_order": 5,
+    "criterion": "Spectral interpretation",
+    "description": "Spectral interpretation",
+    "max_points": 1.0,
+    "full_credit": "Correct neighboring groups and nonoverlap explanation",
+    "partial_credit": "0.5 for correct layout with incomplete reasoning",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_001"
+    ]
+  },
+  {
+    "question_id": "GEN_005",
+    "criterion_id": "GEN_005_R1",
+    "rubric_order": 1,
+    "criterion": "First observation",
+    "description": "First observation",
+    "max_points": 2.0,
+    "full_credit": "1 point for identifying b*c and 1 for missing 0 with valid calculation",
+    "partial_credit": "1 point for correct match or justified missing value alone",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_005",
+    "criterion_id": "GEN_005_R2",
+    "rubric_order": 2,
+    "criterion": "Second observation",
+    "description": "Second observation",
+    "max_points": 2.0,
+    "full_credit": "1 point for identifying a*c and 1 for missing -3 with valid calculation",
+    "partial_credit": "1 point for correct match or justified missing value alone",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_005",
+    "criterion_id": "GEN_005_R3",
+    "rubric_order": 3,
+    "criterion": "Circular convolution",
+    "description": "Circular convolution",
+    "max_points": 2.0,
+    "full_credit": "1 point for a*_4b and 1 for missing -1 with valid calculation",
+    "partial_credit": "1 point for correct match or justified missing value alone",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_005",
+    "criterion_id": "GEN_005_R4",
+    "rubric_order": 4,
+    "criterion": "Invalid observation",
+    "description": "Invalid observation",
+    "max_points": 2.0,
+    "full_credit": "1 point for invalid classification and 1 for sum-property justification",
+    "partial_credit": "1 point if conclusion correct but reasoning missing or incorrect",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_006",
+    "criterion_id": "GEN_006_R1",
+    "rubric_order": 1,
+    "criterion": "Linear convolution",
+    "description": "Linear convolution",
+    "max_points": 2.0,
+    "full_credit": "Correct seven samples with valid calculations",
+    "partial_credit": "1 for correct setup and mostly correct intermediates",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_006",
+    "criterion_id": "GEN_006_R2",
+    "rubric_order": 2,
+    "criterion": "Circular convolution",
+    "description": "Circular convolution",
+    "max_points": 2.0,
+    "full_credit": "Correct four samples and modular-index method",
+    "partial_credit": "1 for correct method with arithmetic errors",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_006",
+    "criterion_id": "GEN_006_R3",
+    "rubric_order": 3,
+    "criterion": "Output classification",
+    "description": "Output classification",
+    "max_points": 2.0,
+    "full_credit": "Correct classification of all three and missing -1",
+    "partial_credit": "1 for classifications with missing error or vice versa",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_006",
+    "criterion_id": "GEN_006_R4",
+    "rubric_order": 4,
+    "criterion": "Circular folding",
+    "description": "Circular folding",
+    "max_points": 2.0,
+    "full_credit": "Correct folding relation and why truncation is invalid",
+    "partial_credit": "1 for correct conclusion with incomplete reasoning",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_007",
+    "criterion_id": "GEN_007_R1",
+    "rubric_order": 1,
+    "criterion": "Linear match",
+    "description": "Linear match",
+    "max_points": 2.0,
+    "full_credit": "Correct A=x*h1 and impulse calculation",
+    "partial_credit": "1 for correct match without sufficient calculation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_007",
+    "criterion_id": "GEN_007_R2",
+    "rubric_order": 2,
+    "criterion": "First circular output",
+    "description": "First circular output",
+    "max_points": 2.0,
+    "full_credit": "Correct B=x*_6h1 with modular folding",
+    "partial_credit": "1 for correct match with incomplete index reasoning",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_007",
+    "criterion_id": "GEN_007_R3",
+    "rubric_order": 3,
+    "criterion": "Second circular output",
+    "description": "Second circular output",
+    "max_points": 2.0,
+    "full_credit": "Correct C=x*_6h2 and index-6 wrap-around",
+    "partial_credit": "1 for match without explaining combined value at 0",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_007",
+    "criterion_id": "GEN_007_R4",
+    "rubric_order": 4,
+    "criterion": "Invalid support",
+    "description": "Invalid support",
+    "max_points": 2.0,
+    "full_credit": "Reject D and prove index 5 impossible from support",
+    "partial_credit": "1 for correct rejection without sufficient proof",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_008",
+    "criterion_id": "GEN_008_R1",
+    "rubric_order": 1,
+    "criterion": "Ambiguous linear output",
+    "description": "Ambiguous linear output",
+    "max_points": 2.0,
+    "full_credit": "Both valid YA combinations with cancellation reasoning",
+    "partial_credit": "1 for only one correct combination",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_008",
+    "criterion_id": "GEN_008_R2",
+    "rubric_order": 2,
+    "criterion": "First unique match",
+    "description": "First unique match",
+    "max_points": 2.0,
+    "full_credit": "YB=r*h+ with computation",
+    "partial_credit": "1 for correct match without calculation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_008",
+    "criterion_id": "GEN_008_R3",
+    "rubric_order": 3,
+    "criterion": "Second unique match",
+    "description": "Second unique match",
+    "max_points": 2.0,
+    "full_credit": "YC=s*h- with computation",
+    "partial_credit": "1 for correct match without calculation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_008",
+    "criterion_id": "GEN_008_R4",
+    "rubric_order": 4,
+    "criterion": "Zero circular output",
+    "description": "Zero circular output",
+    "max_points": 2.0,
+    "full_credit": "Both YD combinations and correct circular cancellation",
+    "partial_credit": "1 for both without explanation or one with correct reasoning",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_002"
+    ]
+  },
+  {
+    "question_id": "GEN_009",
+    "criterion_id": "GEN_009_R1",
+    "rubric_order": 1,
+    "criterion": "DC coefficient",
+    "description": "DC coefficient",
+    "max_points": 1.0,
+    "full_credit": "True with correct average-value calculation",
+    "partial_credit": "0.5 for correct label only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_009",
+    "criterion_id": "GEN_009_R2",
+    "rubric_order": 2,
+    "criterion": "Harmonic coefficient",
+    "description": "Harmonic coefficient",
+    "max_points": 1.0,
+    "full_credit": "True with a3 evaluation",
+    "partial_credit": "0.5 for correct label only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_009",
+    "criterion_id": "GEN_009_R3",
+    "rubric_order": 3,
+    "criterion": "Time shifting",
+    "description": "Time shifting",
+    "max_points": 1.0,
+    "full_credit": "False with correct bk and b1",
+    "partial_credit": "0.5 for label without explanation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_009",
+    "criterion_id": "GEN_009_R4",
+    "rubric_order": 4,
+    "criterion": "Convergence",
+    "description": "Convergence",
+    "max_points": 1.0,
+    "full_credit": "True with midpoint limits",
+    "partial_credit": "0.5 for label without reasoning",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_009",
+    "criterion_id": "GEN_009_R5",
+    "rubric_order": 5,
+    "criterion": "Coefficient decay",
+    "description": "Coefficient decay",
+    "max_points": 1.0,
+    "full_credit": "False with 1/abs(k) behavior",
+    "partial_credit": "0.5 for label without derivation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_010",
+    "criterion_id": "GEN_010_R1",
+    "rubric_order": 1,
+    "criterion": "DC component",
+    "description": "DC component",
+    "max_points": 1.0,
+    "full_credit": "True with average calculation",
+    "partial_credit": "0.5 for correct label only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_010",
+    "criterion_id": "GEN_010_R2",
+    "rubric_order": 2,
+    "criterion": "Even symmetry",
+    "description": "Even symmetry",
+    "max_points": 1.0,
+    "full_credit": "True with real-even reasoning",
+    "partial_credit": "0.5 for label without explanation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_010",
+    "criterion_id": "GEN_010_R3",
+    "rubric_order": 3,
+    "criterion": "Coefficient decay",
+    "description": "Coefficient decay",
+    "max_points": 1.0,
+    "full_credit": "True with O(1/k²) bound",
+    "partial_credit": "0.5 for correct label but incomplete bound",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_010",
+    "criterion_id": "GEN_010_R4",
+    "rubric_order": 4,
+    "criterion": "Series convergence",
+    "description": "Series convergence",
+    "max_points": 1.0,
+    "full_credit": "False because x(1)=0 and continuous",
+    "partial_credit": "0.5 for label without reasoning",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_010",
+    "criterion_id": "GEN_010_R5",
+    "rubric_order": 5,
+    "criterion": "Time shifting",
+    "description": "Time shifting",
+    "max_points": 1.0,
+    "full_credit": "False and b1=-2j/π²",
+    "partial_credit": "0.5 for label with missing/incorrect intermediate calculation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_011",
+    "criterion_id": "GEN_011_R1",
+    "rubric_order": 1,
+    "criterion": "DC",
+    "description": "DC",
+    "max_points": 1.0,
+    "full_credit": "True with odd-symmetry/zero-average reasoning",
+    "partial_credit": "0.5 for correct label only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_011",
+    "criterion_id": "GEN_011_R2",
+    "rubric_order": 2,
+    "criterion": "Harmonics",
+    "description": "Harmonics",
+    "max_points": 1.0,
+    "full_credit": "True showing even harmonic zeros",
+    "partial_credit": "0.5 for label only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_011",
+    "criterion_id": "GEN_011_R3",
+    "rubric_order": 3,
+    "criterion": "Time shift",
+    "description": "Time shift",
+    "max_points": 1.0,
+    "full_credit": "True and b1=-2/π with phase derivation",
+    "partial_credit": "0.5 for correct label without computation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_011",
+    "criterion_id": "GEN_011_R4",
+    "rubric_order": 4,
+    "criterion": "Convergence",
+    "description": "Convergence",
+    "max_points": 1.0,
+    "full_credit": "False with midpoint at discontinuity 0",
+    "partial_credit": "0.5 for correct label only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_011",
+    "criterion_id": "GEN_011_R5",
+    "rubric_order": 5,
+    "criterion": "Decay",
+    "description": "Decay",
+    "max_points": 1.0,
+    "full_credit": "False establishing 1/abs(k) decay",
+    "partial_credit": "0.5 for correct label only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_003"
+    ]
+  },
+  {
+    "question_id": "GEN_012",
+    "criterion_id": "GEN_012_R1",
+    "rubric_order": 1,
+    "criterion": "Duality",
+    "description": "Duality",
+    "max_points": 1.0,
+    "full_credit": "Correct transform of 1/(t²+1)",
+    "partial_credit": "0.5 for duality setup with coefficient error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_012",
+    "criterion_id": "GEN_012_R2",
+    "rubric_order": 2,
+    "criterion": "Scaling",
+    "description": "Scaling",
+    "max_points": 1.0,
+    "full_credit": "Correct transform of 1/(t²+4)",
+    "partial_credit": "0.5 for exponential factor with scaling error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_012",
+    "criterion_id": "GEN_012_R3",
+    "rubric_order": 3,
+    "criterion": "Convolution theorem",
+    "description": "Convolution theorem",
+    "max_points": 1.0,
+    "full_credit": "Correct product and exponential exponent",
+    "partial_credit": "0.5 for correct theorem with arithmetic error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_012",
+    "criterion_id": "GEN_012_R4",
+    "rubric_order": 4,
+    "criterion": "RHS transform",
+    "description": "RHS transform",
+    "max_points": 2.0,
+    "full_credit": "Correct transform of proposed result",
+    "partial_credit": "1 for correct setup with factor error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_012",
+    "criterion_id": "GEN_012_R5",
+    "rubric_order": 5,
+    "criterion": "Proof conclusion",
+    "description": "Proof conclusion",
+    "max_points": 1.0,
+    "full_credit": "Correct CTFT uniqueness argument",
+    "partial_credit": "0.5 for correct conclusion without reason",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_013",
+    "criterion_id": "GEN_013_R1",
+    "rubric_order": 1,
+    "criterion": "Linearity",
+    "description": "Linearity",
+    "max_points": 1.0,
+    "full_credit": "Correct transforms of both f terms",
+    "partial_credit": "0.5 for one correct term",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_013",
+    "criterion_id": "GEN_013_R2",
+    "rubric_order": 2,
+    "criterion": "Kernel transform",
+    "description": "Kernel transform",
+    "max_points": 1.0,
+    "full_credit": "Correct G(jω)",
+    "partial_credit": "0.5 for correct exponent with wrong scaling",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_013",
+    "criterion_id": "GEN_013_R3",
+    "rubric_order": 3,
+    "criterion": "Convolution",
+    "description": "Convolution",
+    "max_points": 1.0,
+    "full_credit": "Correct product and distribution",
+    "partial_credit": "0.5 for setup with arithmetic error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_013",
+    "criterion_id": "GEN_013_R4",
+    "rubric_order": 4,
+    "criterion": "Inversion",
+    "description": "Inversion",
+    "max_points": 2.0,
+    "full_credit": "Correct inverse transforms of both terms",
+    "partial_credit": "1 for one term correct",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_013",
+    "criterion_id": "GEN_013_R5",
+    "rubric_order": 5,
+    "criterion": "Proof",
+    "description": "Proof",
+    "max_points": 1.0,
+    "full_credit": "Correct uniqueness argument",
+    "partial_credit": "0.5 for unsubstantiated conclusion",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_014",
+    "criterion_id": "GEN_014_R1",
+    "rubric_order": 1,
+    "criterion": "Derivative recognition",
+    "description": "Derivative recognition",
+    "max_points": 1.0,
+    "full_credit": "Correct f''(t)",
+    "partial_credit": "0.5 for correct method with algebra error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_014",
+    "criterion_id": "GEN_014_R2",
+    "rubric_order": 2,
+    "criterion": "CTFT differentiation",
+    "description": "CTFT differentiation",
+    "max_points": 1.0,
+    "full_credit": "Correct -πω² exp(-abs(ω))",
+    "partial_credit": "0.5 for property missing minus sign",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_014",
+    "criterion_id": "GEN_014_R3",
+    "rubric_order": 3,
+    "criterion": "Convolution theorem",
+    "description": "Convolution theorem",
+    "max_points": 1.0,
+    "full_credit": "Correct -π²ω² exp(-2abs(ω))",
+    "partial_credit": "0.5 for setup with factor error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_014",
+    "criterion_id": "GEN_014_R4",
+    "rubric_order": 4,
+    "criterion": "RHS transform",
+    "description": "RHS transform",
+    "max_points": 2.0,
+    "full_credit": "Correct second derivative and scaled Fourier transform",
+    "partial_credit": "1 for correct partial derivation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_014",
+    "criterion_id": "GEN_014_R5",
+    "rubric_order": 5,
+    "criterion": "Proof conclusion",
+    "description": "Proof conclusion",
+    "max_points": 1.0,
+    "full_credit": "Equal transforms and uniqueness",
+    "partial_credit": "0.5 for result without explanation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_015",
+    "criterion_id": "GEN_015_R1",
+    "rubric_order": 1,
+    "criterion": "First shift",
+    "description": "First shift",
+    "max_points": 1.0,
+    "full_credit": "Correct transform with e^-jω",
+    "partial_credit": "0.5 for base transform with phase mistake",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_015",
+    "criterion_id": "GEN_015_R2",
+    "rubric_order": 2,
+    "criterion": "Second shift",
+    "description": "Second shift",
+    "max_points": 1.0,
+    "full_credit": "Correct transform with e^j2ω",
+    "partial_credit": "0.5 for base transform with phase mistake",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_015",
+    "criterion_id": "GEN_015_R3",
+    "rubric_order": 3,
+    "criterion": "Transform product",
+    "description": "Transform product",
+    "max_points": 1.0,
+    "full_credit": "Correct exponential decay and net phase",
+    "partial_credit": "0.5 for setup with phase error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_015",
+    "criterion_id": "GEN_015_R4",
+    "rubric_order": 4,
+    "criterion": "Inverse transform",
+    "description": "Inverse transform",
+    "max_points": 2.0,
+    "full_credit": "Correct amplitude denominator and time shift",
+    "partial_credit": "1 for correct unshifted inverse",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_015",
+    "criterion_id": "GEN_015_R5",
+    "rubric_order": 5,
+    "criterion": "Shift interpretation",
+    "description": "Shift interpretation",
+    "max_points": 1.0,
+    "full_credit": "Explain combined center -1",
+    "partial_credit": "0.5 for center only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_004"
+    ]
+  },
+  {
+    "question_id": "GEN_016",
+    "criterion_id": "GEN_016_R1",
+    "rubric_order": 1,
+    "criterion": "Trigonometric identity",
+    "description": "Trigonometric identity",
+    "max_points": 1.0,
+    "full_credit": "Correct product-to-sum expansion",
+    "partial_credit": "0.5 for correct approach with sign error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_016",
+    "criterion_id": "GEN_016_R2",
+    "rubric_order": 2,
+    "criterion": "Exponential expansion",
+    "description": "Exponential expansion",
+    "max_points": 1.0,
+    "full_credit": "Correct coefficients and exponents",
+    "partial_credit": "0.5 for substantially correct expansion",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_016",
+    "criterion_id": "GEN_016_R3",
+    "rubric_order": 3,
+    "criterion": "Index mapping",
+    "description": "Index mapping",
+    "max_points": 1.0,
+    "full_credit": "Correct impulse locations and signs",
+    "partial_credit": "0.5 for structure with index errors",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_016",
+    "criterion_id": "GEN_016_R4",
+    "rubric_order": 4,
+    "criterion": "Rational setup",
+    "description": "Rational setup",
+    "max_points": 1.0,
+    "full_credit": "Correct z substitution and denominator",
+    "partial_credit": "0.5 for substitution with incomplete setup",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_016",
+    "criterion_id": "GEN_016_R5",
+    "rubric_order": 5,
+    "criterion": "Partial fractions",
+    "description": "Partial fractions",
+    "max_points": 2.0,
+    "full_credit": "Correct A=3,B=-2",
+    "partial_credit": "1 for decomposition with coefficient error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_016",
+    "criterion_id": "GEN_016_R6",
+    "rubric_order": 6,
+    "criterion": "Geometric pairs",
+    "description": "Geometric pairs",
+    "max_points": 0.5,
+    "full_credit": "Correct causal pair and alternating sign",
+    "partial_credit": "0.25 for partially correct pair",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_016",
+    "criterion_id": "GEN_016_R7",
+    "rubric_order": 7,
+    "criterion": "Final sequence",
+    "description": "Final sequence",
+    "max_points": 1.5,
+    "full_credit": "Correct coefficients powers and u[n]",
+    "partial_credit": "Up to 1 for structure with arithmetic error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_017",
+    "criterion_id": "GEN_017_R1",
+    "rubric_order": 1,
+    "criterion": "Trig identity",
+    "description": "Trig identity",
+    "max_points": 1.0,
+    "full_credit": "Correct cos3ω+cosω",
+    "partial_credit": "0.5 for method with angle error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_017",
+    "criterion_id": "GEN_017_R2",
+    "rubric_order": 2,
+    "criterion": "Complex exponentials",
+    "description": "Complex exponentials",
+    "max_points": 1.0,
+    "full_credit": "Four correct exponential terms",
+    "partial_credit": "0.5 for method with coefficient errors",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_017",
+    "criterion_id": "GEN_017_R3",
+    "rubric_order": 3,
+    "criterion": "Inverse indices",
+    "description": "Inverse indices",
+    "max_points": 1.0,
+    "full_credit": "Correct symmetric impulses",
+    "partial_credit": "0.5 for correct support with scaling error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_017",
+    "criterion_id": "GEN_017_R4",
+    "rubric_order": 4,
+    "criterion": "Rational setup",
+    "description": "Rational setup",
+    "max_points": 1.0,
+    "full_credit": "Correct substitution and factors",
+    "partial_credit": "0.5 for correct z substitution only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_017",
+    "criterion_id": "GEN_017_R5",
+    "rubric_order": 5,
+    "criterion": "Partial fractions",
+    "description": "Partial fractions",
+    "max_points": 2.0,
+    "full_credit": "Correct A=2,B=1",
+    "partial_credit": "1 for setup but coefficient error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_017",
+    "criterion_id": "GEN_017_R6",
+    "rubric_order": 6,
+    "criterion": "Causal pair",
+    "description": "Causal pair",
+    "max_points": 0.5,
+    "full_credit": "Correct geometric interpretation",
+    "partial_credit": "0.25 for incomplete interpretation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_017",
+    "criterion_id": "GEN_017_R7",
+    "rubric_order": 7,
+    "criterion": "Final sequence",
+    "description": "Final sequence",
+    "max_points": 1.5,
+    "full_credit": "Correct powers signs and u[n]",
+    "partial_credit": "Up to 1 for mostly correct sequence",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_018",
+    "criterion_id": "GEN_018_R1",
+    "rubric_order": 1,
+    "criterion": "Cosine expansion",
+    "description": "Cosine expansion",
+    "max_points": 1.0,
+    "full_credit": "Correct exponential expression",
+    "partial_credit": "0.5 for correct method with sign error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_018",
+    "criterion_id": "GEN_018_R2",
+    "rubric_order": 2,
+    "criterion": "Phase multiplication",
+    "description": "Phase multiplication",
+    "max_points": 1.0,
+    "full_credit": "Correct e^j2ω multiplication",
+    "partial_credit": "0.5 for shift idea with algebra error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_018",
+    "criterion_id": "GEN_018_R3",
+    "rubric_order": 3,
+    "criterion": "Impulse mapping",
+    "description": "Impulse mapping",
+    "max_points": 1.0,
+    "full_credit": "Correct three impulses",
+    "partial_credit": "0.5 for support with coefficient error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_018",
+    "criterion_id": "GEN_018_R4",
+    "rubric_order": 4,
+    "criterion": "Rational setup",
+    "description": "Rational setup",
+    "max_points": 1.0,
+    "full_credit": "Correct W(z) and substitution",
+    "partial_credit": "0.5 for incomplete setup",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_018",
+    "criterion_id": "GEN_018_R5",
+    "rubric_order": 5,
+    "criterion": "Partial fractions",
+    "description": "Partial fractions",
+    "max_points": 2.0,
+    "full_credit": "Correct A=2,B=-1",
+    "partial_credit": "1 for method with numerical error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_018",
+    "criterion_id": "GEN_018_R6",
+    "rubric_order": 6,
+    "criterion": "Causal inversion",
+    "description": "Causal inversion",
+    "max_points": 0.5,
+    "full_credit": "Correct unshifted w[n]",
+    "partial_credit": "0.25 for partial correctness",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_018",
+    "criterion_id": "GEN_018_R7",
+    "rubric_order": 7,
+    "criterion": "Shifted sequence",
+    "description": "Shifted sequence",
+    "max_points": 1.5,
+    "full_credit": "Correct n+2 powers and u[n+2]",
+    "partial_credit": "Up to 1 for right structure but support error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_019",
+    "criterion_id": "GEN_019_R1",
+    "rubric_order": 1,
+    "criterion": "Trig identity",
+    "description": "Trig identity",
+    "max_points": 1.0,
+    "full_credit": "Correct harmonic decomposition",
+    "partial_credit": "0.5 for method with sign error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_019",
+    "criterion_id": "GEN_019_R2",
+    "rubric_order": 2,
+    "criterion": "Exponential combination",
+    "description": "Exponential combination",
+    "max_points": 1.0,
+    "full_credit": "Correct combined coefficients",
+    "partial_credit": "0.5 for correct terms but incomplete combination",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_019",
+    "criterion_id": "GEN_019_R3",
+    "rubric_order": 3,
+    "criterion": "Impulse sequence",
+    "description": "Impulse sequence",
+    "max_points": 1.0,
+    "full_credit": "Correct indices and amplitudes",
+    "partial_credit": "0.5 for isolated index/sign error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_019",
+    "criterion_id": "GEN_019_R4",
+    "rubric_order": 4,
+    "criterion": "Partial-fraction setup",
+    "description": "Partial-fraction setup",
+    "max_points": 1.0,
+    "full_credit": "Correct three-factor decomposition",
+    "partial_credit": "0.5 for incomplete matching equations",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_019",
+    "criterion_id": "GEN_019_R5",
+    "rubric_order": 5,
+    "criterion": "Coefficient solution",
+    "description": "Coefficient solution",
+    "max_points": 2.0,
+    "full_credit": "Correct A=2 B=-1 C=1",
+    "partial_credit": "1 for correct setup with arithmetic error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_019",
+    "criterion_id": "GEN_019_R6",
+    "rubric_order": 6,
+    "criterion": "Causal pairs",
+    "description": "Causal pairs",
+    "max_points": 0.5,
+    "full_credit": "Correct geometric pairs",
+    "partial_credit": "0.25 for partial correctness",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_019",
+    "criterion_id": "GEN_019_R7",
+    "rubric_order": 7,
+    "criterion": "Final sequence",
+    "description": "Final sequence",
+    "max_points": 1.5,
+    "full_credit": "Correct coefficients powers and unit step",
+    "partial_credit": "Up to 1 for mostly correct sequence",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_005"
+    ]
+  },
+  {
+    "question_id": "GEN_020",
+    "criterion_id": "GEN_020_R1",
+    "rubric_order": 1,
+    "criterion": "DFT separation",
+    "description": "DFT separation",
+    "max_points": 0.5,
+    "full_credit": "Correct even/odd decomposition",
+    "partial_credit": "0.25 for partial setup",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_020",
+    "criterion_id": "GEN_020_R2",
+    "rubric_order": 2,
+    "criterion": "Even terms",
+    "description": "Even terms",
+    "max_points": 1.5,
+    "full_credit": "Correct A[k mod 4]",
+    "partial_credit": "0.75 for correct sum with index error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_020",
+    "criterion_id": "GEN_020_R3",
+    "rubric_order": 3,
+    "criterion": "Odd terms",
+    "description": "Odd terms",
+    "max_points": 2.0,
+    "full_credit": "Correct weighted sums and phase factors",
+    "partial_credit": "1 for correct structure with phase error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_020",
+    "criterion_id": "GEN_020_R4",
+    "rubric_order": 4,
+    "criterion": "Combined formula",
+    "description": "Combined formula",
+    "max_points": 1.0,
+    "full_credit": "Correct final multiplier",
+    "partial_credit": "0.5 for form with coefficient error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_020",
+    "criterion_id": "GEN_020_R5",
+    "rubric_order": 5,
+    "criterion": "DTFS",
+    "description": "DTFS",
+    "max_points": 2.0,
+    "full_credit": "Correct ck and c0",
+    "partial_credit": "1 for ck=B/8 only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_021",
+    "criterion_id": "GEN_021_R1",
+    "rubric_order": 1,
+    "criterion": "DFT setup",
+    "description": "DFT setup",
+    "max_points": 0.5,
+    "full_credit": "Correct even/odd separation",
+    "partial_credit": "0.25 for partial setup",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_021",
+    "criterion_id": "GEN_021_R2",
+    "rubric_order": 2,
+    "criterion": "Even contribution",
+    "description": "Even contribution",
+    "max_points": 1.5,
+    "full_credit": "Correct A[k mod4]",
+    "partial_credit": "0.75 for incomplete index mapping",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_021",
+    "criterion_id": "GEN_021_R3",
+    "rubric_order": 3,
+    "criterion": "Difference contribution",
+    "description": "Difference contribution",
+    "max_points": 2.0,
+    "full_credit": "Correct -j sinθ factor",
+    "partial_credit": "1 for structure with sign or phase error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_021",
+    "criterion_id": "GEN_021_R4",
+    "rubric_order": 4,
+    "criterion": "Combined expression",
+    "description": "Combined expression",
+    "max_points": 1.0,
+    "full_credit": "Correct B[k]",
+    "partial_credit": "0.5 for right multiplier structure with small error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_021",
+    "criterion_id": "GEN_021_R5",
+    "rubric_order": 5,
+    "criterion": "DTFS and special indices",
+    "description": "DTFS and special indices",
+    "max_points": 2.0,
+    "full_credit": "Correct DTFS and B[0]=B[4] reasoning",
+    "partial_credit": "1 for correct DTFS only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_022",
+    "criterion_id": "GEN_022_R1",
+    "rubric_order": 1,
+    "criterion": "DFT decomposition",
+    "description": "DFT decomposition",
+    "max_points": 0.5,
+    "full_credit": "Correct even/odd sums",
+    "partial_credit": "0.25 for partial setup",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_022",
+    "criterion_id": "GEN_022_R2",
+    "rubric_order": 2,
+    "criterion": "Even terms",
+    "description": "Even terms",
+    "max_points": 1.5,
+    "full_credit": "Correct A[k mod4]",
+    "partial_credit": "0.75 for incomplete mapping",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_022",
+    "criterion_id": "GEN_022_R3",
+    "rubric_order": 3,
+    "criterion": "Circular shift",
+    "description": "Circular shift",
+    "max_points": 2.0,
+    "full_credit": "Correct e^jπk=(-1)^k factor",
+    "partial_credit": "1 for shift idea with phase sign error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_022",
+    "criterion_id": "GEN_022_R4",
+    "rubric_order": 4,
+    "criterion": "Combined formula",
+    "description": "Combined formula",
+    "max_points": 1.0,
+    "full_credit": "Correct B[k]",
+    "partial_credit": "0.5 for structure with index error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_022",
+    "criterion_id": "GEN_022_R5",
+    "rubric_order": 5,
+    "criterion": "DTFS evaluation",
+    "description": "DTFS evaluation",
+    "max_points": 2.0,
+    "full_credit": "Correct c0,c4 and explanation",
+    "partial_credit": "1 for values without explanation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_023",
+    "criterion_id": "GEN_023_R1",
+    "rubric_order": 1,
+    "criterion": "DFT setup",
+    "description": "DFT setup",
+    "max_points": 0.5,
+    "full_credit": "Correct even/odd branches",
+    "partial_credit": "0.25 for partial setup",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_023",
+    "criterion_id": "GEN_023_R2",
+    "rubric_order": 2,
+    "criterion": "Even shift",
+    "description": "Even shift",
+    "max_points": 1.5,
+    "full_credit": "Correct e^-jπk/2 phase",
+    "partial_credit": "0.75 for shift idea with phase error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_023",
+    "criterion_id": "GEN_023_R3",
+    "rubric_order": 3,
+    "criterion": "Odd interpolation",
+    "description": "Odd interpolation",
+    "max_points": 2.0,
+    "full_credit": "Correct cosine multiplier",
+    "partial_credit": "1 for correct sum with algebra error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_023",
+    "criterion_id": "GEN_023_R4",
+    "rubric_order": 4,
+    "criterion": "Combined formula",
+    "description": "Combined formula",
+    "max_points": 1.0,
+    "full_credit": "Correct B[k]",
+    "partial_credit": "0.5 for structure with isolated error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_023",
+    "criterion_id": "GEN_023_R5",
+    "rubric_order": 5,
+    "criterion": "DTFS and zero",
+    "description": "DTFS and zero",
+    "max_points": 2.0,
+    "full_credit": "Correct ck and B[4]=0 proof",
+    "partial_credit": "1 for DTFS without proof",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_006"
+    ]
+  },
+  {
+    "question_id": "GEN_024",
+    "criterion_id": "GEN_024_R1",
+    "rubric_order": 1,
+    "criterion": "Transfer function",
+    "description": "Transfer function",
+    "max_points": 2.0,
+    "full_credit": "Correct Fourier transform and H(jω)",
+    "partial_credit": "1 for correct setup with algebra error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_007"
+    ]
+  },
+  {
+    "question_id": "GEN_024",
+    "criterion_id": "GEN_024_R2",
+    "rubric_order": 2,
+    "criterion": "Magnitude and phase",
+    "description": "Magnitude and phase",
+    "max_points": 2.0,
+    "full_credit": "Correct formulas limits and qualitative sketches",
+    "partial_credit": "1 for formulas without complete sketches",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_007"
+    ]
+  },
+  {
+    "question_id": "GEN_024",
+    "criterion_id": "GEN_024_R3",
+    "rubric_order": 3,
+    "criterion": "Steady-state response",
+    "description": "Steady-state response",
+    "max_points": 2.0,
+    "full_credit": "Correct amplitude phase and low-pass explanation",
+    "partial_credit": "1 for amplitude or phase only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_007"
+    ]
+  },
+  {
+    "question_id": "GEN_025",
+    "criterion_id": "GEN_025_R1",
+    "rubric_order": 1,
+    "criterion": "Parameter identification",
+    "description": "Parameter identification",
+    "max_points": 2.0,
+    "full_credit": "Correct a=4 K=8 and transfer function",
+    "partial_credit": "1 for setup with arithmetic error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_007"
+    ]
+  },
+  {
+    "question_id": "GEN_025",
+    "criterion_id": "GEN_025_R2",
+    "rubric_order": 2,
+    "criterion": "Frequency response",
+    "description": "Frequency response",
+    "max_points": 2.0,
+    "full_credit": "Correct magnitude phase and low-pass explanation",
+    "partial_credit": "1 for formulas without interpretation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_007"
+    ]
+  },
+  {
+    "question_id": "GEN_025",
+    "criterion_id": "GEN_025_R3",
+    "rubric_order": 3,
+    "criterion": "Output calculation",
+    "description": "Output calculation",
+    "max_points": 2.0,
+    "full_credit": "Correct amplitude and phase",
+    "partial_credit": "1 for one component correct",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_007"
+    ]
+  },
+  {
+    "question_id": "GEN_026",
+    "criterion_id": "GEN_026_R1",
+    "rubric_order": 1,
+    "criterion": "Transfer functions",
+    "description": "Transfer functions",
+    "max_points": 2.0,
+    "full_credit": "Correct models and equal DC gains",
+    "partial_credit": "1 for transfer functions without DC comparison",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_007"
+    ]
+  },
+  {
+    "question_id": "GEN_026",
+    "criterion_id": "GEN_026_R2",
+    "rubric_order": 2,
+    "criterion": "Magnitude and phase",
+    "description": "Magnitude and phase",
+    "max_points": 2.0,
+    "full_credit": "Correct values and attenuation comparison",
+    "partial_credit": "1 for magnitudes with incomplete phase analysis",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_007"
+    ]
+  },
+  {
+    "question_id": "GEN_026",
+    "criterion_id": "GEN_026_R3",
+    "rubric_order": 3,
+    "criterion": "Outputs",
+    "description": "Outputs",
+    "max_points": 2.0,
+    "full_credit": "Both steady-state outputs and low-pass reasoning",
+    "partial_credit": "1 for one correct output",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_007"
+    ]
+  },
+  {
+    "question_id": "GEN_027",
+    "criterion_id": "GEN_027_R1",
+    "rubric_order": 1,
+    "criterion": "Frequency response",
+    "description": "Frequency response",
+    "max_points": 2.0,
+    "full_credit": "Correct H magnitude and phase",
+    "partial_credit": "1 for H without complete properties",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_007"
+    ]
+  },
+  {
+    "question_id": "GEN_027",
+    "criterion_id": "GEN_027_R2",
+    "rubric_order": 2,
+    "criterion": "Component responses",
+    "description": "Component responses",
+    "max_points": 2.0,
+    "full_credit": "Correct amplitudes and phases for both",
+    "partial_credit": "1 for one correct component",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_007"
+    ]
+  },
+  {
+    "question_id": "GEN_027",
+    "criterion_id": "GEN_027_R3",
+    "rubric_order": 3,
+    "criterion": "Superposition",
+    "description": "Superposition",
+    "max_points": 2.0,
+    "full_credit": "Correct complete output and attenuation interpretation",
+    "partial_credit": "1 for combined output without interpretation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_007"
+    ]
+  },
+  {
+    "question_id": "GEN_028",
+    "criterion_id": "GEN_028_R1",
+    "rubric_order": 1,
+    "criterion": "Inverse condition",
+    "description": "Inverse condition",
+    "max_points": 2.0,
+    "full_credit": "Correct necessary/sufficient h*g=δ argument",
+    "partial_credit": "1 for condition without proof",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_008"
+    ]
+  },
+  {
+    "question_id": "GEN_028",
+    "criterion_id": "GEN_028_R2",
+    "rubric_order": 2,
+    "criterion": "Recurrence",
+    "description": "Recurrence",
+    "max_points": 1.0,
+    "full_credit": "Correct recurrence and initial coefficients",
+    "partial_credit": "0.5 for recurrence with coefficient error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_008"
+    ]
+  },
+  {
+    "question_id": "GEN_028",
+    "criterion_id": "GEN_028_R3",
+    "rubric_order": 3,
+    "criterion": "Closed form",
+    "description": "Closed form",
+    "max_points": 2.0,
+    "full_credit": "Correct factorization partial fractions and gk",
+    "partial_credit": "1 for correct method without complete closed form",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_008"
+    ]
+  },
+  {
+    "question_id": "GEN_029",
+    "criterion_id": "GEN_029_R1",
+    "rubric_order": 1,
+    "criterion": "Causality",
+    "description": "Causality",
+    "max_points": 2.0,
+    "full_credit": "Correct nonexistence with support reasoning",
+    "partial_credit": "1 for conclusion without proof",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_008"
+    ]
+  },
+  {
+    "question_id": "GEN_029",
+    "criterion_id": "GEN_029_R2",
+    "rubric_order": 2,
+    "criterion": "Coefficient matching",
+    "description": "Coefficient matching",
+    "max_points": 1.0,
+    "full_credit": "Correct initial coefficient and recurrence",
+    "partial_credit": "0.5 for structure with index error",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_008"
+    ]
+  },
+  {
+    "question_id": "GEN_029",
+    "criterion_id": "GEN_029_R3",
+    "rubric_order": 3,
+    "criterion": "Closed form",
+    "description": "Closed form",
+    "max_points": 2.0,
+    "full_credit": "Correct coefficients and full impulse response",
+    "partial_credit": "1 for pattern but incomplete indexing",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_008"
+    ]
+  },
+  {
+    "question_id": "GEN_030",
+    "criterion_id": "GEN_030_R1",
+    "rubric_order": 1,
+    "criterion": "Inverse condition",
+    "description": "Inverse condition",
+    "max_points": 1.0,
+    "full_credit": "Correct h*g=δ with explanation",
+    "partial_credit": "0.5 for condition only",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_008"
+    ]
+  },
+  {
+    "question_id": "GEN_030",
+    "criterion_id": "GEN_030_R2",
+    "rubric_order": 2,
+    "criterion": "Recurrence",
+    "description": "Recurrence",
+    "max_points": 1.0,
+    "full_credit": "Correct geometric coefficient formula",
+    "partial_credit": "0.5 for recurrence without closed form",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_008"
+    ]
+  },
+  {
+    "question_id": "GEN_030",
+    "criterion_id": "GEN_030_R3",
+    "rubric_order": 3,
+    "criterion": "Finite inverse",
+    "description": "Finite inverse",
+    "max_points": 2.0,
+    "full_credit": "Correct g2 and residual impulse",
+    "partial_credit": "1 for g2 without residual calculation",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_008"
+    ]
+  },
+  {
+    "question_id": "GEN_030",
+    "criterion_id": "GEN_030_R4",
+    "rubric_order": 4,
+    "criterion": "Truncation requirement",
+    "description": "Truncation requirement",
+    "max_points": 1.0,
+    "full_credit": "Correct M=5 with inequality",
+    "partial_credit": "0.5 for residual formula but wrong integer",
+    "common_mistakes": "",
+    "reference_question_ids": [
+      "REF_008"
+    ]
+  }
+]

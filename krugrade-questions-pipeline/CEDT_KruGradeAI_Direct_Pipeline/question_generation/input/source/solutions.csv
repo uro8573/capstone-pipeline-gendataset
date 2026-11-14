@@ -1,0 +1,289 @@
+﻿question_id,solution,final_answer
+GEN_001,"Step 1 — Apply the sinc transform pair and time scaling:
+\[\mathcal F\{\operatorname{sinc}(\pi t/\tau)\}=\tau\operatorname{rect}(\omega\tau/(2\pi)),\]
+\[\mathcal F\{\tfrac12\operatorname{sinc}(2\pi t/\tau)\}=\tfrac\tau4\operatorname{rect}(\omega\tau/(4\pi)).\]
+Therefore \[X(j\omega)=\tau\operatorname{rect}(\omega\tau/(2\pi))+\tfrac\tau4\operatorname{rect}(\omega\tau/(4\pi)).\]
+Its levels are \(5\tau/4\) for \(|\omega|<\pi/\tau\), \(\tau/4\) for \(\pi/\tau<|\omega|<2\pi/\tau\), and 0 outside \(|\omega|>2\pi/\tau\).
+Step 2 — Sampling period \(T_s=\tau/5\), angular spacing \(\omega_s=10\pi/\tau\):
+\[P(j\omega)=\frac{10\pi}{\tau}\sum_k\delta(\omega-10\pi k/\tau).\]
+Step 3 — Sample weights:
+\[g(t)=\sum_m w_m\delta(t-m\tau/5),\quad w_m=\operatorname{sinc}(\pi m/5)+\tfrac12\operatorname{sinc}(2\pi m/5).\]
+At \(m=0\), \(w_0=3/2\). At \(m=\pm5\), both sinc terms vanish, so \(w_{\pm5}=0\).
+Step 4 — Multiplication in time corresponds to frequency convolution:
+\[G(j\omega)=\frac1{T_s}\sum_kX(j(\omega-\omega_s k))=\frac5\tau\sum_k X(j(\omega-10\pi k/\tau)).\]
+Let \(\Omega_k=\omega-10\pi k/\tau\). Then
+\[G(j\omega)=\sum_k\left[5\operatorname{rect}(\Omega_k\tau/(2\pi))+\tfrac54\operatorname{rect}(\Omega_k\tau/(4\pi))\right].\]
+Step 5 — For each center \(\omega_k=10\pi k/\tau\), height is \(25/4\) within \(|\omega-\omega_k|<\pi/\tau\), \(5/4\) in the outer band up to \(2\pi/\tau\), and 0 beyond. Sketch each replica with these two levels. Since \(\omega_s=10\pi/\tau>4\pi/\tau\), replicas do not overlap (no aliasing).","\(w_0=3/2,\;w_{\pm5}=0\). \(G(j\omega)=\frac5\tau\sum_kX(j(\omega-10\pi k/\tau))\), with two-level nonoverlapping replicas centered at \(10\pi k/\tau\)."
+GEN_002,"Step 1 — Write \(X=X_0+(e^{j\omega\tau/2}/2)X_0+(e^{-j\omega\tau/2}/2)X_0\), where \(X_0=\tau\operatorname{rect}(\omega\tau/(2\pi))\). Inverse CTFT with time shifting yields
+\[x(t)=\operatorname{sinc}(\pi t/\tau)+\tfrac12\operatorname{sinc}(\pi(t+\tau/2)/\tau)+\tfrac12\operatorname{sinc}(\pi(t-\tau/2)/\tau).\]
+Step 2 — At \(t_m=m\tau/4\), sample weights are
+\[w_m=\operatorname{sinc}(\pi m/4)+\tfrac12\operatorname{sinc}(\pi(m+2)/4)+\tfrac12\operatorname{sinc}(\pi(m-2)/4).\]
+Thus \(g(t)=\sum_mw_m\delta(t-m\tau/4)\). Using sinc(0)=1 and sinc(π/2)=2/π: \(w_0=1+2/\pi\), \(w_{\pm2}=1/2+2/\pi\).
+Step 3 — \(\omega_s=2\pi/T_s=8\pi/\tau\), so
+\[P(j\omega)=\frac{8\pi}{\tau}\sum_k\delta(\omega-8\pi k/\tau).\]
+Step 4 — Define \(\Omega_k=\omega-8\pi k/\tau\). Spectral sampling produces
+\[G(j\omega)=4\sum_k\operatorname{rect}(\Omega_k\tau/(2\pi))[1+\cos(\Omega_k\tau/2)].\]
+Step 5 — Each copy is centered at \(8\pi k/\tau\), supported within \(|\omega-8\pi k/\tau|<\pi/\tau\). At the center the height is 8; approaching the support boundary from within it is 4. Draw curved peaks over each rectangular support (with a jump to zero at the edge). Copies do not overlap because spacing \(8\pi/\tau\) exceeds support width \(2\pi/\tau\).","\(x(t)=\operatorname{sinc}(\pi t/\tau)+\tfrac12\operatorname{sinc}(\pi(t+\tau/2)/\tau)+\tfrac12\operatorname{sinc}(\pi(t-\tau/2)/\tau)\); sampled replicas centered at \(8\pi k/\tau\), peak 8, no aliasing."
+GEN_003,"Step 1 — Let \(s(t)=\operatorname{sinc}(\pi t/\tau)\), with \(S(j\omega)=\tau\operatorname{rect}(\omega\tau/(2\pi))\). Since \(x=s^2\), \(X=(S*S)/(2\pi)\). Convolution of two identical rectangles gives
+\[X(j\omega)=\tau\Lambda(\omega\tau/(2\pi)),\]
+peak \(\tau\), support \(|\omega|\le2\pi/\tau\), full width \(4\pi/\tau\).
+Step 2 —
+\[g_A(t)=\sum_m\operatorname{sinc}^2(\pi m/3)\delta(t-m\tau/3),\]
+\[g_B(t)=\sum_m\operatorname{sinc}^2(\pi m/4)\delta(t-m\tau/4).\]
+The first positive zero-weight indices are \(m=3\) and \(m=4\), respectively; at \(m=0\) both weights equal 1.
+Step 3 — With \(\omega_{s,A}=6\pi/\tau\) and \(\omega_{s,B}=8\pi/\tau\),
+\[G_A(j\omega)=3\sum_k\Lambda((\omega-6\pi k/\tau)\tau/(2\pi)),\]
+\[G_B(j\omega)=4\sum_k\Lambda((\omega-8\pi k/\tau)\tau/(2\pi)).\]
+Step 4 — A replicas centered at \(6\pi k/\tau\), peak 3, width \(4\pi/\tau\), gaps \(2\pi/\tau\). B replicas centered at \(8\pi k/\tau\), peak 4, width \(4\pi/\tau\), gaps \(4\pi/\tau\).
+Step 5 — Sketch triangular replicas with linear slopes extending \(2\pi/\tau\) each side. In both systems \(\omega_s>4\pi/\tau\), so no overlap/aliasing. System B has larger gaps.","\(X(j\omega)=\tau\Lambda(\omega\tau/(2\pi))\). Both systems yield nonoverlapping triangular replicas. A: spacing \(6\pi/\tau\), peak 3; B: spacing \(8\pi/\tau\), peak 4. B has greater separation."
+GEN_004,"Step 1 — Spectral replica spacing \(\omega_s=20\pi/\tau\) implies \(T_s=2\pi/\omega_s=\tau/10\). Thus
+\[P(j\omega)=\frac{20\pi}{\tau}\sum_k\delta(\omega-20\pi k/\tau).\]
+Step 2 — With no overlap, central \(G=X/T_s\). Multiply band height 5 by \(T_s=\tau/10\): original band height \(\tau/2\). Hence
+\[X(j\omega)=\frac\tau2\left[\operatorname{rect}((\omega-3\pi/\tau)\tau/(2\pi))+\operatorname{rect}((\omega+3\pi/\tau)\tau/(2\pi))\right].\]
+Step 3 — Inverse CTFT of shifted rectangles gives a modulated sinc:
+\[x(t)=\frac12(e^{j3\pi t/\tau}+e^{-j3\pi t/\tau})\operatorname{sinc}(\pi t/\tau)=\operatorname{sinc}(\pi t/\tau)\cos(3\pi t/\tau).\]
+Step 4 —
+\[g(t)=\sum_m\operatorname{sinc}(\pi m/10)\cos(3\pi m/10)\delta(t-m\tau/10).\]
+Weights: \(w_0=1\), \(w_{\pm5}=\operatorname{sinc}(\pi/2)\cos(3\pi/2)=0\).
+Step 5 — Central group has two height-5 bands on stated intervals. Other groups translate boundaries by \(\pm20\pi/\tau\). Highest original nonzero frequency is \(4\pi/\tau\), so \(\omega_s=20\pi/\tau>8\pi/\tau\); neighboring groups cannot overlap. Recover original \(X\) from central group by scaling by \(T_s\).","\(T_s=\tau/10\), \(x(t)=\operatorname{sinc}(\pi t/\tau)\cos(3\pi t/\tau)\). Sample weights \(w_0=1,w_{\pm5}=0\), nonoverlapping pairs of rectangular replicas."
+GEN_005,"Step 1 — Full linear convolution of two length-4 sequences has length 7; 4-point circular convolution has length 4.
+Step 2 — Polynomial representations \(A(z)=1-z+2z^2\), \(B(z)=1+z-z^2\), \(C(z)=2-z^2+z^3\). Their products give
+\[B(z)C(z)=2+2z-3z^2+2z^4-z^5,\]
+so \(b*c=(2,2,-3,0,2,-1,0)\). Hence \(Y_1=b*c\) and missing value 0.
+Likewise
+\[A(z)C(z)=2-2z+3z^2+2z^3-3z^4+2z^5,\]
+so \(a*c=(2,-2,3,2,-3,2,0)\). Hence \(Y_2=a*c\) and missing value -3.
+Step 3 — \(a*b=(1,0,0,3,-2,0,0)\). Folding indices modulo 4 gives \(a*_4b=(1+(-2),0,0,3)=(-1,0,0,3)\). Hence \(Y_3=a*_4b\) and missing value -1.
+Step 4 — Convolution preserves the total-sum product: \(\sum_ny[n]=(\sum_nx[n])(\sum_nh[n])\), for linear or circular (over one period). Input sums: \(\sum a=2\), \(\sum b=1\), \(\sum c=2\); distinct-pair sums are 2 or 4. But \(\sum Y_4=1\), so Y4 cannot arise from any allowed pair/type.","Y1 = b*c (linear), □=0; Y2=a*c (linear), □=-3; Y3=a*_4b (circular), □=-1; Y4 invalid by sum property (sum=1, allowed sums 2 or 4)."
+GEN_006,"Step 1 — Full linear convolution \(y[n]=\sum_k a[k]b[n-k]\), length 7. Direct evaluations:
+\[y[0]=2,\ y[1]=4-1=3,\ y[2]=-2-2+1=-3,\]
+\[y[3]=2+1+2+2=7,\ y[4]=-1-1+4=2,\ y[5]=1-2=-1,\ y[6]=2.\]
+So \(y=(2,3,-3,7,2,-1,2)\).
+Step 2 — Circular convolution \(z[n]=\sum_{k=0}^3a[k]b[(n-k)\bmod4]\). Directly,
+\[z[0]=2(1)+(-1)(1)+1(-1)+2(2)=4,\]
+\[z[1]=2(2)+(-1)(1)+1(1)+2(-1)=2,\]
+\[z[2]=2(-1)+(-1)(2)+1(1)+2(1)=-1,\]
+\[z[3]=2(1)+(-1)(-1)+1(2)+2(1)=7.\]
+Hence \(z=(4,2,-1,7)\).
+Step 3 — \(R_A\) is full linear convolution, \(R_B\) is circular convolution with missing -1, and \(R_C\) is a truncated linear output (not a valid full linear or circular result).
+Step 4 — In general \(z[n]=\sum_\ell y[n+4\ell]\). For this example, \(z=(y[0]+y[4],y[1]+y[5],y[2]+y[6],y[3])=(4,2,-1,7)\). First four linear samples are \((2,3,-3,7)\). Thus simple truncation is incorrect: circular convolution folds the tail into the beginning.","\(a*b=(2,3,-3,7,2,-1,2)\); \(a*_4b=(4,2,-1,7)\). RA linear, RB circular with □=-1, RC truncated/incorrect. Circular convolution uses folding, not truncation."
+GEN_007,"Step 1 — Delta convolution shifts impulses:
+\[x*h_1=\delta[n]-\delta[n-3]+2\delta[n-4]-2\delta[n-7].\]
+\[x*h_2=\delta[n]+\delta[n-2]+2\delta[n-4]+2\delta[n-6].\]
+Step 2 — The support and values of \(x*h_1\) match A exactly, so \(A=x*h_1\) (linear).
+Step 3 — Fold \(x*h_1\) modulo 6: indices 0→0,3→3,4→4,7→1. The circular period is \((1,-2,0,-1,2,0)\). So \(B=x*_6h_1\).
+Step 4 — Fold \(x*h_2\) modulo 6: indices 0 and 6 collide at index 0, giving 1+2=3; 2 has 1 and 4 has 2. Period \((3,0,1,0,2,0)\). So \(C=x*_6h_2\).
+Step 5 — D is nonzero at index 5. Circularly folded support for h1 is {0,1,3,4} and h2 is {0,2,4}; neither permits index 5. Neither full linear convolution is nonzero at n=5 either. Therefore D is impossible.","A = x*h1 (linear), B = x*_6 h1 (circular), C = x*_6 h2 (circular), D invalid (index 5 cannot be nonzero)."
+GEN_008,"Step 1 — Convolution with \(h_+\) implements \(y[n]=x[n]+x[n-1]\), and with \(h_-\) implements \(y[n]=x[n]-x[n-1]\).
+The four linear results are:
+\[r*h_+=(1,2,2,2,1),\quad r*h_-=(1,0,0,0,-1),\]
+\[s*h_+=(1,0,0,0,-1),\quad s*h_-=(1,-2,2,-2,1).\]
+Step 2 — Accordingly, \(Y_A=r*h_-\) OR \(s*h_+\), \(Y_B=r*h_+\), \(Y_C=s*h_-\). YA is not uniquely identifiable.
+Step 3 — A 4-point circular convolution folds the length-5 linear output's last sample into the first: \(y_4[0]=y[0]+y[4]\), remaining indices 1–3 unchanged. Thus
+\[r*_4h_+=(2,2,2,2),\quad r*_4h_-=(0,0,0,0),\]
+\[s*_4h_+=(0,0,0,0),\quad s*_4h_-=(2,-2,2,-2).\]
+Step 4 — \(Y_D\) can arise from \(r*_4h_-\) OR \(s*_4h_+\). In each, the nonzero linear end values +1 and -1 fold to the same circular index and cancel.",YA = r*h- or s*h+; YB = r*h+; YC = s*h-; YD = r*_4 h- or s*_4 h+ (zero from circular cancellation).
+GEN_009,"Step 1 — \(\omega_0=\pi/3\). For k≠0,
+\[a_k=\frac16\int_{-1}^1 2e^{-jk\pi t/3}dt=\frac{2\sin(k\pi/3)}{k\pi}.\]
+The DC value is \(a_0=(1/6)(2)(2)=2/3\).
+9.1 TRUE: mean value is 2/3.
+9.2 TRUE: \(a_3=2\sin\pi/(3\pi)=0\).
+9.3 FALSE: \(b_k=a_ke^{-jk\omega_0}\). \(a_1=\sqrt3/\pi\), hence \(b_1=\sqrt3/(2\pi)-j3/(2\pi)\), with nonzero real and imaginary components.
+9.4 TRUE: at jump t=1, left/right limits 2 and 0, so Fourier series converges to (2+0)/2=1 (even though x(1)=0 by definition).
+9.5 FALSE: \(a_k\) contains bounded sine over k, and along \(k=6m+1\), \(|a_k|=\sqrt3/(\pi|k|)\); so not O(1/k²).","9.1 True; 9.2 True; 9.3 False; 9.4 True; 9.5 False. \(a_0=2/3\), \(a_k=2\sin(k\pi/3)/(k\pi)\) for k≠0."
+GEN_010,"Step 1 — \(\omega_0=\pi/2\). By evenness,
+\[a_k=\frac12\int_0^1(1-t)\cos(k\pi t/2)dt.\]
+For k≠0, integration by parts yields
+\[\int_0^1(1-t)\cos(\alpha t)dt=(1-\cos\alpha)/\alpha^2,\quad\alpha=k\pi/2.\]
+Hence \(a_k=2(1-\cos(k\pi/2))/(k^2\pi^2)\), k≠0. The area of the triangle is 1, giving \(a_0=1/4\).
+10.1 TRUE by area/period.
+10.2 TRUE because real-even signals have real Fourier coefficients, confirmed by cosine integral.
+10.3 TRUE because \(0\le1-\cos(k\pi/2)\le2\), so \(|a_k|\le4/(k^2\pi^2)\).
+10.4 FALSE: at t=1 both one-sided limits and x(1) equal 0, so series converges to 0.
+10.5 FALSE: \(a_1=2/\pi^2\), \(b_1=a_1e^{-j\pi/2}=-2j/\pi^2\), not +2j/π².","10.1 True; 10.2 True; 10.3 True; 10.4 False; 10.5 False. \(a_0=1/4\), \(a_k=2(1-\cos(k\pi/2))/(k^2\pi^2)\) (k≠0)."
+GEN_011,"Step 1 — Fundamental frequency \(\omega_0=1\). From the definition,
+\[a_k=\frac{1}{2\pi}\int_{-\pi}^{\pi}x(t)e^{-jkt}dt.\]
+Average is zero by oddness: \(a_0=0\). For k≠0,
+\[a_k=\frac{1}{2\pi}\left[-\int_{-\pi}^0e^{-jkt}dt+\int_0^\pi e^{-jkt}dt\right]=\frac{1-(-1)^k}{j\pi k}.\]
+11.1 TRUE: zero DC.
+11.2 TRUE: for even k≠0, numerator 1−1=0.
+11.3 TRUE: \(a_1=2/(j\pi)=-2j/\pi\). Shift theorem \(b_1=a_1e^{-j\pi/2}=(-2j/\pi)(-j)=-2/\pi\).
+11.4 FALSE: one-sided limits at zero are -1 and +1, yielding midpoint 0, not 1.
+11.5 FALSE: for odd k, \(|a_k|=2/(\pi|k|)\) (1/k decay), not 1/k².","11.1 T; 11.2 T; 11.3 T; 11.4 F; 11.5 F. \(a_0=0\), \(a_k=(1-(-1)^k)/(j\pi k)\) for nonzero k."
+GEN_012,"Step 1 — By CTFT duality,
+\[F(j\omega)=\mathcal F\{1/(t^2+1)\}=\pi e^{-|\omega|}.\]
+Step 2 — Since \(g(t)=1/(t^2+4)=(1/4)f(t/2)\), time scaling gives
+\[G(j\omega)=\frac\pi2e^{-2|\omega|}.\]
+Step 3 — Convolution in time transforms to multiplication:
+\[Y(j\omega)=F(j\omega)G(j\omega)=\frac{\pi^2}{2}e^{-3|\omega|}.\]
+Step 4 — By the same transform pair with scale 3,
+\[\mathcal F\{1/(t^2+9)\}=\frac\pi3e^{-3|\omega|}.\]
+Multiplying by 3π/2 gives \((\pi^2/2)e^{-3|\omega|}\), identical to Y. By uniqueness of CTFT, the proposed convolution identity holds.",\((1/(t^2+1))*(1/(t^2+4))=3\pi/[2(t^2+9)]\).
+GEN_013,"Step 1 — Linearity and the supplied transform pair give
+\[F(j\omega)=\pi e^{-|\omega|}-2(\pi/2)e^{-2|\omega|}=\pi e^{-|\omega|}-\pi e^{-2|\omega|}.\]
+Step 2 — \(G(j\omega)=\pi e^{-3|\omega|}/3\).
+Step 3 — Multiplication yields
+\[Y(j\omega)=\frac{\pi^2}{3}e^{-4|\omega|}-\frac{\pi^2}{3}e^{-5|\omega|}.\]
+Step 4 — The first claimed RHS term transforms as
+\[\mathcal F\{4\pi/[3(t^2+16)]\}=\frac{4\pi}{3}\frac\pi4e^{-4|\omega|}=\frac{\pi^2}{3}e^{-4|\omega|};\]
+the second transforms as
+\[\mathcal F\{5\pi/[3(t^2+25)]\}=\frac{\pi^2}{3}e^{-5|\omega|}.\]
+The difference equals Y. Therefore the identity follows from uniqueness of CTFT.",\((1/(t^2+1)-2/(t^2+4))*1/(t^2+9)=4\pi/[3(t^2+16)]-5\pi/[3(t^2+25)]\).
+GEN_014,"Step 1 — Differentiate \(f(t)=1/(t^2+1)\):
+\[f'(t)=-2t/(t^2+1)^2,\quad f''(t)=-2/(t^2+1)^2+8t^2/(t^2+1)^3=(6t^2-2)/(t^2+1)^3.\]
+Step 2 — Second-derivative CTFT:
+\[\mathcal F\{f''\}=(j\omega)^2F(j\omega)=-\pi\omega^2e^{-|\omega|}.\]
+Step 3 — The left convolution therefore has transform
+\[Y(j\omega)=-\pi\omega^2e^{-|\omega|}\cdot\pi e^{-|\omega|}=-\pi^2\omega^2e^{-2|\omega|}.\]
+Step 4 — Scaling gives \(\mathcal F\{2\pi/(t^2+4)\}=\pi^2e^{-2|\omega|}\). Direct differentiation verifies
+\[\frac{d^2}{dt^2}\frac{2\pi}{t^2+4}=\frac{4\pi(3t^2-4)}{(t^2+4)^3}.\]
+Its CTFT is \(-\pi^2\omega^2e^{-2|\omega|}\), identical to the left. Uniqueness proves the identity.",\(((6t^2-2)/(t^2+1)^3)*(1/(t^2+1))=4\pi(3t^2-4)/(t^2+4)^3\).
+GEN_015,"Step 1 — \(f\) is delayed 1 relative to \(1/(t^2+1)\), hence
+\[F(j\omega)=\pi e^{-|\omega|}e^{-j\omega}.\]
+Step 2 — \(g\) is advanced 2 relative to \(1/(t^2+4)\), hence
+\[G(j\omega)=\frac\pi2e^{-2|\omega|}e^{j2\omega}.\]
+Step 3 — Convolution theorem gives
+\[Y(j\omega)=\frac{\pi^2}{2}e^{-3|\omega|}e^{j\omega}.\]
+Step 4 — Unshifted \(2\pi/(t^2+9)\) has CTFT \((2\pi)(\pi/3)e^{-3|\omega|}\); using \(3\pi/[2(t^2+9)]\) instead gives \((\pi^2/2)e^{-3|\omega|}\). Multiplication by \(e^{j\omega}\) advances this result by 1: \(y(t)=3\pi/[2((t+1)^2+9)]\).
+Step 5 — The shift centers add under convolution: +1 + (-2) = -1. Both sides have the same CTFT, proving the identity.","\(f*g=3\pi/[2((t+1)^2+9)]\), centered at t=-1."
+GEN_016,"Part A — Step 1: \(\sin\omega\cos3\omega=(\sin4\omega-\sin2\omega)/2\), so
+\[X_A=\cos3\omega+\frac j2\sin4\omega-\frac j2\sin2\omega.\]
+Step 2: Use Euler expansions:
+\[X_A=\tfrac12(e^{j3\omega}+e^{-j3\omega})+\tfrac14(e^{j4\omega}-e^{-j4\omega})-\tfrac14(e^{j2\omega}-e^{-j2\omega}).\]
+Step 3: Since \(e^{-j\omega n_0}\leftrightarrow\delta[n-n_0]\),
+\[x_A[n]=\tfrac12\delta[n+3]+\tfrac12\delta[n-3]+\tfrac14\delta[n+4]-\tfrac14\delta[n-4]-\tfrac14\delta[n+2]+\tfrac14\delta[n-2].\]
+Part B — Step 1: Set \(z=e^{-j\omega}\). Then
+\[X_B(z)=(1+2z)/((1-z/2)(1+z/3)).\]
+Step 2: Write \(X_B=A/(1-z/2)+B/(1+z/3)\), giving \(A+B=1\), \(A/3-B/2=2\), hence \(A=3,B=-2\).
+Step 3: \(X_B=3/(1-z/2)-2/(1+z/3)\). Causal transform \(1/(1-az)\leftrightarrow a^nu[n]\) gives
+\[x_B[n]=[3(1/2)^n-2(-1/3)^n]u[n].\]",\(x_A[n]=\frac12\delta[n+3]+\frac12\delta[n-3]+\frac14\delta[n+4]-\frac14\delta[n-4]-\frac14\delta[n+2]+\frac14\delta[n-2]\); \(x_B[n]=[3(1/2)^n-2(-1/3)^n]u[n]\).
+GEN_017,"Part A — Step 1: \(2\cos\omega\cos2\omega=\cos3\omega+\cos\omega\).
+Step 2: \(X_A=(e^{j3\omega}+e^{-j3\omega}+e^{j\omega}+e^{-j\omega})/2\).
+Step 3: Thus
+\[x_A[n]=\tfrac12(\delta[n+3]+\delta[n-3]+\delta[n+1]+\delta[n-1]).\]
+Part B — Step 1: With \(z=e^{-j\omega}\), write
+\[X_B(z)=(3+z/6)/((1-z/2)(1+z/3))=A/(1-z/2)+B/(1+z/3).\]
+Step 2: Equate \(A+B=3\), \(A/3-B/2=1/6\). Solve \(A=2,B=1\).
+Step 3: Using causal geometric DTFT pairs,
+\[X_B(z)=2/(1-z/2)+1/(1+z/3)\]
+becomes
+\[x_B[n]=[2(1/2)^n+(-1/3)^n]u[n].\]
+The second component alternates sign because its base is negative.",\(x_A[n]=[\delta[n+3]+\delta[n-3]+\delta[n+1]+\delta[n-1]]/2\); \(x_B[n]=[2(1/2)^n+(-1/3)^n]u[n]\).
+GEN_018,"Part A — Step 1: \(1-\cos2\omega=1-\tfrac12e^{j2\omega}-\tfrac12e^{-j2\omega}\).
+Step 2: Multiply by \(e^{j2\omega}\): \(X_A=e^{j2\omega}-\tfrac12e^{j4\omega}-\tfrac12\).
+Step 3: Inverse mapping gives
+\[x_A[n]=\delta[n+2]-\tfrac12\delta[n+4]-\tfrac12\delta[n].\]
+Part B — Step 1: Set \(z=e^{-j\omega}\), define \(W(z)=(1+z)/((1-z/2)(1+z/4))\).
+Step 2: Decompose \(W=A/(1-z/2)+B/(1+z/4)\). Matching \(A+B=1\), \(A/4-B/2=1\) gives \(A=2,B=-1\).
+Step 3: Causal sequence of W:
+\[w[n]=[2(1/2)^n-(-1/4)^n]u[n].\]
+Step 4: Since multiplication by \(e^{j2\omega}\) advances by two samples,
+\[x_B[n]=w[n+2]=[2(1/2)^{n+2}-(-1/4)^{n+2}]u[n+2].\]
+The resulting sequence begins at n=-2 even though the unshifted rational factor had a causal inverse.",\(x_A[n]=\delta[n+2]-\frac12\delta[n+4]-\frac12\delta[n]\); \(x_B[n]=[2(1/2)^{n+2}-(-1/4)^{n+2}]u[n+2]\).
+GEN_019,"Part A — Step 1: \(\sin2\omega\cos\omega=(\sin3\omega+\sin\omega)/2\), so
+\[X_A=\cos\omega-\frac j2\sin3\omega-\frac j2\sin\omega.\]
+Step 2: Convert each harmonic to Euler exponentials, combine overlapping order-1 terms:
+\[X_A=\tfrac14e^{j\omega}+\tfrac34e^{-j\omega}-\tfrac14e^{j3\omega}+\tfrac14e^{-j3\omega}.\]
+Step 3: Invert:
+\[x_A[n]=\tfrac14\delta[n+1]+\tfrac34\delta[n-1]-\tfrac14\delta[n+3]+\tfrac14\delta[n-3].\]
+Part B — Step 1: Assume
+\[X_B(z)=\frac A{1-z/2}+\frac B{1+z/2}+\frac C{1-z/4}.\]
+Step 2: Numerator matching yields
+\[A+B+C=2,\quad A/4-3B/4=5/4,\quad-A/8+B/8-C/4=-5/8.\]
+Thus \(A=2,B=-1,C=1\).
+Step 3: The rational function equals
+\[2/(1-z/2)-1/(1+z/2)+1/(1-z/4).\]
+Using causal pairs,
+\[x_B[n]=[2(1/2)^n-(-1/2)^n+(1/4)^n]u[n].\]",\(x_A[n]=\tfrac14\delta[n+1]+\tfrac34\delta[n-1]-\tfrac14\delta[n+3]+\tfrac14\delta[n-3]\); \(x_B[n]=[2(1/2)^n-(-1/2)^n+(1/4)^n]u[n]\).
+GEN_020,"Step 1 — Put \(\theta=\pi k/4\), split \(B[k]=\sum_{r=0}^3a[r]e^{-j2\theta r}+\sum_{r=0}^3(\tfrac34a[r]+\tfrac14a[r+1])e^{-j\theta(2r+1)}\).
+Step 2 — Even contribution is \(A[k\bmod4]\).
+Step 3 — Factor \(e^{-j\theta}\) from odd part. Circular substitution gives \(\sum_ra[r+1]e^{-j2\theta r}=e^{j2\theta}A[k\bmod4]\). Thus
+\[B_{odd}=(\tfrac34e^{-j\theta}+\tfrac14e^{j\theta})A=(\cos\theta-\tfrac j2\sin\theta)A.\]
+Step 4 — Adding even and odd contributions gives
+\[B[k]=(1+\cos(\pi k/4)-\tfrac j2\sin(\pi k/4))A[k\bmod4].\]
+Step 5 — For an 8-periodic sequence \(c_k=B[k]/8\), so
+\[c_k=\tfrac18(1+\cos(\pi k/4)-\tfrac j2\sin(\pi k/4))A[k\bmod4].\]
+At k=0 the multiplier is 2, hence \(c_0=A[0]/4\).",\(B[k]=(1+\cos(\pi k/4)-j\sin(\pi k/4)/2)A[k\bmod4]\); \(c_k=B[k]/8\); \(c_0=A[0]/4\).
+GEN_021,"Step 1 — With \(\theta=\pi k/4\),
+\[B[k]=\sum_ra[r]e^{-j2\theta r}+\tfrac12e^{-j\theta}\sum_r(a[r]-a[r+1])e^{-j2\theta r}.\]
+Step 2 — Even term equals \(A[k\bmod4]\).
+Step 3 — By circular shift of a, \(\sum_ra[r+1]e^{-j2\theta r}=e^{j2\theta}A\). Then
+\[B_{odd}=\tfrac12e^{-j\theta}(1-e^{j2\theta})A=\tfrac12(e^{-j\theta}-e^{j\theta})A=-j\sin\theta A.\]
+Step 4 — Combine:
+\[B[k]=(1-j\sin(\pi k/4))A[k\bmod4].\]
+Step 5 — DTFS \(c_k=\frac18(1-j\sin(\pi k/4))A[k\bmod4]\). At k=0 and k=4, sine vanishes and k mod 4=0, so \(B[0]=B[4]=A[0]\), and \(c_0=c_4=A[0]/8\). This also follows because sum of periodic neighbor differences is 0.",\(B[k]=(1-j\sin(\pi k/4))A[k\bmod4]\); \(c_k=B[k]/8\); \(c_0=c_4=A[0]/8\).
+GEN_022,"Step 1 — Let \(\theta=\pi k/4\). Separate even/odd terms:
+\[B[k]=\sum_ra[r]e^{-j2\theta r}+e^{-j\theta}\sum_ra[r+2]e^{-j2\theta r}.\]
+Step 2 — First sum is \(A[k\bmod4]\).
+Step 3 — Circular substitution m=r+2 yields \(\sum_ra[r+2]e^{-j2\theta r}=e^{j4\theta}A=e^{j\pi k}A=(-1)^kA\).
+Step 4 — Hence \(B[k]=(1+(-1)^ke^{-j\pi k/4})A[k\bmod4]\).
+Step 5 — For input (1,0,-1,2), \(A[0]=2\). Then \(B[0]=2A[0]=4\) and \(c_0=B[0]/8=1/2\). At k=4, \(B[4]=(1+e^{-j\pi})A[0]=0\), so \(c_4=0\). Even and odd branches have equal total sums, which cancel at alternating 8-point DFT index k=4.","\(B[k]=(1+(-1)^ke^{-j\pi k/4})A[k\bmod4]\), \(c_k=B[k]/8\), \(c_0=1/2\), \(c_4=0\)."
+GEN_023,"Step 1 — Let \(\theta=\pi k/4\). DFT separates as
+\[B=\sum_ra[r-1]e^{-j2\theta r}+\tfrac12e^{-j\theta}\sum_r(a[r]+a[r+1])e^{-j2\theta r}.\]
+Step 2 — With circular substitution m=r−1, \(\sum_ra[r-1]e^{-j2\theta r}=e^{-j2\theta}A[k\bmod4]\).
+Step 3 — For odd branch, \(\sum_ra[r+1]e^{-j2\theta r}=e^{j2\theta}A\). Therefore
+\[B_{odd}=\tfrac12e^{-j\theta}(1+e^{j2\theta})A=\cos\theta A.\]
+Step 4 — Combine:
+\[B[k]=(e^{-j\pi k/2}+\cos(\pi k/4))A[k\bmod4].\]
+Step 5 — Period-8 DTFS coefficients are \(c_k=(e^{-j\pi k/2}+\cos(\pi k/4))A[k\bmod4]/8\). At k=4, \(e^{-j2\pi}=1\), \(\cos\pi=-1\); multiplier zero, so \(B[4]=0\) for any a[n].",\(B[k]=(e^{-j\pi k/2}+\cos(\pi k/4))A[k\bmod4]\); \(c_k=B[k]/8\); \(B[4]=0\).
+GEN_024,"Step 1 — Fourier-transform ODE: \((2j\omega+4)V=F\), hence
+\[H(j\omega)=1/(4+2j\omega).\]
+Step 2 — Denominator modulus is \(\sqrt{16+4\omega^2}\), phase angle \(\tan^{-1}(\omega/2)\). Therefore
+\[|H(j\omega)|=1/\sqrt{16+4\omega^2}=1/(2\sqrt{4+\omega^2}),\quad \angle H=-\tan^{-1}(\omega/2).\]
+Magnitude is even, peaks at 1/4 for ω=0 and tends to 0 as |ω|→∞. Phase odd, 0 at origin, tends to −π/2 at positive infinity and +π/2 at negative infinity. Sketch with these values.
+Step 3 — At ω=3, gain \(1/(2\sqrt{13})\), phase \(-\tan^{-1}(3/2)\). Input amplitude 10 produces output amplitude \(5/\sqrt{13}\). Thus
+\[v_{ss}(t)=(5/\sqrt{13})\cos(3t-\tan^{-1}(3/2)).\]
+Decreasing magnitude as |ω| rises implies low-pass response.","\(H(j\omega)=1/(4+2j\omega)\); \(|H|=1/(2\sqrt{4+\omega^2})\), \(\angle H=-\tan^{-1}(\omega/2)\); \(v_{ss}(t)=5/\sqrt{13}\cos(3t-\tan^{-1}(3/2))\). Low-pass."
+GEN_025,"Step 1 — ODE CTFT gives \(H(j\omega)=K/(a+j\omega)\), \(|H|=K/\sqrt{a^2+\omega^2}\). DC measurement implies K/a=2, so K=2a. At ω=3:
+\[2a/\sqrt{a^2+9}=8/5.\]
+Squaring: \(100a^2=64(a^2+9)\) ⇒ \(36a^2=576\), so \(a=4\), \(K=8\). Thus \(H=8/(4+j\omega)\).
+Step 2 — \(|H|=8/\sqrt{16+\omega^2}\), \(\angle H=-\tan^{-1}(\omega/4)\). Magnitude has DC value 2, decreases with |ω| and tends to 0, so low-pass. Phase odd, zero at origin, tends to -π/2 for large positive ω.
+Step 3 — At ω=3, gain 8/5 and phase \(-\tan^{-1}(3/4)\). Input amplitude 5 gives output amplitude 8:
+\[y_{ss}(t)=8\cos(3t-\tan^{-1}(3/4)).\]","\(a=4,K=8,H(j\omega)=8/(4+j\omega)\); \(y_{ss}(t)=8\cos(3t-\tan^{-1}(3/4))\)."
+GEN_026,"Step 1 — Fourier-transform ODEs:
+\[H_A(j\omega)=1/(1+j\omega),\quad H_B(j\omega)=4/(4+j\omega).\]
+Both have DC gain 1.
+Step 2 — At ω=2:
+\[|H_A(j2)|=1/\sqrt5,\quad \phi_A=-\tan^{-1}2,\]
+\[|H_B(j2)|=4/\sqrt{20}=2/\sqrt5,\quad\phi_B=-\tan^{-1}(1/2).\]
+B has twice A's magnitude at ω=2, so attenuates less.
+Step 3 — For amplitude-6 cosine input:
+\[y_{A,ss}(t)=6/\sqrt5\cos(2t-\tan^{-1}2),\]
+\[y_{B,ss}(t)=12/\sqrt5\cos(2t-\tan^{-1}(1/2)).\]
+Both systems are low-pass because |H| decreases as |ω| increases.","\(H_A=1/(1+j\omega)\), \(H_B=4/(4+j\omega)\); both DC gain 1, but B attenuates less at ω=2. Outputs \(6/\sqrt5\cos(2t-\tan^{-1}2)\), \(12/\sqrt5\cos(2t-\tan^{-1}(1/2))\)."
+GEN_027,"Step 1 — Transform ODE: \((2j\omega+6)Y=4U\), hence
+\[H(j\omega)=4/(6+2j\omega)=2/(3+j\omega).\]
+Thus \(|H|=2/\sqrt{9+\omega^2}\), \(\angle H=-\tan^{-1}(\omega/3)\).
+Step 2 — At ω=1, gain \(2/\sqrt{10}\), phase \(-\tan^{-1}(1/3)\). For \(3\cos t\),
+\[y_{1,ss}(t)=6/\sqrt{10}\cos(t-\tan^{-1}(1/3)).\]
+At ω=4, gain \(2/\sqrt{25}=2/5\), phase \(-\tan^{-1}(4/3)\). For \(5\sin4t\),
+\[y_{2,ss}(t)=2\sin(4t-\tan^{-1}(4/3)).\]
+Step 3 — By LTI superposition,
+\[y_{ss}(t)=6/\sqrt{10}\cos(t-\tan^{-1}(1/3))+2\sin(4t-\tan^{-1}(4/3)).\]
+At ω=1, magnitude gain ≈0.632; at ω=4 it is 0.4, so higher frequency experiences greater relative attenuation.","\(H(j\omega)=2/(3+j\omega)\), \(y_{ss}(t)=6/\sqrt{10}\cos(t-\tan^{-1}(1/3))+2\sin(4t-\tan^{-1}(4/3))\). Greater relative attenuation at ω=4."
+GEN_028,"Step 1 — Recorded output y=h*x; corrected signal z=g*y=(g*h)*x. Perfect recovery for every x iff \(h*g=\delta\), the identity of convolution.
+Step 2 — Match coefficient of \(\delta(t-kT)\): \(g_k-(3/4)g_{k-1}+(1/8)g_{k-2}\), with \(g_{-1}=g_{-2}=0\). Matching δ gives \(g_0=1\) and for k≥1
+\[g_k=\frac34g_{k-1}-\frac18g_{k-2}.\]
+Thus \(g_1=3/4\) and \(g_2=(3/4)^2-1/8=7/16\).
+Step 3 — Formal delay transform \(H(z)=1-(3/4)z+(1/8)z^2=(1-z/2)(1-z/4)\). Invert:
+\[G(z)=1/H(z)=\frac2{1-z/2}-\frac1{1-z/4}.\]
+For causal geometric powers, \(g_k=2(1/2)^k-(1/4)^k\) for k≥0, so
+\[g(t)=\sum_{k=0}^{\infty}[2(1/2)^k-(1/4)^k]\delta(t-kT).\]
+Both terms decay absolutely, so inverse is causal with summable coefficients.","\(h*g=\delta\), \(g_0=1,g_1=3/4,g_2=7/16\), \(g_k=2(1/2)^k-(1/4)^k\) for k≥0."
+GEN_029,"Step 1 — Exact recovery requires \(h*g=\delta\). The channel has earliest support at t=T>0; convolving it with a causal g (support t≥0) cannot produce an impulse at t=0. Hence no causal zero-delay inverse.
+Step 2 — With \(g(t)=\sum_{n=-1}^{\infty}g_n\delta(t-nT)\), the coefficient of \(\delta(t-mT)\) in h*g is \(g_{m-1}+(1/3)g_{m-2}\), with coefficients below -1 zero.
+Step 3 — At m=0, \(g_{-1}=1\). For m≥1, \(g_{m-1}+(1/3)g_{m-2}=0\), or \(g_n=-(1/3)g_{n-1}\) for n≥0. Thus \(g_{-1}=1,g_0=-1/3,g_1=1/9,g_2=-1/27\).
+Step 4 — Closed form
+\[g_n=(-1/3)^{n+1},\quad n\ge-1,\]
+\[g(t)=\sum_{n=-1}^\infty(-1/3)^{n+1}\delta(t-nT).\]
+Equivalently \(g(t)=\delta(t+T)-(1/3)\delta(t)+(1/9)\delta(t-T)-\cdots\). Delay-transform verification: \(H(z)=z(1+z/3)\), \(G(z)=z^{-1}/(1+z/3)\), product 1.","No causal perfect zero-delay inverse exists. \(g(t)=\sum_{n=-1}^{\infty}(-1/3)^{n+1}\delta(t-nT)\), with a required impulse at t=-T."
+GEN_030,"Step 1 — For arbitrary input exact recovery requires \(h*g=\delta\), since δ is convolution identity.
+Step 2 — Match coefficients in \((\delta+(2/3)\delta_T)*\sum_{k\ge0}g_k\delta_{kT}\): \(g_0=1\), \(g_k+(2/3)g_{k-1}=0\) for k≥1. Hence \(g_k=(-2/3)^k\).
+Step 3 — For M=2: \(g_0=1,g_1=-2/3,g_2=4/9\), so
+\[g_2(t)=\delta(t)-\tfrac23\delta(t-T)+\tfrac49\delta(t-2T).\]
+Convolution with h cancels coefficients at delays T and 2T, leaving
+\[(h*g_2)(t)=\delta(t)+\frac8{27}\delta(t-3T).\]
+Thus for input x, output \(z(t)=x(t)+(8/27)x(t-3T)\).
+Step 4 — The finite geometric identity \((1+az)\sum_{k=0}^M(-az)^k=1-(-az)^{M+1}\) yields
+\[(h*g_M)(t)=\delta(t)-(-2/3)^{M+1}\delta(t-(M+1)T).\]
+Residual magnitude \((2/3)^{M+1}\). Require \((2/3)^{M+1}<0.1\), so \(M+1>\ln(0.1)/\ln(2/3)\approx5.68\). Smallest integer M=5. Check \((2/3)^6=64/729\approx0.0878<0.1\), but \((2/3)^5\approx0.1317\ge0.1\).",\(g_k=(-2/3)^k\); \(g_2(t)=\delta(t)-(2/3)\delta(t-T)+(4/9)\delta(t-2T)\); \((h*g_2)(t)=\delta(t)+(8/27)\delta(t-3T)\); \(M_{min}=5\).

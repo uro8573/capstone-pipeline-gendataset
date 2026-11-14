@@ -1,0 +1,1 @@
+{"type":"object","properties":{"samples":{"type":"array","items":{"type":"object","properties":{"answer_text":{"type":"string"},"error_pattern":{"type":"string"}},"required":["answer_text","error_pattern"],"additionalProperties":false}}},"required":["samples"],"additionalProperties":false}

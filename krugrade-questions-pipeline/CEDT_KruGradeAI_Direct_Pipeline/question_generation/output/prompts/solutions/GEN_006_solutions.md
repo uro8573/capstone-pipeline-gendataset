@@ -1,0 +1,27 @@
+ROLE: Independent mathematics solver. Solve this question thoroughly without consulting any previous/official solution. Check assumptions, boundary cases, signs, indices and final result; perform a second verification method if practical. If ambiguous or inconsistent, explain it rather than fabricating a solution. Return ONLY JSON with question_id, solution, final_answer, mathematical_review_notes.
+Question slot: GEN_006
+Mathematical conventions: CTFT: X(jω)=∫x(t)e^{-jωt}dt; inverse CTFT factor 1/(2π). DTFT: X(e^{jω})=Σx[n]e^{-jωn}; sinc(u)=sin(u)/u, sinc(0)=1. Use LaTeX mathematical notation and preserve the target university midterm level.
+QUESTION ONLY (NO GOLD ANSWER):
+{
+  "question_id": "GEN_006",
+  "reference_question_ids": [
+    "REF_002"
+  ],
+  "subject": "Computer Engineering Mathematics II",
+  "topic": "Linear / Circular Convolution",
+  "subtopic": "Same-pair linear vs circular",
+  "concept_tags": [
+    "Linear convolution",
+    "circular convolution",
+    "time-domain aliasing",
+    "modular indexing",
+    "output interpretation"
+  ],
+  "difficulty": "Medium",
+  "question_type": "Calculation + Matching + Explanation",
+  "rubric_max_score": 8.0,
+  "learning_objective": "Distinguish full linear versus circular convolution and explain circular folding instead of truncation.",
+  "question_text": "Given \\(a[n]=(2,-1,1,2)\\), \\(b[n]=(1,2,-1,1)\\), both on \\(0\\le n\\le3\\), zero elsewhere. A lab produces\n\\[R_A=(2,3,-3,7,2,-1,2),\\quad R_B=(4,2,\\square,7),\\quad R_C=(2,3,-3,7).\\]\nPermitted operations are full linear convolution or 4-point circular convolution of a,b; a recording may be an incorrect or truncated representation.\n1. (2 points) Calculate all seven samples of \\(y=a*b\\).\n2. (2 points) Calculate the four samples of \\(z=a*_4b\\).\n3. (2 points) Classify RA,RB,RC and recover missing RB value.\n4. (2 points) Determine whether circular convolution is just the first four samples of linear convolution, with mathematical justification.",
+  "question_language": "English",
+  "math_notation": "LaTeX"
+}

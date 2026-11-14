@@ -1,0 +1,837 @@
+{
+  "blueprint_version": "1.0",
+  "source_note": "Inferred from a solutions-and-rubric reference PDF; not independently confirmed original questions.",
+  "target_question_count": 30,
+  "target_total_score": 190,
+  "topic_distribution": {
+    "Fourier Transform & Sampling": 4,
+    "Linear / Circular Convolution": 4,
+    "Fourier Series": 3,
+    "CTFT Convolution Identity": 4,
+    "Inverse DTFT": 4,
+    "DFT & DTFS": 4,
+    "First-Order Frequency Response": 4,
+    "LTI Inverse & Echo Cancellation": 3
+  },
+  "difficulty_distribution": {
+    "Medium": 19,
+    "Hard": 11
+  },
+  "slots": [
+    {
+      "question_id": "GEN_001",
+      "reference_question_ids": [
+        "REF_001"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Fourier Transform & Sampling",
+      "subtopic": "Multi-bandwidth sinc signal",
+      "concept_tags": [
+        "CTFT",
+        "sinc",
+        "time-domain sampling",
+        "impulse train",
+        "spectral replication",
+        "frequency-domain interpretation"
+      ],
+      "learning_objective": "Derive and interpret the sampled spectrum of a signal composed of components with different bandwidths.",
+      "question_type": "Derivation + Sketching",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "CTFT pairs",
+        "time scaling",
+        "distribution sampling",
+        "convolution theorem",
+        "spectral support comparison"
+      ],
+      "variation_strategy": "Change mathematical object to multi-bandwidth sinc sum",
+      "rubric_max_score": 5.0
+    },
+    {
+      "question_id": "GEN_002",
+      "reference_question_ids": [
+        "REF_001"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Fourier Transform & Sampling",
+      "subtopic": "Inverse CTFT and sampling",
+      "concept_tags": [
+        "Inverse CTFT",
+        "time shifting",
+        "cosine modulation in frequency",
+        "sampling",
+        "spectral replication"
+      ],
+      "learning_objective": "Recover a time-domain signal from its frequency-domain representation and predict its sampled spectrum.",
+      "question_type": "Inverse Derivation + Sketching",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "Inverse CTFT",
+        "time shifting",
+        "sampling",
+        "spectrum sketch"
+      ],
+      "variation_strategy": "Reverse original time-to-frequency reasoning",
+      "rubric_max_score": 5.0
+    },
+    {
+      "question_id": "GEN_003",
+      "reference_question_ids": [
+        "REF_001"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Fourier Transform & Sampling",
+      "subtopic": "Squared sinc and sampling comparison",
+      "concept_tags": [
+        "CTFT",
+        "convolution theorem",
+        "squared sinc",
+        "triangular spectrum",
+        "sampling frequency",
+        "spectral replicas"
+      ],
+      "learning_objective": "Derive the spectrum of a squared-sinc signal and compare the effects of two sampling intervals.",
+      "question_type": "Derivation + Comparison + Sketching",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "CTFT",
+        "frequency convolution",
+        "sampling replicas",
+        "support comparison"
+      ],
+      "variation_strategy": "Change mathematical object and compare two parameter regimes",
+      "rubric_max_score": 5.0
+    },
+    {
+      "question_id": "GEN_004",
+      "reference_question_ids": [
+        "REF_001"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Fourier Transform & Sampling",
+      "subtopic": "Reconstructing bandpass from sampled spectrum",
+      "concept_tags": [
+        "Inverse CTFT",
+        "spectral replication",
+        "frequency shifting",
+        "bandpass signals",
+        "sampling reconstruction"
+      ],
+      "learning_objective": "Infer the original signal and sampling parameters from a known nonoverlapping sampled spectrum.",
+      "question_type": "Inverse Reasoning + Sketching",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "Spectral replica identification",
+        "inverse CTFT",
+        "modulation",
+        "sampling"
+      ],
+      "variation_strategy": "Infer unknown original from sampled frequency domain",
+      "rubric_max_score": 5.0
+    },
+    {
+      "question_id": "GEN_005",
+      "reference_question_ids": [
+        "REF_002"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Linear / Circular Convolution",
+      "subtopic": "Missing-sample convolution matching",
+      "concept_tags": [
+        "Discrete convolution",
+        "circular convolution",
+        "missing sample reconstruction",
+        "signal matching",
+        "convolution sum property"
+      ],
+      "learning_objective": "Identify convolution operations from partially observed outputs, recover missing samples, and detect an inconsistent output.",
+      "question_type": "Matching + Calculation + Proof",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "Discrete linear convolution",
+        "circular folding",
+        "convolution sum property"
+      ],
+      "variation_strategy": "Partial observation and invalid-output detection",
+      "rubric_max_score": 8.0
+    },
+    {
+      "question_id": "GEN_006",
+      "reference_question_ids": [
+        "REF_002"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Linear / Circular Convolution",
+      "subtopic": "Same-pair linear vs circular",
+      "concept_tags": [
+        "Linear convolution",
+        "circular convolution",
+        "time-domain aliasing",
+        "modular indexing",
+        "output interpretation"
+      ],
+      "learning_objective": "Distinguish full linear versus circular convolution and explain circular folding instead of truncation.",
+      "question_type": "Calculation + Matching + Explanation",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "Linear convolution sum",
+        "circular convolution sum",
+        "modular folding"
+      ],
+      "variation_strategy": "Same inputs under two operators with a false truncation claim",
+      "rubric_max_score": 8.0
+    },
+    {
+      "question_id": "GEN_007",
+      "reference_question_ids": [
+        "REF_002"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Linear / Circular Convolution",
+      "subtopic": "Sparse support and periodicity",
+      "concept_tags": [
+        "Discrete impulses",
+        "linear convolution",
+        "circular convolution",
+        "support analysis",
+        "periodic indexing",
+        "output validity"
+      ],
+      "learning_objective": "Use impulse support and modular indexing to determine which convolution operation can produce each recording.",
+      "question_type": "Matching + Support Proof",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "Delta convolution",
+        "modular support reduction",
+        "periodic output interpretation"
+      ],
+      "variation_strategy": "Sparse support and periodic invalid-output detection",
+      "rubric_max_score": 8.0
+    },
+    {
+      "question_id": "GEN_008",
+      "reference_question_ids": [
+        "REF_002"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Linear / Circular Convolution",
+      "subtopic": "Nonunique cancellation matching",
+      "concept_tags": [
+        "Linear convolution",
+        "circular convolution",
+        "signal cancellation",
+        "finite differences",
+        "periodicity",
+        "nonunique matching"
+      ],
+      "learning_objective": "Understand how cancellation permits distinct input-filter pairs to produce the same linear and circular outputs.",
+      "question_type": "Matching + Cancellation Explanation",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "Finite difference filter",
+        "linear convolution",
+        "circular folding",
+        "cancellation"
+      ],
+      "variation_strategy": "Nonuniqueness and signal cancellation",
+      "rubric_max_score": 8.0
+    },
+    {
+      "question_id": "GEN_009",
+      "reference_question_ids": [
+        "REF_003"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Fourier Series",
+      "subtopic": "Periodic rectangular pulse properties",
+      "concept_tags": [
+        "Complex Fourier series",
+        "DC component",
+        "harmonic coefficients",
+        "time shifting",
+        "discontinuity",
+        "coefficient decay"
+      ],
+      "learning_objective": "Evaluate coefficient and convergence claims for a periodic rectangular signal.",
+      "question_type": "True/False with Justification",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "Complex Fourier coefficients",
+        "phase shifting",
+        "convergence at jump",
+        "asymptotic decay"
+      ],
+      "variation_strategy": "Different rectangular-pulse parameters and harmonic structure",
+      "rubric_max_score": 5.0
+    },
+    {
+      "question_id": "GEN_010",
+      "reference_question_ids": [
+        "REF_003"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Fourier Series",
+      "subtopic": "Triangular pulse properties",
+      "concept_tags": [
+        "Fourier coefficients",
+        "even symmetry",
+        "triangular pulse",
+        "coefficient decay",
+        "time shifting",
+        "continuity"
+      ],
+      "learning_objective": "Analyze symmetry, continuity and time shifting of a periodic triangular pulse.",
+      "question_type": "True/False with Justification",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "Complex Fourier series",
+        "integration by parts",
+        "asymptotic bound",
+        "shift theorem"
+      ],
+      "variation_strategy": "Use continuous triangular pulse instead of discontinuous rectangle",
+      "rubric_max_score": 5.0
+    },
+    {
+      "question_id": "GEN_011",
+      "reference_question_ids": [
+        "REF_003"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Fourier Series",
+      "subtopic": "Odd periodic square-wave properties",
+      "concept_tags": [
+        "Odd symmetry",
+        "Fourier coefficients",
+        "DC component",
+        "harmonic zeros",
+        "time shifting",
+        "convergence",
+        "coefficient decay"
+      ],
+      "learning_objective": "Analyze Fourier-series properties of an odd periodic signal including harmonic structure and convergence.",
+      "question_type": "True/False with Justification",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "Fourier coefficient integral",
+        "oddness",
+        "shift property",
+        "jump convergence",
+        "asymptotic decay"
+      ],
+      "variation_strategy": "Change waveform to bipolar odd square wave",
+      "rubric_max_score": 5.0
+    },
+    {
+      "question_id": "GEN_012",
+      "reference_question_ids": [
+        "REF_004"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "CTFT Convolution Identity",
+      "subtopic": "Rational kernels of different widths",
+      "concept_tags": [
+        "Fourier duality",
+        "CTFT scaling",
+        "convolution theorem",
+        "transform uniqueness"
+      ],
+      "learning_objective": "Prove convolution of different-width rational kernels with CTFT methods.",
+      "question_type": "Mathematical Proof",
+      "difficulty": "Hard",
+      "expected_methods": [
+        "Fourier duality",
+        "time scaling",
+        "product theorem",
+        "uniqueness"
+      ],
+      "variation_strategy": "Change rational kernel scales",
+      "rubric_max_score": 6.0
+    },
+    {
+      "question_id": "GEN_013",
+      "reference_question_ids": [
+        "REF_004"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "CTFT Convolution Identity",
+      "subtopic": "Difference of rational kernels",
+      "concept_tags": [
+        "CTFT linearity",
+        "scaling",
+        "convolution theorem",
+        "superposition",
+        "transform uniqueness"
+      ],
+      "learning_objective": "Prove convolution of a linear combination of rational functions by Fourier superposition.",
+      "question_type": "Mathematical Proof",
+      "difficulty": "Hard",
+      "expected_methods": [
+        "CTFT linearity",
+        "scaling",
+        "convolution multiplication",
+        "inverse transform"
+      ],
+      "variation_strategy": "Superposition of rational kernel components",
+      "rubric_max_score": 6.0
+    },
+    {
+      "question_id": "GEN_014",
+      "reference_question_ids": [
+        "REF_004"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "CTFT Convolution Identity",
+      "subtopic": "Second-derivative convolution",
+      "concept_tags": [
+        "Time differentiation",
+        "second derivative",
+        "CTFT",
+        "convolution theorem",
+        "transform uniqueness"
+      ],
+      "learning_objective": "Prove a second-derivative convolution identity via the Fourier differentiation property.",
+      "question_type": "Mathematical Proof",
+      "difficulty": "Hard",
+      "expected_methods": [
+        "Differentiation",
+        "Fourier derivative property",
+        "convolution theorem",
+        "uniqueness"
+      ],
+      "variation_strategy": "Higher derivative rational kernel",
+      "rubric_max_score": 6.0
+    },
+    {
+      "question_id": "GEN_015",
+      "reference_question_ids": [
+        "REF_004"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "CTFT Convolution Identity",
+      "subtopic": "Opposite time shifts",
+      "concept_tags": [
+        "CTFT time shifting",
+        "scaling",
+        "convolution theorem",
+        "phase factors",
+        "transform uniqueness"
+      ],
+      "learning_objective": "Prove convolution identity for independently shifted rational kernels and explain center shifts.",
+      "question_type": "Mathematical Proof",
+      "difficulty": "Hard",
+      "expected_methods": [
+        "Time shifting",
+        "rational scaling",
+        "convolution theorem",
+        "inverse CTFT"
+      ],
+      "variation_strategy": "Oppositely shifted kernels and net phase",
+      "rubric_max_score": 6.0
+    },
+    {
+      "question_id": "GEN_016",
+      "reference_question_ids": [
+        "REF_005"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Inverse DTFT",
+      "subtopic": "Mixed harmonics and two geometric terms",
+      "concept_tags": [
+        "Trigonometric identities",
+        "complex exponentials",
+        "inverse DTFT",
+        "partial fractions",
+        "causal sequences"
+      ],
+      "learning_objective": "Invert DTFT using harmonic expansion and rational partial fractions.",
+      "question_type": "Inverse DTFT Calculation (2 parts)",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "Product-to-sum",
+        "Euler expansion",
+        "partial fractions",
+        "causal inverse DTFT"
+      ],
+      "variation_strategy": "Different harmonic interactions and rational factors",
+      "rubric_max_score": 8.0
+    },
+    {
+      "question_id": "GEN_017",
+      "reference_question_ids": [
+        "REF_005"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Inverse DTFT",
+      "subtopic": "Symmetric harmonics and alternating causal terms",
+      "concept_tags": [
+        "Product-to-sum",
+        "symmetric impulse sequences",
+        "partial fractions",
+        "alternating geometric sequences"
+      ],
+      "learning_objective": "Use symmetry to invert trigonometric spectra and distinguish geometric components.",
+      "question_type": "Inverse DTFT Calculation (2 parts)",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "Trig product-to-sum",
+        "Euler expansion",
+        "partial fractions",
+        "geometric series"
+      ],
+      "variation_strategy": "Symmetric harmonics and alternating causal ratio",
+      "rubric_max_score": 8.0
+    },
+    {
+      "question_id": "GEN_018",
+      "reference_question_ids": [
+        "REF_005"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Inverse DTFT",
+      "subtopic": "Time-advanced finite and infinite sequences",
+      "concept_tags": [
+        "DTFT time shifting",
+        "impulse index signs",
+        "partial fractions",
+        "causal expansion",
+        "left-sided advancement"
+      ],
+      "learning_objective": "Apply frequency-domain time advance to both finite and infinite DTFT sequences.",
+      "question_type": "Inverse DTFT Calculation (2 parts)",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "Trig expansion",
+        "partial fractions",
+        "causal inverse",
+        "DTFT time shifting"
+      ],
+      "variation_strategy": "Frequency-domain phase and shifted sequence support",
+      "rubric_max_score": 8.0
+    },
+    {
+      "question_id": "GEN_019",
+      "reference_question_ids": [
+        "REF_005"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "Inverse DTFT",
+      "subtopic": "Mixed harmonics and three-pole rational inverse",
+      "concept_tags": [
+        "Inverse DTFT",
+        "trigonometric products",
+        "complex exponentials",
+        "three-term partial fractions",
+        "causal sequences"
+      ],
+      "learning_objective": "Recover finite impulse output from mixed harmonics and causal output from three-factor rational DTFT.",
+      "question_type": "Inverse DTFT Calculation (2 parts)",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "Trig products",
+        "exponentials",
+        "three-term partial fractions",
+        "causal DTFT"
+      ],
+      "variation_strategy": "Three-pole inverse and overlapping harmonics",
+      "rubric_max_score": 8.0
+    },
+    {
+      "question_id": "GEN_020",
+      "reference_question_ids": [
+        "REF_006"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "DFT & DTFS",
+      "subtopic": "Weighted-neighbor interpolation",
+      "concept_tags": [
+        "DFT",
+        "weighted interpolation",
+        "even/odd decomposition",
+        "index mapping",
+        "DTFS"
+      ],
+      "learning_objective": "Derive DFT relation for unequal adjacent-sample interpolation and associated periodic DTFS.",
+      "question_type": "Algebraic Derivation (2 parts)",
+      "difficulty": "Hard",
+      "expected_methods": [
+        "DFT even/odd decomposition",
+        "circular shift in DFT",
+        "DTFS normalization"
+      ],
+      "variation_strategy": "Asymmetric weighted interpolation",
+      "rubric_max_score": 7.0
+    },
+    {
+      "question_id": "GEN_021",
+      "reference_question_ids": [
+        "REF_006"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "DFT & DTFS",
+      "subtopic": "Neighbor-difference interleaving",
+      "concept_tags": [
+        "DFT",
+        "neighbor differencing",
+        "circular indexing",
+        "frequency multiplier",
+        "DTFS"
+      ],
+      "learning_objective": "Derive DFT relationship for odd samples formed by differences instead of averages.",
+      "question_type": "Algebraic Derivation (2 parts)",
+      "difficulty": "Hard",
+      "expected_methods": [
+        "DFT index separation",
+        "circular difference",
+        "Fourier phase",
+        "DTFS"
+      ],
+      "variation_strategy": "Odd-index difference operator",
+      "rubric_max_score": 7.0
+    },
+    {
+      "question_id": "GEN_022",
+      "reference_question_ids": [
+        "REF_006"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "DFT & DTFS",
+      "subtopic": "Circularly shifted interleaving",
+      "concept_tags": [
+        "DFT",
+        "circular shift",
+        "interleaving",
+        "modular indices",
+        "phase rotation",
+        "DTFS"
+      ],
+      "learning_objective": "Derive how circular shifting an interleaved branch affects a longer DFT and DTFS.",
+      "question_type": "Algebraic Derivation (2 parts)",
+      "difficulty": "Hard",
+      "expected_methods": [
+        "Circular shift property",
+        "interleaving",
+        "DFT",
+        "DTFS coefficient scaling"
+      ],
+      "variation_strategy": "Circular permutation of odd-index branch",
+      "rubric_max_score": 7.0
+    },
+    {
+      "question_id": "GEN_023",
+      "reference_question_ids": [
+        "REF_006"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "DFT & DTFS",
+      "subtopic": "Mixed circular shift and interpolation",
+      "concept_tags": [
+        "DFT",
+        "circular shift",
+        "interpolation",
+        "even/odd indexing",
+        "DTFS",
+        "frequency-zero analysis"
+      ],
+      "learning_objective": "Derive mixed even-branch shift and odd-branch interpolation DFT mapping.",
+      "question_type": "Algebraic Derivation (2 parts)",
+      "difficulty": "Hard",
+      "expected_methods": [
+        "Circular shift",
+        "interpolation",
+        "DFT",
+        "DTFS",
+        "frequency zero"
+      ],
+      "variation_strategy": "Mixed shift and interpolation across DFT branches",
+      "rubric_max_score": 7.0
+    },
+    {
+      "question_id": "GEN_024",
+      "reference_question_ids": [
+        "REF_007"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "First-Order Frequency Response",
+      "subtopic": "Mechanical system with nonunit derivative coefficient",
+      "concept_tags": [
+        "First-order ODE",
+        "Fourier transform",
+        "frequency response",
+        "magnitude",
+        "phase",
+        "low-pass behavior"
+      ],
+      "learning_objective": "Derive first-order frequency response and predict sinusoidal steady-state response.",
+      "question_type": "Modeling + Graph + Calculation",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "ODE transform",
+        "magnitude/phase",
+        "sinusoidal steady state",
+        "frequency interpretation"
+      ],
+      "variation_strategy": "Nonunit derivative coefficient and output phase",
+      "rubric_max_score": 6.0
+    },
+    {
+      "question_id": "GEN_025",
+      "reference_question_ids": [
+        "REF_007"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "First-Order Frequency Response",
+      "subtopic": "Identify ODE parameters from frequency data",
+      "concept_tags": [
+        "First-order ODE",
+        "frequency-response identification",
+        "magnitude",
+        "phase",
+        "low-pass filter"
+      ],
+      "learning_objective": "Recover unknown first-order parameters from two measured magnitudes and predict an output.",
+      "question_type": "System Identification + Calculation",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "ODE CTFT",
+        "magnitude equations",
+        "parameter solving",
+        "sinusoidal response"
+      ],
+      "variation_strategy": "Inverse system identification from measurements",
+      "rubric_max_score": 6.0
+    },
+    {
+      "question_id": "GEN_026",
+      "reference_question_ids": [
+        "REF_007"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "First-Order Frequency Response",
+      "subtopic": "Compare two low-pass systems",
+      "concept_tags": [
+        "Transfer functions",
+        "magnitude comparison",
+        "phase shift",
+        "low-pass behavior",
+        "sinusoidal response"
+      ],
+      "learning_objective": "Compare attenuation and phase of two first-order systems having equal DC gain.",
+      "question_type": "Comparison + Calculation",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "ODE transform",
+        "gain/phase evaluation",
+        "side-by-side sinusoidal outputs"
+      ],
+      "variation_strategy": "Two-system attenuation and phase comparison",
+      "rubric_max_score": 6.0
+    },
+    {
+      "question_id": "GEN_027",
+      "reference_question_ids": [
+        "REF_007"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "First-Order Frequency Response",
+      "subtopic": "Two-tone steady-state response",
+      "concept_tags": [
+        "Fourier transform of ODE",
+        "frequency response",
+        "sinusoidal steady state",
+        "superposition",
+        "low-pass filtering"
+      ],
+      "learning_objective": "Predict response of a first-order LTI system to a two-frequency input.",
+      "question_type": "Modeling + Superposition",
+      "difficulty": "Medium",
+      "expected_methods": [
+        "ODE CTFT",
+        "sinusoidal steady state",
+        "superposition",
+        "relative attenuation"
+      ],
+      "variation_strategy": "Two-tone input with componentwise response",
+      "rubric_max_score": 6.0
+    },
+    {
+      "question_id": "GEN_028",
+      "reference_question_ids": [
+        "REF_008"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "LTI Inverse & Echo Cancellation",
+      "subtopic": "Two-echo inverse with second-order recurrence",
+      "concept_tags": [
+        "Inverse LTI system",
+        "convolution identity",
+        "multiple echoes",
+        "second-order recurrence",
+        "partial fractions"
+      ],
+      "learning_objective": "Derive a closed-form causal inverse filter for a two-echo channel.",
+      "question_type": "Proof + Recurrence",
+      "difficulty": "Hard",
+      "expected_methods": [
+        "Inverse convolution identity",
+        "recurrence matching",
+        "delay-factor partial fractions"
+      ],
+      "variation_strategy": "Second-order echo recurrence",
+      "rubric_max_score": 5.0
+    },
+    {
+      "question_id": "GEN_029",
+      "reference_question_ids": [
+        "REF_008"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "LTI Inverse & Echo Cancellation",
+      "subtopic": "Noncausal inverse with unavoidable advance",
+      "concept_tags": [
+        "Delayed LTI system",
+        "inverse convolution",
+        "causality",
+        "noncausal filter",
+        "coefficient recurrence"
+      ],
+      "learning_objective": "Determine whether a causal inverse exists and derive one with a required time advance.",
+      "question_type": "Causality Proof + Recurrence",
+      "difficulty": "Hard",
+      "expected_methods": [
+        "Convolution identity",
+        "support causality",
+        "recurrence with negative index"
+      ],
+      "variation_strategy": "Noncausal advance due to delayed echo",
+      "rubric_max_score": 5.0
+    },
+    {
+      "question_id": "GEN_030",
+      "reference_question_ids": [
+        "REF_008"
+      ],
+      "subject": "Computer Engineering Mathematics II",
+      "topic": "LTI Inverse & Echo Cancellation",
+      "subtopic": "Finite inverse approximation and residual echo",
+      "concept_tags": [
+        "Inverse convolution",
+        "geometric recurrence",
+        "finite inverse filter",
+        "residual echo",
+        "approximation error"
+      ],
+      "learning_objective": "Derive a finite inverse approximation and quantify residual echoes due to truncation.",
+      "question_type": "Proof + Approximation",
+      "difficulty": "Hard",
+      "expected_methods": [
+        "Echo recurrence",
+        "finite geometric series",
+        "convolution",
+        "logarithmic threshold"
+      ],
+      "variation_strategy": "Truncated echo inverse and residual error",
+      "rubric_max_score": 5.0
+    }
+  ]
+}

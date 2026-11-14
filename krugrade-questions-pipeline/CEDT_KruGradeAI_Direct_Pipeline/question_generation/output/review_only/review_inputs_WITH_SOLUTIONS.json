@@ -1,0 +1,3181 @@
+[
+  {
+    "question_id": "GEN_001",
+    "reference_question_ids": [
+      "REF_001"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Transform & Sampling",
+    "subtopic": "Multi-bandwidth sinc signal",
+    "concept_tags": [
+      "CTFT",
+      "sinc",
+      "time-domain sampling",
+      "impulse train",
+      "spectral replication",
+      "frequency-domain interpretation"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Derivation + Sketching",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Derive and interpret the sampled spectrum of a signal composed of components with different bandwidths.",
+    "question_text": "Consider the continuous-time signal\n\\[x(t)=\\operatorname{sinc}\\left(\\frac{\\pi t}{\\tau}\\right)+\\frac12\\operatorname{sinc}\\left(\\frac{2\\pi t}{\\tau}\\right),\\quad \\tau>0.\\]\nIt is uniformly sampled by \\[p(t)=\\sum_{m=-\\infty}^{\\infty}\\delta\\left(t-\\frac{m\\tau}{5}\\right),\\qquad g(t)=x(t)p(t).\\]\nUse \\(X(j\\omega)=\\int_{-\\infty}^{\\infty}x(t)e^{-j\\omega t}\\,dt\\) and \\(\\operatorname{sinc}(u)=\\sin(u)/u\\) (with sinc(0)=1).\n1. (1 point) Derive \\(X(j\\omega)\\) and identify its frequency support.\n2. (1 point) Derive \\(P(j\\omega)\\) and identify frequency spacing between impulses.\n3. (1 point) Express \\(g(t)\\) as a weighted impulse train. Determine impulse weights at \\(t=0\\) and \\(t=\\pm\\tau\\).\n4. (1 point) Derive \\(G(j\\omega)\\) in terms of shifted copies of \\(X(j\\omega)\\).\n5. (1 point) Sketch the magnitude spectra of \\(X\\) and \\(G\\), labeling heights, boundaries and replica centers. Explain whether spectral overlapping occurs.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Apply the sinc transform pair and time scaling:\n\\[\\mathcal F\\{\\operatorname{sinc}(\\pi t/\\tau)\\}=\\tau\\operatorname{rect}(\\omega\\tau/(2\\pi)),\\]\n\\[\\mathcal F\\{\\tfrac12\\operatorname{sinc}(2\\pi t/\\tau)\\}=\\tfrac\\tau4\\operatorname{rect}(\\omega\\tau/(4\\pi)).\\]\nTherefore \\[X(j\\omega)=\\tau\\operatorname{rect}(\\omega\\tau/(2\\pi))+\\tfrac\\tau4\\operatorname{rect}(\\omega\\tau/(4\\pi)).\\]\nIts levels are \\(5\\tau/4\\) for \\(|\\omega|<\\pi/\\tau\\), \\(\\tau/4\\) for \\(\\pi/\\tau<|\\omega|<2\\pi/\\tau\\), and 0 outside \\(|\\omega|>2\\pi/\\tau\\).\nStep 2 — Sampling period \\(T_s=\\tau/5\\), angular spacing \\(\\omega_s=10\\pi/\\tau\\):\n\\[P(j\\omega)=\\frac{10\\pi}{\\tau}\\sum_k\\delta(\\omega-10\\pi k/\\tau).\\]\nStep 3 — Sample weights:\n\\[g(t)=\\sum_m w_m\\delta(t-m\\tau/5),\\quad w_m=\\operatorname{sinc}(\\pi m/5)+\\tfrac12\\operatorname{sinc}(2\\pi m/5).\\]\nAt \\(m=0\\), \\(w_0=3/2\\). At \\(m=\\pm5\\), both sinc terms vanish, so \\(w_{\\pm5}=0\\).\nStep 4 — Multiplication in time corresponds to frequency convolution:\n\\[G(j\\omega)=\\frac1{T_s}\\sum_kX(j(\\omega-\\omega_s k))=\\frac5\\tau\\sum_k X(j(\\omega-10\\pi k/\\tau)).\\]\nLet \\(\\Omega_k=\\omega-10\\pi k/\\tau\\). Then\n\\[G(j\\omega)=\\sum_k\\left[5\\operatorname{rect}(\\Omega_k\\tau/(2\\pi))+\\tfrac54\\operatorname{rect}(\\Omega_k\\tau/(4\\pi))\\right].\\]\nStep 5 — For each center \\(\\omega_k=10\\pi k/\\tau\\), height is \\(25/4\\) within \\(|\\omega-\\omega_k|<\\pi/\\tau\\), \\(5/4\\) in the outer band up to \\(2\\pi/\\tau\\), and 0 beyond. Sketch each replica with these two levels. Since \\(\\omega_s=10\\pi/\\tau>4\\pi/\\tau\\), replicas do not overlap (no aliasing).",
+    "final_answer": "\\(w_0=3/2,\\;w_{\\pm5}=0\\). \\(G(j\\omega)=\\frac5\\tau\\sum_kX(j(\\omega-10\\pi k/\\tau))\\), with two-level nonoverlapping replicas centered at \\(10\\pi k/\\tau\\).",
+    "expected_methods": [
+      "CTFT pairs",
+      "time scaling",
+      "distribution sampling",
+      "convolution theorem",
+      "spectral support comparison"
+    ],
+    "variation_strategy": "Change mathematical object to multi-bandwidth sinc sum",
+    "generation_rationale": "Different from REF_001: a sum of sinc signals with two distinct bandwidths produces a two-level rather than a single rectangular spectrum.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 1",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_001",
+        "criterion_id": "GEN_001_R1",
+        "rubric_order": 1,
+        "criterion": "Original CTFT",
+        "description": "Original CTFT",
+        "max_points": 1.0,
+        "full_credit": "Correct two rectangle terms, amplitudes and support",
+        "partial_credit": "0.5 for correct transform of only one component or correct support with scale error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_001",
+        "criterion_id": "GEN_001_R2",
+        "rubric_order": 2,
+        "criterion": "Sampling transform",
+        "description": "Sampling transform",
+        "max_points": 1.0,
+        "full_credit": "Correct impulse locations and 10π/τ coefficient",
+        "partial_credit": "0.5 for correct spacing with incorrect coefficient",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_001",
+        "criterion_id": "GEN_001_R3",
+        "rubric_order": 3,
+        "criterion": "Sampled signal",
+        "description": "Sampled signal",
+        "max_points": 1.0,
+        "full_credit": "Correct weighted train and specified weights",
+        "partial_credit": "0.5 for correct train with one weight error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_001",
+        "criterion_id": "GEN_001_R4",
+        "rubric_order": 4,
+        "criterion": "Sampled CTFT",
+        "description": "Sampled CTFT",
+        "max_points": 1.0,
+        "full_credit": "Correct replication formula and scaling",
+        "partial_credit": "0.5 for replication formula with missing scale",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_001",
+        "criterion_id": "GEN_001_R5",
+        "rubric_order": 5,
+        "criterion": "Interpretation",
+        "description": "Interpretation",
+        "max_points": 1.0,
+        "full_credit": "Both spectra correctly labeled and no-overlap justification",
+        "partial_credit": "0.5 for mostly correct shape with incomplete heights or explanation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_002",
+    "reference_question_ids": [
+      "REF_001"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Transform & Sampling",
+    "subtopic": "Inverse CTFT and sampling",
+    "concept_tags": [
+      "Inverse CTFT",
+      "time shifting",
+      "cosine modulation in frequency",
+      "sampling",
+      "spectral replication"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Inverse Derivation + Sketching",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Recover a time-domain signal from its frequency-domain representation and predict its sampled spectrum.",
+    "question_text": "A continuous-time signal has frequency representation\n\\[X(j\\omega)=\\tau\\operatorname{rect}\\left(\\frac{\\omega\\tau}{2\\pi}\\right)\\left[1+\\cos\\left(\\frac{\\omega\\tau}{2}\\right)\\right],\\quad\\tau>0.\\]\nSample using an impulse train of period \\(T_s=\\tau/4\\).\n1. (1 point) Find \\(x(t)\\).\n2. (1 point) Express \\(g(t)\\) as an impulse train and determine weights for \\(m=0,\\pm2\\).\n3. (1 point) Derive \\(P(j\\omega)\\) and replica spacing.\n4. (1 point) Derive \\(G(j\\omega)\\).\n5. (1 point) Sketch central and nearest two replicas, label heights/support and determine aliasing.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Write \\(X=X_0+(e^{j\\omega\\tau/2}/2)X_0+(e^{-j\\omega\\tau/2}/2)X_0\\), where \\(X_0=\\tau\\operatorname{rect}(\\omega\\tau/(2\\pi))\\). Inverse CTFT with time shifting yields\n\\[x(t)=\\operatorname{sinc}(\\pi t/\\tau)+\\tfrac12\\operatorname{sinc}(\\pi(t+\\tau/2)/\\tau)+\\tfrac12\\operatorname{sinc}(\\pi(t-\\tau/2)/\\tau).\\]\nStep 2 — At \\(t_m=m\\tau/4\\), sample weights are\n\\[w_m=\\operatorname{sinc}(\\pi m/4)+\\tfrac12\\operatorname{sinc}(\\pi(m+2)/4)+\\tfrac12\\operatorname{sinc}(\\pi(m-2)/4).\\]\nThus \\(g(t)=\\sum_mw_m\\delta(t-m\\tau/4)\\). Using sinc(0)=1 and sinc(π/2)=2/π: \\(w_0=1+2/\\pi\\), \\(w_{\\pm2}=1/2+2/\\pi\\).\nStep 3 — \\(\\omega_s=2\\pi/T_s=8\\pi/\\tau\\), so\n\\[P(j\\omega)=\\frac{8\\pi}{\\tau}\\sum_k\\delta(\\omega-8\\pi k/\\tau).\\]\nStep 4 — Define \\(\\Omega_k=\\omega-8\\pi k/\\tau\\). Spectral sampling produces\n\\[G(j\\omega)=4\\sum_k\\operatorname{rect}(\\Omega_k\\tau/(2\\pi))[1+\\cos(\\Omega_k\\tau/2)].\\]\nStep 5 — Each copy is centered at \\(8\\pi k/\\tau\\), supported within \\(|\\omega-8\\pi k/\\tau|<\\pi/\\tau\\). At the center the height is 8; approaching the support boundary from within it is 4. Draw curved peaks over each rectangular support (with a jump to zero at the edge). Copies do not overlap because spacing \\(8\\pi/\\tau\\) exceeds support width \\(2\\pi/\\tau\\).",
+    "final_answer": "\\(x(t)=\\operatorname{sinc}(\\pi t/\\tau)+\\tfrac12\\operatorname{sinc}(\\pi(t+\\tau/2)/\\tau)+\\tfrac12\\operatorname{sinc}(\\pi(t-\\tau/2)/\\tau)\\); sampled replicas centered at \\(8\\pi k/\\tau\\), peak 8, no aliasing.",
+    "expected_methods": [
+      "Inverse CTFT",
+      "time shifting",
+      "sampling",
+      "spectrum sketch"
+    ],
+    "variation_strategy": "Reverse original time-to-frequency reasoning",
+    "generation_rationale": "Unlike REF_001, start with frequency-domain data and reconstruct the time signal using inverse CTFT and shifts before sampling.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 1",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_002",
+        "criterion_id": "GEN_002_R1",
+        "rubric_order": 1,
+        "criterion": "Inverse CTFT",
+        "description": "Inverse CTFT",
+        "max_points": 1.0,
+        "full_credit": "Correct three-term time-domain signal",
+        "partial_credit": "0.5 for correct shift locations with coefficient error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_002",
+        "criterion_id": "GEN_002_R2",
+        "rubric_order": 2,
+        "criterion": "Sampling weights",
+        "description": "Sampling weights",
+        "max_points": 1.0,
+        "full_credit": "Correct g(t), w0 and w±2",
+        "partial_credit": "0.5 for correct sampling formula but incomplete weights",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_002",
+        "criterion_id": "GEN_002_R3",
+        "rubric_order": 3,
+        "criterion": "Impulse train CTFT",
+        "description": "Impulse train CTFT",
+        "max_points": 1.0,
+        "full_credit": "Correct spacing and amplitude",
+        "partial_credit": "0.5 for correct frequency locations only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_002",
+        "criterion_id": "GEN_002_R4",
+        "rubric_order": 4,
+        "criterion": "Spectral replication",
+        "description": "Spectral replication",
+        "max_points": 1.0,
+        "full_credit": "Correct shifted expression and scaling",
+        "partial_credit": "0.5 for correct structure with scaling/sign error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_002",
+        "criterion_id": "GEN_002_R5",
+        "rubric_order": 5,
+        "criterion": "Spectral interpretation",
+        "description": "Spectral interpretation",
+        "max_points": 1.0,
+        "full_credit": "Correct peak, support, replica positions and aliasing explanation",
+        "partial_credit": "0.5 for substantially correct sketches but incomplete labeling",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_003",
+    "reference_question_ids": [
+      "REF_001"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Transform & Sampling",
+    "subtopic": "Squared sinc and sampling comparison",
+    "concept_tags": [
+      "CTFT",
+      "convolution theorem",
+      "squared sinc",
+      "triangular spectrum",
+      "sampling frequency",
+      "spectral replicas"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Derivation + Comparison + Sketching",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Derive the spectrum of a squared-sinc signal and compare the effects of two sampling intervals.",
+    "question_text": "Consider \\[x(t)=\\operatorname{sinc}^2(\\pi t/\\tau),\\quad\\tau>0.\\]\nSystem A samples at \\(T_A=\\tau/3\\); System B samples at \\(T_B=\\tau/4\\). In both cases \\(p_i(t)=\\sum_m\\delta(t-mT_i)\\), \\(g_i(t)=x(t)p_i(t)\\). You may use the sinc transform pair and multiplication-convolution theorem.\n1. (1 point) Derive \\(X(j\\omega)\\) in terms of \\(\\Lambda(u)=\\max(1-|u|,0)\\).\n2. (1 point) Express \\(g_A,g_B\\) as weighted impulse trains and find first positive zero-weight indices.\n3. (1 point) Derive \\(G_A,G_B\\).\n4. (1 point) Find replica centers, peak heights and bandwidths of both systems.\n5. (1 point) Sketch both spectra, compare replica separation and identify aliasing.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Let \\(s(t)=\\operatorname{sinc}(\\pi t/\\tau)\\), with \\(S(j\\omega)=\\tau\\operatorname{rect}(\\omega\\tau/(2\\pi))\\). Since \\(x=s^2\\), \\(X=(S*S)/(2\\pi)\\). Convolution of two identical rectangles gives\n\\[X(j\\omega)=\\tau\\Lambda(\\omega\\tau/(2\\pi)),\\]\npeak \\(\\tau\\), support \\(|\\omega|\\le2\\pi/\\tau\\), full width \\(4\\pi/\\tau\\).\nStep 2 —\n\\[g_A(t)=\\sum_m\\operatorname{sinc}^2(\\pi m/3)\\delta(t-m\\tau/3),\\]\n\\[g_B(t)=\\sum_m\\operatorname{sinc}^2(\\pi m/4)\\delta(t-m\\tau/4).\\]\nThe first positive zero-weight indices are \\(m=3\\) and \\(m=4\\), respectively; at \\(m=0\\) both weights equal 1.\nStep 3 — With \\(\\omega_{s,A}=6\\pi/\\tau\\) and \\(\\omega_{s,B}=8\\pi/\\tau\\),\n\\[G_A(j\\omega)=3\\sum_k\\Lambda((\\omega-6\\pi k/\\tau)\\tau/(2\\pi)),\\]\n\\[G_B(j\\omega)=4\\sum_k\\Lambda((\\omega-8\\pi k/\\tau)\\tau/(2\\pi)).\\]\nStep 4 — A replicas centered at \\(6\\pi k/\\tau\\), peak 3, width \\(4\\pi/\\tau\\), gaps \\(2\\pi/\\tau\\). B replicas centered at \\(8\\pi k/\\tau\\), peak 4, width \\(4\\pi/\\tau\\), gaps \\(4\\pi/\\tau\\).\nStep 5 — Sketch triangular replicas with linear slopes extending \\(2\\pi/\\tau\\) each side. In both systems \\(\\omega_s>4\\pi/\\tau\\), so no overlap/aliasing. System B has larger gaps.",
+    "final_answer": "\\(X(j\\omega)=\\tau\\Lambda(\\omega\\tau/(2\\pi))\\). Both systems yield nonoverlapping triangular replicas. A: spacing \\(6\\pi/\\tau\\), peak 3; B: spacing \\(8\\pi/\\tau\\), peak 4. B has greater separation.",
+    "expected_methods": [
+      "CTFT",
+      "frequency convolution",
+      "sampling replicas",
+      "support comparison"
+    ],
+    "variation_strategy": "Change mathematical object and compare two parameter regimes",
+    "generation_rationale": "Changes sinc to squared sinc (triangular spectrum) and asks for a comparison of two sampling configurations, not the single rectangular spectrum in REF_001.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 1",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_003",
+        "criterion_id": "GEN_003_R1",
+        "rubric_order": 1,
+        "criterion": "Original spectrum",
+        "description": "Original spectrum",
+        "max_points": 1.0,
+        "full_credit": "Correct triangular transform with height and support",
+        "partial_credit": "0.5 for triangular shape with scale error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_003",
+        "criterion_id": "GEN_003_R2",
+        "rubric_order": 2,
+        "criterion": "Sampled signals",
+        "description": "Sampled signals",
+        "max_points": 1.0,
+        "full_credit": "Correct weighted trains and zero indices",
+        "partial_credit": "0.5 for one correct configuration",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_003",
+        "criterion_id": "GEN_003_R3",
+        "rubric_order": 3,
+        "criterion": "Sampled transforms",
+        "description": "Sampled transforms",
+        "max_points": 1.0,
+        "full_credit": "Correct expressions for both systems",
+        "partial_credit": "0.5 for one correct expression",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_003",
+        "criterion_id": "GEN_003_R4",
+        "rubric_order": 4,
+        "criterion": "Spectral characteristics",
+        "description": "Spectral characteristics",
+        "max_points": 1.0,
+        "full_credit": "Correct centers, heights and widths",
+        "partial_credit": "0.5 for most characteristics with isolated errors",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_003",
+        "criterion_id": "GEN_003_R5",
+        "rubric_order": 5,
+        "criterion": "Spectral interpretation",
+        "description": "Spectral interpretation",
+        "max_points": 1.0,
+        "full_credit": "Correct sketches, gaps and aliasing explanation",
+        "partial_credit": "0.5 for correct comparison but incomplete justification",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_004",
+    "reference_question_ids": [
+      "REF_001"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Transform & Sampling",
+    "subtopic": "Reconstructing bandpass from sampled spectrum",
+    "concept_tags": [
+      "Inverse CTFT",
+      "spectral replication",
+      "frequency shifting",
+      "bandpass signals",
+      "sampling reconstruction"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Inverse Reasoning + Sketching",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Infer the original signal and sampling parameters from a known nonoverlapping sampled spectrum.",
+    "question_text": "An unknown real continuous-time signal \\(x(t)\\) is sampled by \\(p(t)=\\sum_m\\delta(t-mT_s)\\), giving \\(g=xp\\). The original signal is bandlimited to \\(|\\omega|<5\\pi/\\tau\\), \\(\\tau>0\\). The measured \\(G(j\\omega)\\) consists of rectangular bands of height 5, repeated every \\(20\\pi/\\tau\\). In the central spectral group, the nonzero intervals are \\((-4\\pi/\\tau,-2\\pi/\\tau)\\) and \\((2\\pi/\\tau,4\\pi/\\tau)\\). Every other group is an identical copy shifted by integer multiples of \\(20\\pi/\\tau\\); assume no overlap.\n1. (1 point) Find \\(T_s\\) and \\(P(j\\omega)\\).\n2. (1 point) Recover \\(X(j\\omega)\\).\n3. (1 point) Find \\(x(t)\\) explicitly.\n4. (1 point) Express \\(g(t)\\) as a weighted impulse train; give weights \\(m=0,\\pm5\\).\n5. (1 point) Sketch central and nearest groups, explain recovery without aliasing.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Spectral replica spacing \\(\\omega_s=20\\pi/\\tau\\) implies \\(T_s=2\\pi/\\omega_s=\\tau/10\\). Thus\n\\[P(j\\omega)=\\frac{20\\pi}{\\tau}\\sum_k\\delta(\\omega-20\\pi k/\\tau).\\]\nStep 2 — With no overlap, central \\(G=X/T_s\\). Multiply band height 5 by \\(T_s=\\tau/10\\): original band height \\(\\tau/2\\). Hence\n\\[X(j\\omega)=\\frac\\tau2\\left[\\operatorname{rect}((\\omega-3\\pi/\\tau)\\tau/(2\\pi))+\\operatorname{rect}((\\omega+3\\pi/\\tau)\\tau/(2\\pi))\\right].\\]\nStep 3 — Inverse CTFT of shifted rectangles gives a modulated sinc:\n\\[x(t)=\\frac12(e^{j3\\pi t/\\tau}+e^{-j3\\pi t/\\tau})\\operatorname{sinc}(\\pi t/\\tau)=\\operatorname{sinc}(\\pi t/\\tau)\\cos(3\\pi t/\\tau).\\]\nStep 4 —\n\\[g(t)=\\sum_m\\operatorname{sinc}(\\pi m/10)\\cos(3\\pi m/10)\\delta(t-m\\tau/10).\\]\nWeights: \\(w_0=1\\), \\(w_{\\pm5}=\\operatorname{sinc}(\\pi/2)\\cos(3\\pi/2)=0\\).\nStep 5 — Central group has two height-5 bands on stated intervals. Other groups translate boundaries by \\(\\pm20\\pi/\\tau\\). Highest original nonzero frequency is \\(4\\pi/\\tau\\), so \\(\\omega_s=20\\pi/\\tau>8\\pi/\\tau\\); neighboring groups cannot overlap. Recover original \\(X\\) from central group by scaling by \\(T_s\\).",
+    "final_answer": "\\(T_s=\\tau/10\\), \\(x(t)=\\operatorname{sinc}(\\pi t/\\tau)\\cos(3\\pi t/\\tau)\\). Sample weights \\(w_0=1,w_{\\pm5}=0\\), nonoverlapping pairs of rectangular replicas.",
+    "expected_methods": [
+      "Spectral replica identification",
+      "inverse CTFT",
+      "modulation",
+      "sampling"
+    ],
+    "variation_strategy": "Infer unknown original from sampled frequency domain",
+    "generation_rationale": "Unlike REF_001, reverse reconstruct sampling interval, original bandpass spectrum and modulated time-domain signal from measured sampled spectrum.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 1",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_004",
+        "criterion_id": "GEN_004_R1",
+        "rubric_order": 1,
+        "criterion": "Sampling parameters",
+        "description": "Sampling parameters",
+        "max_points": 1.0,
+        "full_credit": "Correct Ts, P(jω) and impulse spacing",
+        "partial_credit": "0.5 for correct Ts but incomplete transform",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_004",
+        "criterion_id": "GEN_004_R2",
+        "rubric_order": 2,
+        "criterion": "Original spectrum",
+        "description": "Original spectrum",
+        "max_points": 1.0,
+        "full_credit": "Correct two shifted rectangles, supports and heights",
+        "partial_credit": "0.5 for correct supports but incorrect scaling",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_004",
+        "criterion_id": "GEN_004_R3",
+        "rubric_order": 3,
+        "criterion": "Inverse CTFT",
+        "description": "Inverse CTFT",
+        "max_points": 1.0,
+        "full_credit": "Correct sinc-cosine expression",
+        "partial_credit": "0.5 for correct idea with shift or coefficient error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_004",
+        "criterion_id": "GEN_004_R4",
+        "rubric_order": 4,
+        "criterion": "Sampled signal",
+        "description": "Sampled signal",
+        "max_points": 1.0,
+        "full_credit": "Correct weighted impulse train and specified weights",
+        "partial_credit": "0.5 for correct general expression but wrong values",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      },
+      {
+        "question_id": "GEN_004",
+        "criterion_id": "GEN_004_R5",
+        "rubric_order": 5,
+        "criterion": "Spectral interpretation",
+        "description": "Spectral interpretation",
+        "max_points": 1.0,
+        "full_credit": "Correct neighboring groups and nonoverlap explanation",
+        "partial_credit": "0.5 for correct layout with incomplete reasoning",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_001"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_005",
+    "reference_question_ids": [
+      "REF_002"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Linear / Circular Convolution",
+    "subtopic": "Missing-sample convolution matching",
+    "concept_tags": [
+      "Discrete convolution",
+      "circular convolution",
+      "missing sample reconstruction",
+      "signal matching",
+      "convolution sum property"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Matching + Calculation + Proof",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Identify convolution operations from partially observed outputs, recover missing samples, and detect an inconsistent output.",
+    "question_text": "Three sequences indexed from n=0 to 3 are\n\\[a[n]=(1,-1,2,0),\\quad b[n]=(1,1,-1,0),\\quad c[n]=(2,0,-1,1).\\]\nFour recordings are produced; each valid output uses either full linear or 4-point circular convolution of two DISTINCT sequences from a,b,c. Some measurements are missing (□); one output is inconsistent with all permitted convolutions:\n\\[Y_1=(2,2,-3,\\square,2,-1,0),\\]\n\\[Y_2=(2,-2,3,2,\\square,2,0),\\]\n\\[Y_3=(\\square,0,0,3),\\]\n\\[Y_4=(1,0,0,2,-2,0,0).\\]\n1. (2 points) Identify pair/type for Y1, recover missing sample.\n2. (2 points) Identify pair/type for Y2, recover missing sample.\n3. (2 points) Identify pair/type for Y3, recover missing sample.\n4. (2 points) Is Y4 possible? Justify using a mathematical property of convolution. Show calculations; circular convolution length N=4.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Full linear convolution of two length-4 sequences has length 7; 4-point circular convolution has length 4.\nStep 2 — Polynomial representations \\(A(z)=1-z+2z^2\\), \\(B(z)=1+z-z^2\\), \\(C(z)=2-z^2+z^3\\). Their products give\n\\[B(z)C(z)=2+2z-3z^2+2z^4-z^5,\\]\nso \\(b*c=(2,2,-3,0,2,-1,0)\\). Hence \\(Y_1=b*c\\) and missing value 0.\nLikewise\n\\[A(z)C(z)=2-2z+3z^2+2z^3-3z^4+2z^5,\\]\nso \\(a*c=(2,-2,3,2,-3,2,0)\\). Hence \\(Y_2=a*c\\) and missing value -3.\nStep 3 — \\(a*b=(1,0,0,3,-2,0,0)\\). Folding indices modulo 4 gives \\(a*_4b=(1+(-2),0,0,3)=(-1,0,0,3)\\). Hence \\(Y_3=a*_4b\\) and missing value -1.\nStep 4 — Convolution preserves the total-sum product: \\(\\sum_ny[n]=(\\sum_nx[n])(\\sum_nh[n])\\), for linear or circular (over one period). Input sums: \\(\\sum a=2\\), \\(\\sum b=1\\), \\(\\sum c=2\\); distinct-pair sums are 2 or 4. But \\(\\sum Y_4=1\\), so Y4 cannot arise from any allowed pair/type.",
+    "final_answer": "Y1 = b*c (linear), □=0; Y2=a*c (linear), □=-3; Y3=a*_4b (circular), □=-1; Y4 invalid by sum property (sum=1, allowed sums 2 or 4).",
+    "expected_methods": [
+      "Discrete linear convolution",
+      "circular folding",
+      "convolution sum property"
+    ],
+    "variation_strategy": "Partial observation and invalid-output detection",
+    "generation_rationale": "Partially observed convolution matching with missing samples and a consistency proof, unlike fully observed matching in REF_002.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 1",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_005",
+        "criterion_id": "GEN_005_R1",
+        "rubric_order": 1,
+        "criterion": "First observation",
+        "description": "First observation",
+        "max_points": 2.0,
+        "full_credit": "1 point for identifying b*c and 1 for missing 0 with valid calculation",
+        "partial_credit": "1 point for correct match or justified missing value alone",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      },
+      {
+        "question_id": "GEN_005",
+        "criterion_id": "GEN_005_R2",
+        "rubric_order": 2,
+        "criterion": "Second observation",
+        "description": "Second observation",
+        "max_points": 2.0,
+        "full_credit": "1 point for identifying a*c and 1 for missing -3 with valid calculation",
+        "partial_credit": "1 point for correct match or justified missing value alone",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      },
+      {
+        "question_id": "GEN_005",
+        "criterion_id": "GEN_005_R3",
+        "rubric_order": 3,
+        "criterion": "Circular convolution",
+        "description": "Circular convolution",
+        "max_points": 2.0,
+        "full_credit": "1 point for a*_4b and 1 for missing -1 with valid calculation",
+        "partial_credit": "1 point for correct match or justified missing value alone",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      },
+      {
+        "question_id": "GEN_005",
+        "criterion_id": "GEN_005_R4",
+        "rubric_order": 4,
+        "criterion": "Invalid observation",
+        "description": "Invalid observation",
+        "max_points": 2.0,
+        "full_credit": "1 point for invalid classification and 1 for sum-property justification",
+        "partial_credit": "1 point if conclusion correct but reasoning missing or incorrect",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_006",
+    "reference_question_ids": [
+      "REF_002"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Linear / Circular Convolution",
+    "subtopic": "Same-pair linear vs circular",
+    "concept_tags": [
+      "Linear convolution",
+      "circular convolution",
+      "time-domain aliasing",
+      "modular indexing",
+      "output interpretation"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Calculation + Matching + Explanation",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Distinguish full linear versus circular convolution and explain circular folding instead of truncation.",
+    "question_text": "Given \\(a[n]=(2,-1,1,2)\\), \\(b[n]=(1,2,-1,1)\\), both on \\(0\\le n\\le3\\), zero elsewhere. A lab produces\n\\[R_A=(2,3,-3,7,2,-1,2),\\quad R_B=(4,2,\\square,7),\\quad R_C=(2,3,-3,7).\\]\nPermitted operations are full linear convolution or 4-point circular convolution of a,b; a recording may be an incorrect or truncated representation.\n1. (2 points) Calculate all seven samples of \\(y=a*b\\).\n2. (2 points) Calculate the four samples of \\(z=a*_4b\\).\n3. (2 points) Classify RA,RB,RC and recover missing RB value.\n4. (2 points) Determine whether circular convolution is just the first four samples of linear convolution, with mathematical justification.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Full linear convolution \\(y[n]=\\sum_k a[k]b[n-k]\\), length 7. Direct evaluations:\n\\[y[0]=2,\\ y[1]=4-1=3,\\ y[2]=-2-2+1=-3,\\]\n\\[y[3]=2+1+2+2=7,\\ y[4]=-1-1+4=2,\\ y[5]=1-2=-1,\\ y[6]=2.\\]\nSo \\(y=(2,3,-3,7,2,-1,2)\\).\nStep 2 — Circular convolution \\(z[n]=\\sum_{k=0}^3a[k]b[(n-k)\\bmod4]\\). Directly,\n\\[z[0]=2(1)+(-1)(1)+1(-1)+2(2)=4,\\]\n\\[z[1]=2(2)+(-1)(1)+1(1)+2(-1)=2,\\]\n\\[z[2]=2(-1)+(-1)(2)+1(1)+2(1)=-1,\\]\n\\[z[3]=2(1)+(-1)(-1)+1(2)+2(1)=7.\\]\nHence \\(z=(4,2,-1,7)\\).\nStep 3 — \\(R_A\\) is full linear convolution, \\(R_B\\) is circular convolution with missing -1, and \\(R_C\\) is a truncated linear output (not a valid full linear or circular result).\nStep 4 — In general \\(z[n]=\\sum_\\ell y[n+4\\ell]\\). For this example, \\(z=(y[0]+y[4],y[1]+y[5],y[2]+y[6],y[3])=(4,2,-1,7)\\). First four linear samples are \\((2,3,-3,7)\\). Thus simple truncation is incorrect: circular convolution folds the tail into the beginning.",
+    "final_answer": "\\(a*b=(2,3,-3,7,2,-1,2)\\); \\(a*_4b=(4,2,-1,7)\\). RA linear, RB circular with □=-1, RC truncated/incorrect. Circular convolution uses folding, not truncation.",
+    "expected_methods": [
+      "Linear convolution sum",
+      "circular convolution sum",
+      "modular folding"
+    ],
+    "variation_strategy": "Same inputs under two operators with a false truncation claim",
+    "generation_rationale": "Compared with REF_002, uses the same pair for two operations and requires identifying a truncated-recording misconception.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 2",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_006",
+        "criterion_id": "GEN_006_R1",
+        "rubric_order": 1,
+        "criterion": "Linear convolution",
+        "description": "Linear convolution",
+        "max_points": 2.0,
+        "full_credit": "Correct seven samples with valid calculations",
+        "partial_credit": "1 for correct setup and mostly correct intermediates",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      },
+      {
+        "question_id": "GEN_006",
+        "criterion_id": "GEN_006_R2",
+        "rubric_order": 2,
+        "criterion": "Circular convolution",
+        "description": "Circular convolution",
+        "max_points": 2.0,
+        "full_credit": "Correct four samples and modular-index method",
+        "partial_credit": "1 for correct method with arithmetic errors",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      },
+      {
+        "question_id": "GEN_006",
+        "criterion_id": "GEN_006_R3",
+        "rubric_order": 3,
+        "criterion": "Output classification",
+        "description": "Output classification",
+        "max_points": 2.0,
+        "full_credit": "Correct classification of all three and missing -1",
+        "partial_credit": "1 for classifications with missing error or vice versa",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      },
+      {
+        "question_id": "GEN_006",
+        "criterion_id": "GEN_006_R4",
+        "rubric_order": 4,
+        "criterion": "Circular folding",
+        "description": "Circular folding",
+        "max_points": 2.0,
+        "full_credit": "Correct folding relation and why truncation is invalid",
+        "partial_credit": "1 for correct conclusion with incomplete reasoning",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_007",
+    "reference_question_ids": [
+      "REF_002"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Linear / Circular Convolution",
+    "subtopic": "Sparse support and periodicity",
+    "concept_tags": [
+      "Discrete impulses",
+      "linear convolution",
+      "circular convolution",
+      "support analysis",
+      "periodic indexing",
+      "output validity"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Matching + Support Proof",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Use impulse support and modular indexing to determine which convolution operation can produce each recording.",
+    "question_text": "\\[x[n]=\\delta[n]+2\\delta[n-4],\\quad h_1[n]=\\delta[n]-\\delta[n-3],\\quad h_2[n]=\\delta[n]+\\delta[n-2].\\]\nEach valid lab recording comes from full linear or 6-point circular convolution of x with h1 or h2:\nA: finite output nonzero at (index,value) {(0,1),(3,-1),(4,2),(7,-2)}.\nB: 6-periodic, one period (1,-2,0,-1,2,0).\nC: 6-periodic, one period (3,0,1,0,2,0).\nD: 6-periodic, one period (3,0,1,0,0,2).\nUnspecified finite-output samples are zero; periodic outputs repeat indefinitely.\n1. (2 points) Identify operation/filter for A.\n2. (2 points) Identify B and justify nonzero locations.\n3. (2 points) Identify C and explain wrap-around.\n4. (2 points) Determine whether D can be produced; justify by convolution support.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Delta convolution shifts impulses:\n\\[x*h_1=\\delta[n]-\\delta[n-3]+2\\delta[n-4]-2\\delta[n-7].\\]\n\\[x*h_2=\\delta[n]+\\delta[n-2]+2\\delta[n-4]+2\\delta[n-6].\\]\nStep 2 — The support and values of \\(x*h_1\\) match A exactly, so \\(A=x*h_1\\) (linear).\nStep 3 — Fold \\(x*h_1\\) modulo 6: indices 0→0,3→3,4→4,7→1. The circular period is \\((1,-2,0,-1,2,0)\\). So \\(B=x*_6h_1\\).\nStep 4 — Fold \\(x*h_2\\) modulo 6: indices 0 and 6 collide at index 0, giving 1+2=3; 2 has 1 and 4 has 2. Period \\((3,0,1,0,2,0)\\). So \\(C=x*_6h_2\\).\nStep 5 — D is nonzero at index 5. Circularly folded support for h1 is {0,1,3,4} and h2 is {0,2,4}; neither permits index 5. Neither full linear convolution is nonzero at n=5 either. Therefore D is impossible.",
+    "final_answer": "A = x*h1 (linear), B = x*_6 h1 (circular), C = x*_6 h2 (circular), D invalid (index 5 cannot be nonzero).",
+    "expected_methods": [
+      "Delta convolution",
+      "modular support reduction",
+      "periodic output interpretation"
+    ],
+    "variation_strategy": "Sparse support and periodic invalid-output detection",
+    "generation_rationale": "Unlike REF_002 graph matching, uses sparse impulse support, modular folding, and impossibility proof by support sets.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 2",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_007",
+        "criterion_id": "GEN_007_R1",
+        "rubric_order": 1,
+        "criterion": "Linear match",
+        "description": "Linear match",
+        "max_points": 2.0,
+        "full_credit": "Correct A=x*h1 and impulse calculation",
+        "partial_credit": "1 for correct match without sufficient calculation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      },
+      {
+        "question_id": "GEN_007",
+        "criterion_id": "GEN_007_R2",
+        "rubric_order": 2,
+        "criterion": "First circular output",
+        "description": "First circular output",
+        "max_points": 2.0,
+        "full_credit": "Correct B=x*_6h1 with modular folding",
+        "partial_credit": "1 for correct match with incomplete index reasoning",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      },
+      {
+        "question_id": "GEN_007",
+        "criterion_id": "GEN_007_R3",
+        "rubric_order": 3,
+        "criterion": "Second circular output",
+        "description": "Second circular output",
+        "max_points": 2.0,
+        "full_credit": "Correct C=x*_6h2 and index-6 wrap-around",
+        "partial_credit": "1 for match without explaining combined value at 0",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      },
+      {
+        "question_id": "GEN_007",
+        "criterion_id": "GEN_007_R4",
+        "rubric_order": 4,
+        "criterion": "Invalid support",
+        "description": "Invalid support",
+        "max_points": 2.0,
+        "full_credit": "Reject D and prove index 5 impossible from support",
+        "partial_credit": "1 for correct rejection without sufficient proof",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_008",
+    "reference_question_ids": [
+      "REF_002"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Linear / Circular Convolution",
+    "subtopic": "Nonunique cancellation matching",
+    "concept_tags": [
+      "Linear convolution",
+      "circular convolution",
+      "signal cancellation",
+      "finite differences",
+      "periodicity",
+      "nonunique matching"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Matching + Cancellation Explanation",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Understand how cancellation permits distinct input-filter pairs to produce the same linear and circular outputs.",
+    "question_text": "Inputs \\(r[n]=(1,1,1,1)\\), \\(s[n]=(1,-1,1,-1)\\), and filters \\(h_+[n]=(1,1)\\), \\(h_-[n]=(1,-1)\\); all start at n=0 and are zero elsewhere.\nRecorded outputs: \\(Y_A=(1,0,0,0,-1)\\), \\(Y_B=(1,2,2,2,1)\\), \\(Y_C=(1,-2,2,-2,1)\\), \\(Y_D=(0,0,0,0)\\).\nRecords A–C are linear convolution; D is one period of 4-point circular convolution. More than one pair may be correct.\n1. (2 points) Identify ALL input-filter combinations for YA.\n2. (2 points) Identify combination for YB.\n3. (2 points) Identify combination for YC.\n4. (2 points) Identify ALL combinations for YD and explain cancellation.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Convolution with \\(h_+\\) implements \\(y[n]=x[n]+x[n-1]\\), and with \\(h_-\\) implements \\(y[n]=x[n]-x[n-1]\\).\nThe four linear results are:\n\\[r*h_+=(1,2,2,2,1),\\quad r*h_-=(1,0,0,0,-1),\\]\n\\[s*h_+=(1,0,0,0,-1),\\quad s*h_-=(1,-2,2,-2,1).\\]\nStep 2 — Accordingly, \\(Y_A=r*h_-\\) OR \\(s*h_+\\), \\(Y_B=r*h_+\\), \\(Y_C=s*h_-\\). YA is not uniquely identifiable.\nStep 3 — A 4-point circular convolution folds the length-5 linear output's last sample into the first: \\(y_4[0]=y[0]+y[4]\\), remaining indices 1–3 unchanged. Thus\n\\[r*_4h_+=(2,2,2,2),\\quad r*_4h_-=(0,0,0,0),\\]\n\\[s*_4h_+=(0,0,0,0),\\quad s*_4h_-=(2,-2,2,-2).\\]\nStep 4 — \\(Y_D\\) can arise from \\(r*_4h_-\\) OR \\(s*_4h_+\\). In each, the nonzero linear end values +1 and -1 fold to the same circular index and cancel.",
+    "final_answer": "YA = r*h- or s*h+; YB = r*h+; YC = s*h-; YD = r*_4 h- or s*_4 h+ (zero from circular cancellation).",
+    "expected_methods": [
+      "Finite difference filter",
+      "linear convolution",
+      "circular folding",
+      "cancellation"
+    ],
+    "variation_strategy": "Nonuniqueness and signal cancellation",
+    "generation_rationale": "Explores nonunique convolution matching and complete enumeration of equivalent input-filter pairs rather than single-pair matching.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 2",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_008",
+        "criterion_id": "GEN_008_R1",
+        "rubric_order": 1,
+        "criterion": "Ambiguous linear output",
+        "description": "Ambiguous linear output",
+        "max_points": 2.0,
+        "full_credit": "Both valid YA combinations with cancellation reasoning",
+        "partial_credit": "1 for only one correct combination",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      },
+      {
+        "question_id": "GEN_008",
+        "criterion_id": "GEN_008_R2",
+        "rubric_order": 2,
+        "criterion": "First unique match",
+        "description": "First unique match",
+        "max_points": 2.0,
+        "full_credit": "YB=r*h+ with computation",
+        "partial_credit": "1 for correct match without calculation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      },
+      {
+        "question_id": "GEN_008",
+        "criterion_id": "GEN_008_R3",
+        "rubric_order": 3,
+        "criterion": "Second unique match",
+        "description": "Second unique match",
+        "max_points": 2.0,
+        "full_credit": "YC=s*h- with computation",
+        "partial_credit": "1 for correct match without calculation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      },
+      {
+        "question_id": "GEN_008",
+        "criterion_id": "GEN_008_R4",
+        "rubric_order": 4,
+        "criterion": "Zero circular output",
+        "description": "Zero circular output",
+        "max_points": 2.0,
+        "full_credit": "Both YD combinations and correct circular cancellation",
+        "partial_credit": "1 for both without explanation or one with correct reasoning",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_002"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_009",
+    "reference_question_ids": [
+      "REF_003"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Series",
+    "subtopic": "Periodic rectangular pulse properties",
+    "concept_tags": [
+      "Complex Fourier series",
+      "DC component",
+      "harmonic coefficients",
+      "time shifting",
+      "discontinuity",
+      "coefficient decay"
+    ],
+    "difficulty": "Medium",
+    "question_type": "True/False with Justification",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Evaluate coefficient and convergence claims for a periodic rectangular signal.",
+    "question_text": "A continuous-time periodic signal has \\(T=6\\), defined on \\(-3\\le t<3\\):\n\\[x(t)=\\begin{cases}2,&|t|<1,\\\\0,&1\\le|t|<3.\\end{cases}\\]\nLet \\(a_k\\) be complex Fourier-series coefficients and \\(y(t)=x(t-1)\\) have coefficients \\(b_k\\). Classify each as True or False and justify (1 point each):\n9.1 DC coefficient \\(a_0=2/3\\).\n9.2 Third harmonic \\(a_3=0\\).\n9.3 First shifted coefficient \\(b_1\\) is purely imaginary.\n9.4 At \\(t=1\\), Fourier series converges to 1.\n9.5 Coefficients decay at least as fast as \\(1/k^2\\), i.e. \\(a_k=O(1/k^2)\\).",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — \\(\\omega_0=\\pi/3\\). For k≠0,\n\\[a_k=\\frac16\\int_{-1}^1 2e^{-jk\\pi t/3}dt=\\frac{2\\sin(k\\pi/3)}{k\\pi}.\\]\nThe DC value is \\(a_0=(1/6)(2)(2)=2/3\\).\n9.1 TRUE: mean value is 2/3.\n9.2 TRUE: \\(a_3=2\\sin\\pi/(3\\pi)=0\\).\n9.3 FALSE: \\(b_k=a_ke^{-jk\\omega_0}\\). \\(a_1=\\sqrt3/\\pi\\), hence \\(b_1=\\sqrt3/(2\\pi)-j3/(2\\pi)\\), with nonzero real and imaginary components.\n9.4 TRUE: at jump t=1, left/right limits 2 and 0, so Fourier series converges to (2+0)/2=1 (even though x(1)=0 by definition).\n9.5 FALSE: \\(a_k\\) contains bounded sine over k, and along \\(k=6m+1\\), \\(|a_k|=\\sqrt3/(\\pi|k|)\\); so not O(1/k²).",
+    "final_answer": "9.1 True; 9.2 True; 9.3 False; 9.4 True; 9.5 False. \\(a_0=2/3\\), \\(a_k=2\\sin(k\\pi/3)/(k\\pi)\\) for k≠0.",
+    "expected_methods": [
+      "Complex Fourier coefficients",
+      "phase shifting",
+      "convergence at jump",
+      "asymptotic decay"
+    ],
+    "variation_strategy": "Different rectangular-pulse parameters and harmonic structure",
+    "generation_rationale": "Different period, amplitude, pulse geometry and time shift from REF_003, altering harmonic zeros and phase while preserving five T/F tested concepts.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 2",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_009",
+        "criterion_id": "GEN_009_R1",
+        "rubric_order": 1,
+        "criterion": "DC coefficient",
+        "description": "DC coefficient",
+        "max_points": 1.0,
+        "full_credit": "True with correct average-value calculation",
+        "partial_credit": "0.5 for correct label only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      },
+      {
+        "question_id": "GEN_009",
+        "criterion_id": "GEN_009_R2",
+        "rubric_order": 2,
+        "criterion": "Harmonic coefficient",
+        "description": "Harmonic coefficient",
+        "max_points": 1.0,
+        "full_credit": "True with a3 evaluation",
+        "partial_credit": "0.5 for correct label only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      },
+      {
+        "question_id": "GEN_009",
+        "criterion_id": "GEN_009_R3",
+        "rubric_order": 3,
+        "criterion": "Time shifting",
+        "description": "Time shifting",
+        "max_points": 1.0,
+        "full_credit": "False with correct bk and b1",
+        "partial_credit": "0.5 for label without explanation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      },
+      {
+        "question_id": "GEN_009",
+        "criterion_id": "GEN_009_R4",
+        "rubric_order": 4,
+        "criterion": "Convergence",
+        "description": "Convergence",
+        "max_points": 1.0,
+        "full_credit": "True with midpoint limits",
+        "partial_credit": "0.5 for label without reasoning",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      },
+      {
+        "question_id": "GEN_009",
+        "criterion_id": "GEN_009_R5",
+        "rubric_order": 5,
+        "criterion": "Coefficient decay",
+        "description": "Coefficient decay",
+        "max_points": 1.0,
+        "full_credit": "False with 1/abs(k) behavior",
+        "partial_credit": "0.5 for label without derivation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_010",
+    "reference_question_ids": [
+      "REF_003"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Series",
+    "subtopic": "Triangular pulse properties",
+    "concept_tags": [
+      "Fourier coefficients",
+      "even symmetry",
+      "triangular pulse",
+      "coefficient decay",
+      "time shifting",
+      "continuity"
+    ],
+    "difficulty": "Medium",
+    "question_type": "True/False with Justification",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Analyze symmetry, continuity and time shifting of a periodic triangular pulse.",
+    "question_text": "Periodic \\(x(t)\\) of period \\(T=4\\), defined for \\(-2\\le t<2\\):\n\\[x(t)=\\begin{cases}1-|t|,&|t|\\le1,\\\\0,&1<|t|<2.\\end{cases}\\]\nLet \\(a_k\\) be the complex Fourier coefficients. Define \\(y(t)=x(t-1)\\) with coefficients \\(b_k\\). True/False with mathematical justification (1 point each):\n10.1 \\(a_0=1/4\\).\n10.2 Every \\(a_k\\) is real.\n10.3 \\(a_k=O(1/k^2)\\) as \\(|k|\\to\\infty\\).\n10.4 At \\(t=1\\) Fourier series converges to 1/2.\n10.5 \\(b_1=2j/\\pi^2\\).",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — \\(\\omega_0=\\pi/2\\). By evenness,\n\\[a_k=\\frac12\\int_0^1(1-t)\\cos(k\\pi t/2)dt.\\]\nFor k≠0, integration by parts yields\n\\[\\int_0^1(1-t)\\cos(\\alpha t)dt=(1-\\cos\\alpha)/\\alpha^2,\\quad\\alpha=k\\pi/2.\\]\nHence \\(a_k=2(1-\\cos(k\\pi/2))/(k^2\\pi^2)\\), k≠0. The area of the triangle is 1, giving \\(a_0=1/4\\).\n10.1 TRUE by area/period.\n10.2 TRUE because real-even signals have real Fourier coefficients, confirmed by cosine integral.\n10.3 TRUE because \\(0\\le1-\\cos(k\\pi/2)\\le2\\), so \\(|a_k|\\le4/(k^2\\pi^2)\\).\n10.4 FALSE: at t=1 both one-sided limits and x(1) equal 0, so series converges to 0.\n10.5 FALSE: \\(a_1=2/\\pi^2\\), \\(b_1=a_1e^{-j\\pi/2}=-2j/\\pi^2\\), not +2j/π².",
+    "final_answer": "10.1 True; 10.2 True; 10.3 True; 10.4 False; 10.5 False. \\(a_0=1/4\\), \\(a_k=2(1-\\cos(k\\pi/2))/(k^2\\pi^2)\\) (k≠0).",
+    "expected_methods": [
+      "Complex Fourier series",
+      "integration by parts",
+      "asymptotic bound",
+      "shift theorem"
+    ],
+    "variation_strategy": "Use continuous triangular pulse instead of discontinuous rectangle",
+    "generation_rationale": "Replaces rectangular pulse with a continuous triangular pulse, changing Fourier coefficient decay and boundary convergence while retaining DC, symmetry, phase and harmonic reasoning.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 2",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_010",
+        "criterion_id": "GEN_010_R1",
+        "rubric_order": 1,
+        "criterion": "DC component",
+        "description": "DC component",
+        "max_points": 1.0,
+        "full_credit": "True with average calculation",
+        "partial_credit": "0.5 for correct label only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      },
+      {
+        "question_id": "GEN_010",
+        "criterion_id": "GEN_010_R2",
+        "rubric_order": 2,
+        "criterion": "Even symmetry",
+        "description": "Even symmetry",
+        "max_points": 1.0,
+        "full_credit": "True with real-even reasoning",
+        "partial_credit": "0.5 for label without explanation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      },
+      {
+        "question_id": "GEN_010",
+        "criterion_id": "GEN_010_R3",
+        "rubric_order": 3,
+        "criterion": "Coefficient decay",
+        "description": "Coefficient decay",
+        "max_points": 1.0,
+        "full_credit": "True with O(1/k²) bound",
+        "partial_credit": "0.5 for correct label but incomplete bound",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      },
+      {
+        "question_id": "GEN_010",
+        "criterion_id": "GEN_010_R4",
+        "rubric_order": 4,
+        "criterion": "Series convergence",
+        "description": "Series convergence",
+        "max_points": 1.0,
+        "full_credit": "False because x(1)=0 and continuous",
+        "partial_credit": "0.5 for label without reasoning",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      },
+      {
+        "question_id": "GEN_010",
+        "criterion_id": "GEN_010_R5",
+        "rubric_order": 5,
+        "criterion": "Time shifting",
+        "description": "Time shifting",
+        "max_points": 1.0,
+        "full_credit": "False and b1=-2j/π²",
+        "partial_credit": "0.5 for label with missing/incorrect intermediate calculation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_011",
+    "reference_question_ids": [
+      "REF_003"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Fourier Series",
+    "subtopic": "Odd periodic square-wave properties",
+    "concept_tags": [
+      "Odd symmetry",
+      "Fourier coefficients",
+      "DC component",
+      "harmonic zeros",
+      "time shifting",
+      "convergence",
+      "coefficient decay"
+    ],
+    "difficulty": "Medium",
+    "question_type": "True/False with Justification",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Analyze Fourier-series properties of an odd periodic signal including harmonic structure and convergence.",
+    "question_text": "Consider the \\(T=2\\pi\\) periodic signal defined over \\(-\\pi<t<\\pi\\):\n\\[x(t)=\\begin{cases}-1,&-\\pi<t<0,\\\\1,&0<t<\\pi,\\\\0,&t=0.\\end{cases}\\]\nLet \\(a_k\\) denote its complex Fourier-series coefficients and \\(y(t)=x(t-\\pi/2)\\) have coefficients \\(b_k\\). Determine True/False and justify (1 point each):\n11.1 \\(a_0=0\\).\n11.2 Every nonzero even-harmonic coefficient \\(a_{2m}\\) is zero.\n11.3 Shifted first-harmonic coefficient \\(b_1=-2/\\pi\\).\n11.4 At t=0, Fourier series converges to 1.\n11.5 \\(a_k=O(1/k^2)\\) as |k|→∞.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Fundamental frequency \\(\\omega_0=1\\). From the definition,\n\\[a_k=\\frac{1}{2\\pi}\\int_{-\\pi}^{\\pi}x(t)e^{-jkt}dt.\\]\nAverage is zero by oddness: \\(a_0=0\\). For k≠0,\n\\[a_k=\\frac{1}{2\\pi}\\left[-\\int_{-\\pi}^0e^{-jkt}dt+\\int_0^\\pi e^{-jkt}dt\\right]=\\frac{1-(-1)^k}{j\\pi k}.\\]\n11.1 TRUE: zero DC.\n11.2 TRUE: for even k≠0, numerator 1−1=0.\n11.3 TRUE: \\(a_1=2/(j\\pi)=-2j/\\pi\\). Shift theorem \\(b_1=a_1e^{-j\\pi/2}=(-2j/\\pi)(-j)=-2/\\pi\\).\n11.4 FALSE: one-sided limits at zero are -1 and +1, yielding midpoint 0, not 1.\n11.5 FALSE: for odd k, \\(|a_k|=2/(\\pi|k|)\\) (1/k decay), not 1/k².",
+    "final_answer": "11.1 T; 11.2 T; 11.3 T; 11.4 F; 11.5 F. \\(a_0=0\\), \\(a_k=(1-(-1)^k)/(j\\pi k)\\) for nonzero k.",
+    "expected_methods": [
+      "Fourier coefficient integral",
+      "oddness",
+      "shift property",
+      "jump convergence",
+      "asymptotic decay"
+    ],
+    "variation_strategy": "Change waveform to bipolar odd square wave",
+    "generation_rationale": "Bipolar odd periodic waveform yields imaginary Fourier coefficients and vanished even harmonics, unlike prior pulse questions.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_011",
+        "criterion_id": "GEN_011_R1",
+        "rubric_order": 1,
+        "criterion": "DC",
+        "description": "DC",
+        "max_points": 1.0,
+        "full_credit": "True with odd-symmetry/zero-average reasoning",
+        "partial_credit": "0.5 for correct label only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      },
+      {
+        "question_id": "GEN_011",
+        "criterion_id": "GEN_011_R2",
+        "rubric_order": 2,
+        "criterion": "Harmonics",
+        "description": "Harmonics",
+        "max_points": 1.0,
+        "full_credit": "True showing even harmonic zeros",
+        "partial_credit": "0.5 for label only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      },
+      {
+        "question_id": "GEN_011",
+        "criterion_id": "GEN_011_R3",
+        "rubric_order": 3,
+        "criterion": "Time shift",
+        "description": "Time shift",
+        "max_points": 1.0,
+        "full_credit": "True and b1=-2/π with phase derivation",
+        "partial_credit": "0.5 for correct label without computation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      },
+      {
+        "question_id": "GEN_011",
+        "criterion_id": "GEN_011_R4",
+        "rubric_order": 4,
+        "criterion": "Convergence",
+        "description": "Convergence",
+        "max_points": 1.0,
+        "full_credit": "False with midpoint at discontinuity 0",
+        "partial_credit": "0.5 for correct label only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      },
+      {
+        "question_id": "GEN_011",
+        "criterion_id": "GEN_011_R5",
+        "rubric_order": 5,
+        "criterion": "Decay",
+        "description": "Decay",
+        "max_points": 1.0,
+        "full_credit": "False establishing 1/abs(k) decay",
+        "partial_credit": "0.5 for correct label only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_003"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_012",
+    "reference_question_ids": [
+      "REF_004"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "CTFT Convolution Identity",
+    "subtopic": "Rational kernels of different widths",
+    "concept_tags": [
+      "Fourier duality",
+      "CTFT scaling",
+      "convolution theorem",
+      "transform uniqueness"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Mathematical Proof",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Prove convolution of different-width rational kernels with CTFT methods.",
+    "question_text": "Given \\(e^{-|t|}\\longleftrightarrow2/(1+\\omega^2)\\), use Fourier duality, scaling and the convolution theorem to prove\n\\[\\frac1{t^2+1}*\\frac1{t^2+4}=\\frac{3\\pi}{2(t^2+9)}.\\]\nDo not evaluate the convolution integral directly.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — By CTFT duality,\n\\[F(j\\omega)=\\mathcal F\\{1/(t^2+1)\\}=\\pi e^{-|\\omega|}.\\]\nStep 2 — Since \\(g(t)=1/(t^2+4)=(1/4)f(t/2)\\), time scaling gives\n\\[G(j\\omega)=\\frac\\pi2e^{-2|\\omega|}.\\]\nStep 3 — Convolution in time transforms to multiplication:\n\\[Y(j\\omega)=F(j\\omega)G(j\\omega)=\\frac{\\pi^2}{2}e^{-3|\\omega|}.\\]\nStep 4 — By the same transform pair with scale 3,\n\\[\\mathcal F\\{1/(t^2+9)\\}=\\frac\\pi3e^{-3|\\omega|}.\\]\nMultiplying by 3π/2 gives \\((\\pi^2/2)e^{-3|\\omega|}\\), identical to Y. By uniqueness of CTFT, the proposed convolution identity holds.",
+    "final_answer": "\\((1/(t^2+1))*(1/(t^2+4))=3\\pi/[2(t^2+9)]\\).",
+    "expected_methods": [
+      "Fourier duality",
+      "time scaling",
+      "product theorem",
+      "uniqueness"
+    ],
+    "variation_strategy": "Change rational kernel scales",
+    "generation_rationale": "Uses two rational kernels of different scales and requires scale normalization, rather than derivative rational convolution in REF_004.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_012",
+        "criterion_id": "GEN_012_R1",
+        "rubric_order": 1,
+        "criterion": "Duality",
+        "description": "Duality",
+        "max_points": 1.0,
+        "full_credit": "Correct transform of 1/(t²+1)",
+        "partial_credit": "0.5 for duality setup with coefficient error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_012",
+        "criterion_id": "GEN_012_R2",
+        "rubric_order": 2,
+        "criterion": "Scaling",
+        "description": "Scaling",
+        "max_points": 1.0,
+        "full_credit": "Correct transform of 1/(t²+4)",
+        "partial_credit": "0.5 for exponential factor with scaling error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_012",
+        "criterion_id": "GEN_012_R3",
+        "rubric_order": 3,
+        "criterion": "Convolution theorem",
+        "description": "Convolution theorem",
+        "max_points": 1.0,
+        "full_credit": "Correct product and exponential exponent",
+        "partial_credit": "0.5 for correct theorem with arithmetic error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_012",
+        "criterion_id": "GEN_012_R4",
+        "rubric_order": 4,
+        "criterion": "RHS transform",
+        "description": "RHS transform",
+        "max_points": 2.0,
+        "full_credit": "Correct transform of proposed result",
+        "partial_credit": "1 for correct setup with factor error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_012",
+        "criterion_id": "GEN_012_R5",
+        "rubric_order": 5,
+        "criterion": "Proof conclusion",
+        "description": "Proof conclusion",
+        "max_points": 1.0,
+        "full_credit": "Correct CTFT uniqueness argument",
+        "partial_credit": "0.5 for correct conclusion without reason",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_013",
+    "reference_question_ids": [
+      "REF_004"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "CTFT Convolution Identity",
+    "subtopic": "Difference of rational kernels",
+    "concept_tags": [
+      "CTFT linearity",
+      "scaling",
+      "convolution theorem",
+      "superposition",
+      "transform uniqueness"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Mathematical Proof",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Prove convolution of a linear combination of rational functions by Fourier superposition.",
+    "question_text": "Let \\(f(t)=1/(t^2+1)-2/(t^2+4)\\) and \\(g(t)=1/(t^2+9)\\). Given\n\\[\\mathcal F\\{1/(t^2+a^2)\\}=(\\pi/a)e^{-a|\\omega|},\\quad a>0,\\]\nprove\n\\[(f*g)(t)=\\frac{4\\pi}{3(t^2+16)}-\\frac{5\\pi}{3(t^2+25)}.\\]",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Linearity and the supplied transform pair give\n\\[F(j\\omega)=\\pi e^{-|\\omega|}-2(\\pi/2)e^{-2|\\omega|}=\\pi e^{-|\\omega|}-\\pi e^{-2|\\omega|}.\\]\nStep 2 — \\(G(j\\omega)=\\pi e^{-3|\\omega|}/3\\).\nStep 3 — Multiplication yields\n\\[Y(j\\omega)=\\frac{\\pi^2}{3}e^{-4|\\omega|}-\\frac{\\pi^2}{3}e^{-5|\\omega|}.\\]\nStep 4 — The first claimed RHS term transforms as\n\\[\\mathcal F\\{4\\pi/[3(t^2+16)]\\}=\\frac{4\\pi}{3}\\frac\\pi4e^{-4|\\omega|}=\\frac{\\pi^2}{3}e^{-4|\\omega|};\\]\nthe second transforms as\n\\[\\mathcal F\\{5\\pi/[3(t^2+25)]\\}=\\frac{\\pi^2}{3}e^{-5|\\omega|}.\\]\nThe difference equals Y. Therefore the identity follows from uniqueness of CTFT.",
+    "final_answer": "\\((1/(t^2+1)-2/(t^2+4))*1/(t^2+9)=4\\pi/[3(t^2+16)]-5\\pi/[3(t^2+25)]\\).",
+    "expected_methods": [
+      "CTFT linearity",
+      "scaling",
+      "convolution multiplication",
+      "inverse transform"
+    ],
+    "variation_strategy": "Superposition of rational kernel components",
+    "generation_rationale": "Combines two rational kernels by superposition; signs and two transform products differ from the reference single identity.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_013",
+        "criterion_id": "GEN_013_R1",
+        "rubric_order": 1,
+        "criterion": "Linearity",
+        "description": "Linearity",
+        "max_points": 1.0,
+        "full_credit": "Correct transforms of both f terms",
+        "partial_credit": "0.5 for one correct term",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_013",
+        "criterion_id": "GEN_013_R2",
+        "rubric_order": 2,
+        "criterion": "Kernel transform",
+        "description": "Kernel transform",
+        "max_points": 1.0,
+        "full_credit": "Correct G(jω)",
+        "partial_credit": "0.5 for correct exponent with wrong scaling",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_013",
+        "criterion_id": "GEN_013_R3",
+        "rubric_order": 3,
+        "criterion": "Convolution",
+        "description": "Convolution",
+        "max_points": 1.0,
+        "full_credit": "Correct product and distribution",
+        "partial_credit": "0.5 for setup with arithmetic error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_013",
+        "criterion_id": "GEN_013_R4",
+        "rubric_order": 4,
+        "criterion": "Inversion",
+        "description": "Inversion",
+        "max_points": 2.0,
+        "full_credit": "Correct inverse transforms of both terms",
+        "partial_credit": "1 for one term correct",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_013",
+        "criterion_id": "GEN_013_R5",
+        "rubric_order": 5,
+        "criterion": "Proof",
+        "description": "Proof",
+        "max_points": 1.0,
+        "full_credit": "Correct uniqueness argument",
+        "partial_credit": "0.5 for unsubstantiated conclusion",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_014",
+    "reference_question_ids": [
+      "REF_004"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "CTFT Convolution Identity",
+    "subtopic": "Second-derivative convolution",
+    "concept_tags": [
+      "Time differentiation",
+      "second derivative",
+      "CTFT",
+      "convolution theorem",
+      "transform uniqueness"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Mathematical Proof",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Prove a second-derivative convolution identity via the Fourier differentiation property.",
+    "question_text": "Let \\(f(t)=1/(t^2+1)\\) and \\(\\mathcal F\\{f(t)\\}=\\pi e^{-|\\omega|}\\). Use the second derivative and convolution theorem to prove\n\\[\\frac{6t^2-2}{(t^2+1)^3}*\\frac1{t^2+1}=\\frac{4\\pi(3t^2-4)}{(t^2+4)^3}.\\]",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Differentiate \\(f(t)=1/(t^2+1)\\):\n\\[f'(t)=-2t/(t^2+1)^2,\\quad f''(t)=-2/(t^2+1)^2+8t^2/(t^2+1)^3=(6t^2-2)/(t^2+1)^3.\\]\nStep 2 — Second-derivative CTFT:\n\\[\\mathcal F\\{f''\\}=(j\\omega)^2F(j\\omega)=-\\pi\\omega^2e^{-|\\omega|}.\\]\nStep 3 — The left convolution therefore has transform\n\\[Y(j\\omega)=-\\pi\\omega^2e^{-|\\omega|}\\cdot\\pi e^{-|\\omega|}=-\\pi^2\\omega^2e^{-2|\\omega|}.\\]\nStep 4 — Scaling gives \\(\\mathcal F\\{2\\pi/(t^2+4)\\}=\\pi^2e^{-2|\\omega|}\\). Direct differentiation verifies\n\\[\\frac{d^2}{dt^2}\\frac{2\\pi}{t^2+4}=\\frac{4\\pi(3t^2-4)}{(t^2+4)^3}.\\]\nIts CTFT is \\(-\\pi^2\\omega^2e^{-2|\\omega|}\\), identical to the left. Uniqueness proves the identity.",
+    "final_answer": "\\(((6t^2-2)/(t^2+1)^3)*(1/(t^2+1))=4\\pi(3t^2-4)/(t^2+4)^3\\).",
+    "expected_methods": [
+      "Differentiation",
+      "Fourier derivative property",
+      "convolution theorem",
+      "uniqueness"
+    ],
+    "variation_strategy": "Higher derivative rational kernel",
+    "generation_rationale": "Uses second rather than first derivative, producing a quadratic numerator and the -(ω²) multiplier.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_014",
+        "criterion_id": "GEN_014_R1",
+        "rubric_order": 1,
+        "criterion": "Derivative recognition",
+        "description": "Derivative recognition",
+        "max_points": 1.0,
+        "full_credit": "Correct f''(t)",
+        "partial_credit": "0.5 for correct method with algebra error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_014",
+        "criterion_id": "GEN_014_R2",
+        "rubric_order": 2,
+        "criterion": "CTFT differentiation",
+        "description": "CTFT differentiation",
+        "max_points": 1.0,
+        "full_credit": "Correct -πω² exp(-abs(ω))",
+        "partial_credit": "0.5 for property missing minus sign",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_014",
+        "criterion_id": "GEN_014_R3",
+        "rubric_order": 3,
+        "criterion": "Convolution theorem",
+        "description": "Convolution theorem",
+        "max_points": 1.0,
+        "full_credit": "Correct -π²ω² exp(-2abs(ω))",
+        "partial_credit": "0.5 for setup with factor error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_014",
+        "criterion_id": "GEN_014_R4",
+        "rubric_order": 4,
+        "criterion": "RHS transform",
+        "description": "RHS transform",
+        "max_points": 2.0,
+        "full_credit": "Correct second derivative and scaled Fourier transform",
+        "partial_credit": "1 for correct partial derivation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_014",
+        "criterion_id": "GEN_014_R5",
+        "rubric_order": 5,
+        "criterion": "Proof conclusion",
+        "description": "Proof conclusion",
+        "max_points": 1.0,
+        "full_credit": "Equal transforms and uniqueness",
+        "partial_credit": "0.5 for result without explanation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_015",
+    "reference_question_ids": [
+      "REF_004"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "CTFT Convolution Identity",
+    "subtopic": "Opposite time shifts",
+    "concept_tags": [
+      "CTFT time shifting",
+      "scaling",
+      "convolution theorem",
+      "phase factors",
+      "transform uniqueness"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Mathematical Proof",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Prove convolution identity for independently shifted rational kernels and explain center shifts.",
+    "question_text": "Let \\(f(t)=1/((t-1)^2+1)\\) and \\(g(t)=1/((t+2)^2+4)\\). Given \\(\\mathcal F\\{1/(t^2+a^2)\\}=(\\pi/a)e^{-a|\\omega|}\\), prove\n\\[(f*g)(t)=\\frac{3\\pi}{2((t+1)^2+9)}.\\]\nExplain why the resulting convolution is centered at t=-1.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — \\(f\\) is delayed 1 relative to \\(1/(t^2+1)\\), hence\n\\[F(j\\omega)=\\pi e^{-|\\omega|}e^{-j\\omega}.\\]\nStep 2 — \\(g\\) is advanced 2 relative to \\(1/(t^2+4)\\), hence\n\\[G(j\\omega)=\\frac\\pi2e^{-2|\\omega|}e^{j2\\omega}.\\]\nStep 3 — Convolution theorem gives\n\\[Y(j\\omega)=\\frac{\\pi^2}{2}e^{-3|\\omega|}e^{j\\omega}.\\]\nStep 4 — Unshifted \\(2\\pi/(t^2+9)\\) has CTFT \\((2\\pi)(\\pi/3)e^{-3|\\omega|}\\); using \\(3\\pi/[2(t^2+9)]\\) instead gives \\((\\pi^2/2)e^{-3|\\omega|}\\). Multiplication by \\(e^{j\\omega}\\) advances this result by 1: \\(y(t)=3\\pi/[2((t+1)^2+9)]\\).\nStep 5 — The shift centers add under convolution: +1 + (-2) = -1. Both sides have the same CTFT, proving the identity.",
+    "final_answer": "\\(f*g=3\\pi/[2((t+1)^2+9)]\\), centered at t=-1.",
+    "expected_methods": [
+      "Time shifting",
+      "rational scaling",
+      "convolution theorem",
+      "inverse CTFT"
+    ],
+    "variation_strategy": "Oppositely shifted kernels and net phase",
+    "generation_rationale": "Opposite shifts yield a nonzero resulting center, emphasizing Fourier-domain complex phase factors and shift addition.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_015",
+        "criterion_id": "GEN_015_R1",
+        "rubric_order": 1,
+        "criterion": "First shift",
+        "description": "First shift",
+        "max_points": 1.0,
+        "full_credit": "Correct transform with e^-jω",
+        "partial_credit": "0.5 for base transform with phase mistake",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_015",
+        "criterion_id": "GEN_015_R2",
+        "rubric_order": 2,
+        "criterion": "Second shift",
+        "description": "Second shift",
+        "max_points": 1.0,
+        "full_credit": "Correct transform with e^j2ω",
+        "partial_credit": "0.5 for base transform with phase mistake",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_015",
+        "criterion_id": "GEN_015_R3",
+        "rubric_order": 3,
+        "criterion": "Transform product",
+        "description": "Transform product",
+        "max_points": 1.0,
+        "full_credit": "Correct exponential decay and net phase",
+        "partial_credit": "0.5 for setup with phase error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_015",
+        "criterion_id": "GEN_015_R4",
+        "rubric_order": 4,
+        "criterion": "Inverse transform",
+        "description": "Inverse transform",
+        "max_points": 2.0,
+        "full_credit": "Correct amplitude denominator and time shift",
+        "partial_credit": "1 for correct unshifted inverse",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      },
+      {
+        "question_id": "GEN_015",
+        "criterion_id": "GEN_015_R5",
+        "rubric_order": 5,
+        "criterion": "Shift interpretation",
+        "description": "Shift interpretation",
+        "max_points": 1.0,
+        "full_credit": "Explain combined center -1",
+        "partial_credit": "0.5 for center only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_004"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_016",
+    "reference_question_ids": [
+      "REF_005"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Inverse DTFT",
+    "subtopic": "Mixed harmonics and two geometric terms",
+    "concept_tags": [
+      "Trigonometric identities",
+      "complex exponentials",
+      "inverse DTFT",
+      "partial fractions",
+      "causal sequences"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Inverse DTFT Calculation (2 parts)",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Invert DTFT using harmonic expansion and rational partial fractions.",
+    "question_text": "Find the inverse DTFT of both expressions, showing all steps.\nPart A (3 points): \\[X_A(e^{j\\omega})=(1+j\\sin\\omega)\\cos3\\omega.\\]\nPart B (5 points): \\[X_B(e^{j\\omega})=\\frac{1+2e^{-j\\omega}}{(1-\\frac12e^{-j\\omega})(1+\\frac13e^{-j\\omega})}.\\]\nFor Part B assume the causal geometric-series expansion.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Part A — Step 1: \\(\\sin\\omega\\cos3\\omega=(\\sin4\\omega-\\sin2\\omega)/2\\), so\n\\[X_A=\\cos3\\omega+\\frac j2\\sin4\\omega-\\frac j2\\sin2\\omega.\\]\nStep 2: Use Euler expansions:\n\\[X_A=\\tfrac12(e^{j3\\omega}+e^{-j3\\omega})+\\tfrac14(e^{j4\\omega}-e^{-j4\\omega})-\\tfrac14(e^{j2\\omega}-e^{-j2\\omega}).\\]\nStep 3: Since \\(e^{-j\\omega n_0}\\leftrightarrow\\delta[n-n_0]\\),\n\\[x_A[n]=\\tfrac12\\delta[n+3]+\\tfrac12\\delta[n-3]+\\tfrac14\\delta[n+4]-\\tfrac14\\delta[n-4]-\\tfrac14\\delta[n+2]+\\tfrac14\\delta[n-2].\\]\nPart B — Step 1: Set \\(z=e^{-j\\omega}\\). Then\n\\[X_B(z)=(1+2z)/((1-z/2)(1+z/3)).\\]\nStep 2: Write \\(X_B=A/(1-z/2)+B/(1+z/3)\\), giving \\(A+B=1\\), \\(A/3-B/2=2\\), hence \\(A=3,B=-2\\).\nStep 3: \\(X_B=3/(1-z/2)-2/(1+z/3)\\). Causal transform \\(1/(1-az)\\leftrightarrow a^nu[n]\\) gives\n\\[x_B[n]=[3(1/2)^n-2(-1/3)^n]u[n].\\]",
+    "final_answer": "\\(x_A[n]=\\frac12\\delta[n+3]+\\frac12\\delta[n-3]+\\frac14\\delta[n+4]-\\frac14\\delta[n-4]-\\frac14\\delta[n+2]+\\frac14\\delta[n-2]\\); \\(x_B[n]=[3(1/2)^n-2(-1/3)^n]u[n]\\).",
+    "expected_methods": [
+      "Product-to-sum",
+      "Euler expansion",
+      "partial fractions",
+      "causal inverse DTFT"
+    ],
+    "variation_strategy": "Different harmonic interactions and rational factors",
+    "generation_rationale": "Uses mixed harmonics producing more impulse indices, and one positive/one alternating causal geometric component.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_016",
+        "criterion_id": "GEN_016_R1",
+        "rubric_order": 1,
+        "criterion": "Trigonometric identity",
+        "description": "Trigonometric identity",
+        "max_points": 1.0,
+        "full_credit": "Correct product-to-sum expansion",
+        "partial_credit": "0.5 for correct approach with sign error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_016",
+        "criterion_id": "GEN_016_R2",
+        "rubric_order": 2,
+        "criterion": "Exponential expansion",
+        "description": "Exponential expansion",
+        "max_points": 1.0,
+        "full_credit": "Correct coefficients and exponents",
+        "partial_credit": "0.5 for substantially correct expansion",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_016",
+        "criterion_id": "GEN_016_R3",
+        "rubric_order": 3,
+        "criterion": "Index mapping",
+        "description": "Index mapping",
+        "max_points": 1.0,
+        "full_credit": "Correct impulse locations and signs",
+        "partial_credit": "0.5 for structure with index errors",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_016",
+        "criterion_id": "GEN_016_R4",
+        "rubric_order": 4,
+        "criterion": "Rational setup",
+        "description": "Rational setup",
+        "max_points": 1.0,
+        "full_credit": "Correct z substitution and denominator",
+        "partial_credit": "0.5 for substitution with incomplete setup",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_016",
+        "criterion_id": "GEN_016_R5",
+        "rubric_order": 5,
+        "criterion": "Partial fractions",
+        "description": "Partial fractions",
+        "max_points": 2.0,
+        "full_credit": "Correct A=3,B=-2",
+        "partial_credit": "1 for decomposition with coefficient error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_016",
+        "criterion_id": "GEN_016_R6",
+        "rubric_order": 6,
+        "criterion": "Geometric pairs",
+        "description": "Geometric pairs",
+        "max_points": 0.5,
+        "full_credit": "Correct causal pair and alternating sign",
+        "partial_credit": "0.25 for partially correct pair",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_016",
+        "criterion_id": "GEN_016_R7",
+        "rubric_order": 7,
+        "criterion": "Final sequence",
+        "description": "Final sequence",
+        "max_points": 1.5,
+        "full_credit": "Correct coefficients powers and u[n]",
+        "partial_credit": "Up to 1 for structure with arithmetic error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_017",
+    "reference_question_ids": [
+      "REF_005"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Inverse DTFT",
+    "subtopic": "Symmetric harmonics and alternating causal terms",
+    "concept_tags": [
+      "Product-to-sum",
+      "symmetric impulse sequences",
+      "partial fractions",
+      "alternating geometric sequences"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Inverse DTFT Calculation (2 parts)",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Use symmetry to invert trigonometric spectra and distinguish geometric components.",
+    "question_text": "Find both inverse DTFT sequences.\nPart A (3 points): \\[X_A(e^{j\\omega})=2\\cos\\omega\\cos2\\omega.\\]\nPart B (5 points): \\[X_B(e^{j\\omega})=\\frac{3+\\frac16e^{-j\\omega}}{(1-\\frac12e^{-j\\omega})(1+\\frac13e^{-j\\omega})}.\\]\nUse the causal expansion in Part B.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Part A — Step 1: \\(2\\cos\\omega\\cos2\\omega=\\cos3\\omega+\\cos\\omega\\).\nStep 2: \\(X_A=(e^{j3\\omega}+e^{-j3\\omega}+e^{j\\omega}+e^{-j\\omega})/2\\).\nStep 3: Thus\n\\[x_A[n]=\\tfrac12(\\delta[n+3]+\\delta[n-3]+\\delta[n+1]+\\delta[n-1]).\\]\nPart B — Step 1: With \\(z=e^{-j\\omega}\\), write\n\\[X_B(z)=(3+z/6)/((1-z/2)(1+z/3))=A/(1-z/2)+B/(1+z/3).\\]\nStep 2: Equate \\(A+B=3\\), \\(A/3-B/2=1/6\\). Solve \\(A=2,B=1\\).\nStep 3: Using causal geometric DTFT pairs,\n\\[X_B(z)=2/(1-z/2)+1/(1+z/3)\\]\nbecomes\n\\[x_B[n]=[2(1/2)^n+(-1/3)^n]u[n].\\]\nThe second component alternates sign because its base is negative.",
+    "final_answer": "\\(x_A[n]=[\\delta[n+3]+\\delta[n-3]+\\delta[n+1]+\\delta[n-1]]/2\\); \\(x_B[n]=[2(1/2)^n+(-1/3)^n]u[n]\\).",
+    "expected_methods": [
+      "Trig product-to-sum",
+      "Euler expansion",
+      "partial fractions",
+      "geometric series"
+    ],
+    "variation_strategy": "Symmetric harmonics and alternating causal ratio",
+    "generation_rationale": "Real-even harmonic spectrum and sum of positive/alternating decays, different coefficients and expression from GEN_016.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_017",
+        "criterion_id": "GEN_017_R1",
+        "rubric_order": 1,
+        "criterion": "Trig identity",
+        "description": "Trig identity",
+        "max_points": 1.0,
+        "full_credit": "Correct cos3ω+cosω",
+        "partial_credit": "0.5 for method with angle error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_017",
+        "criterion_id": "GEN_017_R2",
+        "rubric_order": 2,
+        "criterion": "Complex exponentials",
+        "description": "Complex exponentials",
+        "max_points": 1.0,
+        "full_credit": "Four correct exponential terms",
+        "partial_credit": "0.5 for method with coefficient errors",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_017",
+        "criterion_id": "GEN_017_R3",
+        "rubric_order": 3,
+        "criterion": "Inverse indices",
+        "description": "Inverse indices",
+        "max_points": 1.0,
+        "full_credit": "Correct symmetric impulses",
+        "partial_credit": "0.5 for correct support with scaling error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_017",
+        "criterion_id": "GEN_017_R4",
+        "rubric_order": 4,
+        "criterion": "Rational setup",
+        "description": "Rational setup",
+        "max_points": 1.0,
+        "full_credit": "Correct substitution and factors",
+        "partial_credit": "0.5 for correct z substitution only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_017",
+        "criterion_id": "GEN_017_R5",
+        "rubric_order": 5,
+        "criterion": "Partial fractions",
+        "description": "Partial fractions",
+        "max_points": 2.0,
+        "full_credit": "Correct A=2,B=1",
+        "partial_credit": "1 for setup but coefficient error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_017",
+        "criterion_id": "GEN_017_R6",
+        "rubric_order": 6,
+        "criterion": "Causal pair",
+        "description": "Causal pair",
+        "max_points": 0.5,
+        "full_credit": "Correct geometric interpretation",
+        "partial_credit": "0.25 for incomplete interpretation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_017",
+        "criterion_id": "GEN_017_R7",
+        "rubric_order": 7,
+        "criterion": "Final sequence",
+        "description": "Final sequence",
+        "max_points": 1.5,
+        "full_credit": "Correct powers signs and u[n]",
+        "partial_credit": "Up to 1 for mostly correct sequence",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_018",
+    "reference_question_ids": [
+      "REF_005"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Inverse DTFT",
+    "subtopic": "Time-advanced finite and infinite sequences",
+    "concept_tags": [
+      "DTFT time shifting",
+      "impulse index signs",
+      "partial fractions",
+      "causal expansion",
+      "left-sided advancement"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Inverse DTFT Calculation (2 parts)",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Apply frequency-domain time advance to both finite and infinite DTFT sequences.",
+    "question_text": "Find the inverse DTFTs:\nPart A (3 points): \\[X_A(e^{j\\omega})=e^{j2\\omega}(1-\\cos2\\omega).\\]\nPart B (5 points): \\[X_B(e^{j\\omega})=e^{j2\\omega}\\frac{1+e^{-j\\omega}}{(1-\\frac12e^{-j\\omega})(1+\\frac14e^{-j\\omega})}.\\]\nFor Part B invert the rational factor with the causal expansion first, then use time shifting.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Part A — Step 1: \\(1-\\cos2\\omega=1-\\tfrac12e^{j2\\omega}-\\tfrac12e^{-j2\\omega}\\).\nStep 2: Multiply by \\(e^{j2\\omega}\\): \\(X_A=e^{j2\\omega}-\\tfrac12e^{j4\\omega}-\\tfrac12\\).\nStep 3: Inverse mapping gives\n\\[x_A[n]=\\delta[n+2]-\\tfrac12\\delta[n+4]-\\tfrac12\\delta[n].\\]\nPart B — Step 1: Set \\(z=e^{-j\\omega}\\), define \\(W(z)=(1+z)/((1-z/2)(1+z/4))\\).\nStep 2: Decompose \\(W=A/(1-z/2)+B/(1+z/4)\\). Matching \\(A+B=1\\), \\(A/4-B/2=1\\) gives \\(A=2,B=-1\\).\nStep 3: Causal sequence of W:\n\\[w[n]=[2(1/2)^n-(-1/4)^n]u[n].\\]\nStep 4: Since multiplication by \\(e^{j2\\omega}\\) advances by two samples,\n\\[x_B[n]=w[n+2]=[2(1/2)^{n+2}-(-1/4)^{n+2}]u[n+2].\\]\nThe resulting sequence begins at n=-2 even though the unshifted rational factor had a causal inverse.",
+    "final_answer": "\\(x_A[n]=\\delta[n+2]-\\frac12\\delta[n+4]-\\frac12\\delta[n]\\); \\(x_B[n]=[2(1/2)^{n+2}-(-1/4)^{n+2}]u[n+2]\\).",
+    "expected_methods": [
+      "Trig expansion",
+      "partial fractions",
+      "causal inverse",
+      "DTFT time shifting"
+    ],
+    "variation_strategy": "Frequency-domain phase and shifted sequence support",
+    "generation_rationale": "Introduces a time advance causing noncausal support for an otherwise causal rational inverse, stressing index signs.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_018",
+        "criterion_id": "GEN_018_R1",
+        "rubric_order": 1,
+        "criterion": "Cosine expansion",
+        "description": "Cosine expansion",
+        "max_points": 1.0,
+        "full_credit": "Correct exponential expression",
+        "partial_credit": "0.5 for correct method with sign error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_018",
+        "criterion_id": "GEN_018_R2",
+        "rubric_order": 2,
+        "criterion": "Phase multiplication",
+        "description": "Phase multiplication",
+        "max_points": 1.0,
+        "full_credit": "Correct e^j2ω multiplication",
+        "partial_credit": "0.5 for shift idea with algebra error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_018",
+        "criterion_id": "GEN_018_R3",
+        "rubric_order": 3,
+        "criterion": "Impulse mapping",
+        "description": "Impulse mapping",
+        "max_points": 1.0,
+        "full_credit": "Correct three impulses",
+        "partial_credit": "0.5 for support with coefficient error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_018",
+        "criterion_id": "GEN_018_R4",
+        "rubric_order": 4,
+        "criterion": "Rational setup",
+        "description": "Rational setup",
+        "max_points": 1.0,
+        "full_credit": "Correct W(z) and substitution",
+        "partial_credit": "0.5 for incomplete setup",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_018",
+        "criterion_id": "GEN_018_R5",
+        "rubric_order": 5,
+        "criterion": "Partial fractions",
+        "description": "Partial fractions",
+        "max_points": 2.0,
+        "full_credit": "Correct A=2,B=-1",
+        "partial_credit": "1 for method with numerical error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_018",
+        "criterion_id": "GEN_018_R6",
+        "rubric_order": 6,
+        "criterion": "Causal inversion",
+        "description": "Causal inversion",
+        "max_points": 0.5,
+        "full_credit": "Correct unshifted w[n]",
+        "partial_credit": "0.25 for partial correctness",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_018",
+        "criterion_id": "GEN_018_R7",
+        "rubric_order": 7,
+        "criterion": "Shifted sequence",
+        "description": "Shifted sequence",
+        "max_points": 1.5,
+        "full_credit": "Correct n+2 powers and u[n+2]",
+        "partial_credit": "Up to 1 for right structure but support error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_019",
+    "reference_question_ids": [
+      "REF_005"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "Inverse DTFT",
+    "subtopic": "Mixed harmonics and three-pole rational inverse",
+    "concept_tags": [
+      "Inverse DTFT",
+      "trigonometric products",
+      "complex exponentials",
+      "three-term partial fractions",
+      "causal sequences"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Inverse DTFT Calculation (2 parts)",
+    "rubric_max_score": 8.0,
+    "learning_objective": "Recover finite impulse output from mixed harmonics and causal output from three-factor rational DTFT.",
+    "question_text": "Find inverse DTFTs:\nPart A (3 points): \\[X_A(e^{j\\omega})=(1-j\\sin2\\omega)\\cos\\omega.\\]\nPart B (5 points): For \\(z=e^{-j\\omega}\\), \\[X_B(z)=\\frac{2+\\frac54z-\\frac58z^2}{(1-\\frac12z)(1+\\frac12z)(1-\\frac14z)}.\\]\nAssume causal expansion for Part B.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Part A — Step 1: \\(\\sin2\\omega\\cos\\omega=(\\sin3\\omega+\\sin\\omega)/2\\), so\n\\[X_A=\\cos\\omega-\\frac j2\\sin3\\omega-\\frac j2\\sin\\omega.\\]\nStep 2: Convert each harmonic to Euler exponentials, combine overlapping order-1 terms:\n\\[X_A=\\tfrac14e^{j\\omega}+\\tfrac34e^{-j\\omega}-\\tfrac14e^{j3\\omega}+\\tfrac14e^{-j3\\omega}.\\]\nStep 3: Invert:\n\\[x_A[n]=\\tfrac14\\delta[n+1]+\\tfrac34\\delta[n-1]-\\tfrac14\\delta[n+3]+\\tfrac14\\delta[n-3].\\]\nPart B — Step 1: Assume\n\\[X_B(z)=\\frac A{1-z/2}+\\frac B{1+z/2}+\\frac C{1-z/4}.\\]\nStep 2: Numerator matching yields\n\\[A+B+C=2,\\quad A/4-3B/4=5/4,\\quad-A/8+B/8-C/4=-5/8.\\]\nThus \\(A=2,B=-1,C=1\\).\nStep 3: The rational function equals\n\\[2/(1-z/2)-1/(1+z/2)+1/(1-z/4).\\]\nUsing causal pairs,\n\\[x_B[n]=[2(1/2)^n-(-1/2)^n+(1/4)^n]u[n].\\]",
+    "final_answer": "\\(x_A[n]=\\tfrac14\\delta[n+1]+\\tfrac34\\delta[n-1]-\\tfrac14\\delta[n+3]+\\tfrac14\\delta[n-3]\\); \\(x_B[n]=[2(1/2)^n-(-1/2)^n+(1/4)^n]u[n]\\).",
+    "expected_methods": [
+      "Trig products",
+      "exponentials",
+      "three-term partial fractions",
+      "causal DTFT"
+    ],
+    "variation_strategy": "Three-pole inverse and overlapping harmonics",
+    "generation_rationale": "Mixed harmonic overlap and three rational factors produce richer finite and infinite outputs than REF_005.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_019",
+        "criterion_id": "GEN_019_R1",
+        "rubric_order": 1,
+        "criterion": "Trig identity",
+        "description": "Trig identity",
+        "max_points": 1.0,
+        "full_credit": "Correct harmonic decomposition",
+        "partial_credit": "0.5 for method with sign error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_019",
+        "criterion_id": "GEN_019_R2",
+        "rubric_order": 2,
+        "criterion": "Exponential combination",
+        "description": "Exponential combination",
+        "max_points": 1.0,
+        "full_credit": "Correct combined coefficients",
+        "partial_credit": "0.5 for correct terms but incomplete combination",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_019",
+        "criterion_id": "GEN_019_R3",
+        "rubric_order": 3,
+        "criterion": "Impulse sequence",
+        "description": "Impulse sequence",
+        "max_points": 1.0,
+        "full_credit": "Correct indices and amplitudes",
+        "partial_credit": "0.5 for isolated index/sign error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_019",
+        "criterion_id": "GEN_019_R4",
+        "rubric_order": 4,
+        "criterion": "Partial-fraction setup",
+        "description": "Partial-fraction setup",
+        "max_points": 1.0,
+        "full_credit": "Correct three-factor decomposition",
+        "partial_credit": "0.5 for incomplete matching equations",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_019",
+        "criterion_id": "GEN_019_R5",
+        "rubric_order": 5,
+        "criterion": "Coefficient solution",
+        "description": "Coefficient solution",
+        "max_points": 2.0,
+        "full_credit": "Correct A=2 B=-1 C=1",
+        "partial_credit": "1 for correct setup with arithmetic error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_019",
+        "criterion_id": "GEN_019_R6",
+        "rubric_order": 6,
+        "criterion": "Causal pairs",
+        "description": "Causal pairs",
+        "max_points": 0.5,
+        "full_credit": "Correct geometric pairs",
+        "partial_credit": "0.25 for partial correctness",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      },
+      {
+        "question_id": "GEN_019",
+        "criterion_id": "GEN_019_R7",
+        "rubric_order": 7,
+        "criterion": "Final sequence",
+        "description": "Final sequence",
+        "max_points": 1.5,
+        "full_credit": "Correct coefficients powers and unit step",
+        "partial_credit": "Up to 1 for mostly correct sequence",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_005"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_020",
+    "reference_question_ids": [
+      "REF_006"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "DFT & DTFS",
+    "subtopic": "Weighted-neighbor interpolation",
+    "concept_tags": [
+      "DFT",
+      "weighted interpolation",
+      "even/odd decomposition",
+      "index mapping",
+      "DTFS"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Algebraic Derivation (2 parts)",
+    "rubric_max_score": 7.0,
+    "learning_objective": "Derive DFT relation for unequal adjacent-sample interpolation and associated periodic DTFS.",
+    "question_text": "Let \\(a[n]\\) be length 4 with modulo-4 indexing and \\(A[k]=\\sum_{r=0}^3a[r]e^{-j2\\pi kr/4}\\). Construct length-8 \\(b[n]\\) by\n\\[b[2r]=a[r],\\quad b[2r+1]=\\frac34a[r]+\\frac14a[r+1],\\quad r=0,1,2,3.\\]\nLet \\(B[k]\\) be its 8-point DFT.\n1. (5 points) Prove for k=0,…,7:\n\\[B[k]=(1+\\cos(\\pi k/4)-\\frac j2\\sin(\\pi k/4))A[k\\bmod4].\\]\n2. (2 points) Express period-8 DTFS coefficients \\(c_k\\) in terms of A and find \\(c_0\\).",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Put \\(\\theta=\\pi k/4\\), split \\(B[k]=\\sum_{r=0}^3a[r]e^{-j2\\theta r}+\\sum_{r=0}^3(\\tfrac34a[r]+\\tfrac14a[r+1])e^{-j\\theta(2r+1)}\\).\nStep 2 — Even contribution is \\(A[k\\bmod4]\\).\nStep 3 — Factor \\(e^{-j\\theta}\\) from odd part. Circular substitution gives \\(\\sum_ra[r+1]e^{-j2\\theta r}=e^{j2\\theta}A[k\\bmod4]\\). Thus\n\\[B_{odd}=(\\tfrac34e^{-j\\theta}+\\tfrac14e^{j\\theta})A=(\\cos\\theta-\\tfrac j2\\sin\\theta)A.\\]\nStep 4 — Adding even and odd contributions gives\n\\[B[k]=(1+\\cos(\\pi k/4)-\\tfrac j2\\sin(\\pi k/4))A[k\\bmod4].\\]\nStep 5 — For an 8-periodic sequence \\(c_k=B[k]/8\\), so\n\\[c_k=\\tfrac18(1+\\cos(\\pi k/4)-\\tfrac j2\\sin(\\pi k/4))A[k\\bmod4].\\]\nAt k=0 the multiplier is 2, hence \\(c_0=A[0]/4\\).",
+    "final_answer": "\\(B[k]=(1+\\cos(\\pi k/4)-j\\sin(\\pi k/4)/2)A[k\\bmod4]\\); \\(c_k=B[k]/8\\); \\(c_0=A[0]/4\\).",
+    "expected_methods": [
+      "DFT even/odd decomposition",
+      "circular shift in DFT",
+      "DTFS normalization"
+    ],
+    "variation_strategy": "Asymmetric weighted interpolation",
+    "generation_rationale": "Uses asymmetric 3/4 and 1/4 weights generating an imaginary sine factor absent from equal-weight REF_006.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_020",
+        "criterion_id": "GEN_020_R1",
+        "rubric_order": 1,
+        "criterion": "DFT separation",
+        "description": "DFT separation",
+        "max_points": 0.5,
+        "full_credit": "Correct even/odd decomposition",
+        "partial_credit": "0.25 for partial setup",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_020",
+        "criterion_id": "GEN_020_R2",
+        "rubric_order": 2,
+        "criterion": "Even terms",
+        "description": "Even terms",
+        "max_points": 1.5,
+        "full_credit": "Correct A[k mod 4]",
+        "partial_credit": "0.75 for correct sum with index error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_020",
+        "criterion_id": "GEN_020_R3",
+        "rubric_order": 3,
+        "criterion": "Odd terms",
+        "description": "Odd terms",
+        "max_points": 2.0,
+        "full_credit": "Correct weighted sums and phase factors",
+        "partial_credit": "1 for correct structure with phase error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_020",
+        "criterion_id": "GEN_020_R4",
+        "rubric_order": 4,
+        "criterion": "Combined formula",
+        "description": "Combined formula",
+        "max_points": 1.0,
+        "full_credit": "Correct final multiplier",
+        "partial_credit": "0.5 for form with coefficient error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_020",
+        "criterion_id": "GEN_020_R5",
+        "rubric_order": 5,
+        "criterion": "DTFS",
+        "description": "DTFS",
+        "max_points": 2.0,
+        "full_credit": "Correct ck and c0",
+        "partial_credit": "1 for ck=B/8 only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_021",
+    "reference_question_ids": [
+      "REF_006"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "DFT & DTFS",
+    "subtopic": "Neighbor-difference interleaving",
+    "concept_tags": [
+      "DFT",
+      "neighbor differencing",
+      "circular indexing",
+      "frequency multiplier",
+      "DTFS"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Algebraic Derivation (2 parts)",
+    "rubric_max_score": 7.0,
+    "learning_objective": "Derive DFT relationship for odd samples formed by differences instead of averages.",
+    "question_text": "Let \\(a[n]\\) be length 4, modulo-4 indexing, with 4-point DFT \\(A[k]\\). Construct length-8 \\(b\\):\n\\[b[2r]=a[r],\\qquad b[2r+1]=\\tfrac12(a[r]-a[r+1]),\\qquad r=0,1,2,3.\\]\n1. (5 points) Derive \\(B[k]\\) in terms of \\(A[k\\bmod4]\\) and show\n\\[B[k]=(1-j\\sin(\\pi k/4))A[k\\bmod4].\\]\n2. (2 points) Find DTFS coefficients and explain why \\(B[0]=B[4]=A[0]\\).",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — With \\(\\theta=\\pi k/4\\),\n\\[B[k]=\\sum_ra[r]e^{-j2\\theta r}+\\tfrac12e^{-j\\theta}\\sum_r(a[r]-a[r+1])e^{-j2\\theta r}.\\]\nStep 2 — Even term equals \\(A[k\\bmod4]\\).\nStep 3 — By circular shift of a, \\(\\sum_ra[r+1]e^{-j2\\theta r}=e^{j2\\theta}A\\). Then\n\\[B_{odd}=\\tfrac12e^{-j\\theta}(1-e^{j2\\theta})A=\\tfrac12(e^{-j\\theta}-e^{j\\theta})A=-j\\sin\\theta A.\\]\nStep 4 — Combine:\n\\[B[k]=(1-j\\sin(\\pi k/4))A[k\\bmod4].\\]\nStep 5 — DTFS \\(c_k=\\frac18(1-j\\sin(\\pi k/4))A[k\\bmod4]\\). At k=0 and k=4, sine vanishes and k mod 4=0, so \\(B[0]=B[4]=A[0]\\), and \\(c_0=c_4=A[0]/8\\). This also follows because sum of periodic neighbor differences is 0.",
+    "final_answer": "\\(B[k]=(1-j\\sin(\\pi k/4))A[k\\bmod4]\\); \\(c_k=B[k]/8\\); \\(c_0=c_4=A[0]/8\\).",
+    "expected_methods": [
+      "DFT index separation",
+      "circular difference",
+      "Fourier phase",
+      "DTFS"
+    ],
+    "variation_strategy": "Odd-index difference operator",
+    "generation_rationale": "Uses adjacent differences rather than averaging to generate a sine-only odd-branch multiplier, different from REF_006.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_021",
+        "criterion_id": "GEN_021_R1",
+        "rubric_order": 1,
+        "criterion": "DFT setup",
+        "description": "DFT setup",
+        "max_points": 0.5,
+        "full_credit": "Correct even/odd separation",
+        "partial_credit": "0.25 for partial setup",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_021",
+        "criterion_id": "GEN_021_R2",
+        "rubric_order": 2,
+        "criterion": "Even contribution",
+        "description": "Even contribution",
+        "max_points": 1.5,
+        "full_credit": "Correct A[k mod4]",
+        "partial_credit": "0.75 for incomplete index mapping",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_021",
+        "criterion_id": "GEN_021_R3",
+        "rubric_order": 3,
+        "criterion": "Difference contribution",
+        "description": "Difference contribution",
+        "max_points": 2.0,
+        "full_credit": "Correct -j sinθ factor",
+        "partial_credit": "1 for structure with sign or phase error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_021",
+        "criterion_id": "GEN_021_R4",
+        "rubric_order": 4,
+        "criterion": "Combined expression",
+        "description": "Combined expression",
+        "max_points": 1.0,
+        "full_credit": "Correct B[k]",
+        "partial_credit": "0.5 for right multiplier structure with small error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_021",
+        "criterion_id": "GEN_021_R5",
+        "rubric_order": 5,
+        "criterion": "DTFS and special indices",
+        "description": "DTFS and special indices",
+        "max_points": 2.0,
+        "full_credit": "Correct DTFS and B[0]=B[4] reasoning",
+        "partial_credit": "1 for correct DTFS only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_022",
+    "reference_question_ids": [
+      "REF_006"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "DFT & DTFS",
+    "subtopic": "Circularly shifted interleaving",
+    "concept_tags": [
+      "DFT",
+      "circular shift",
+      "interleaving",
+      "modular indices",
+      "phase rotation",
+      "DTFS"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Algebraic Derivation (2 parts)",
+    "rubric_max_score": 7.0,
+    "learning_objective": "Derive how circular shifting an interleaved branch affects a longer DFT and DTFS.",
+    "question_text": "Let a[n] be length 4 and indexed modulo 4, with DFT A[k]. Construct b[n] of length 8:\n\\[b[2r]=a[r],\\qquad b[2r+1]=a[(r+2)\\bmod4],\\quad r=0,1,2,3.\\]\n1. (5 points) Prove \\[B[k]=(1+(-1)^ke^{-j\\pi k/4})A[k\\bmod4].\\]\n2. (2 points) For \\(a[n]=(1,0,-1,2)\\), find period-8 DTFS coefficients \\(c_0,c_4\\) and explain why the latter is zero.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Let \\(\\theta=\\pi k/4\\). Separate even/odd terms:\n\\[B[k]=\\sum_ra[r]e^{-j2\\theta r}+e^{-j\\theta}\\sum_ra[r+2]e^{-j2\\theta r}.\\]\nStep 2 — First sum is \\(A[k\\bmod4]\\).\nStep 3 — Circular substitution m=r+2 yields \\(\\sum_ra[r+2]e^{-j2\\theta r}=e^{j4\\theta}A=e^{j\\pi k}A=(-1)^kA\\).\nStep 4 — Hence \\(B[k]=(1+(-1)^ke^{-j\\pi k/4})A[k\\bmod4]\\).\nStep 5 — For input (1,0,-1,2), \\(A[0]=2\\). Then \\(B[0]=2A[0]=4\\) and \\(c_0=B[0]/8=1/2\\). At k=4, \\(B[4]=(1+e^{-j\\pi})A[0]=0\\), so \\(c_4=0\\). Even and odd branches have equal total sums, which cancel at alternating 8-point DFT index k=4.",
+    "final_answer": "\\(B[k]=(1+(-1)^ke^{-j\\pi k/4})A[k\\bmod4]\\), \\(c_k=B[k]/8\\), \\(c_0=1/2\\), \\(c_4=0\\).",
+    "expected_methods": [
+      "Circular shift property",
+      "interleaving",
+      "DFT",
+      "DTFS coefficient scaling"
+    ],
+    "variation_strategy": "Circular permutation of odd-index branch",
+    "generation_rationale": "Uses interleaving with circular permutation rather than weighted interpolation, requiring a discrete phase factor.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_022",
+        "criterion_id": "GEN_022_R1",
+        "rubric_order": 1,
+        "criterion": "DFT decomposition",
+        "description": "DFT decomposition",
+        "max_points": 0.5,
+        "full_credit": "Correct even/odd sums",
+        "partial_credit": "0.25 for partial setup",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_022",
+        "criterion_id": "GEN_022_R2",
+        "rubric_order": 2,
+        "criterion": "Even terms",
+        "description": "Even terms",
+        "max_points": 1.5,
+        "full_credit": "Correct A[k mod4]",
+        "partial_credit": "0.75 for incomplete mapping",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_022",
+        "criterion_id": "GEN_022_R3",
+        "rubric_order": 3,
+        "criterion": "Circular shift",
+        "description": "Circular shift",
+        "max_points": 2.0,
+        "full_credit": "Correct e^jπk=(-1)^k factor",
+        "partial_credit": "1 for shift idea with phase sign error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_022",
+        "criterion_id": "GEN_022_R4",
+        "rubric_order": 4,
+        "criterion": "Combined formula",
+        "description": "Combined formula",
+        "max_points": 1.0,
+        "full_credit": "Correct B[k]",
+        "partial_credit": "0.5 for structure with index error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_022",
+        "criterion_id": "GEN_022_R5",
+        "rubric_order": 5,
+        "criterion": "DTFS evaluation",
+        "description": "DTFS evaluation",
+        "max_points": 2.0,
+        "full_credit": "Correct c0,c4 and explanation",
+        "partial_credit": "1 for values without explanation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_023",
+    "reference_question_ids": [
+      "REF_006"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "DFT & DTFS",
+    "subtopic": "Mixed circular shift and interpolation",
+    "concept_tags": [
+      "DFT",
+      "circular shift",
+      "interpolation",
+      "even/odd indexing",
+      "DTFS",
+      "frequency-zero analysis"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Algebraic Derivation (2 parts)",
+    "rubric_max_score": 7.0,
+    "learning_objective": "Derive mixed even-branch shift and odd-branch interpolation DFT mapping.",
+    "question_text": "Let a[n] be length 4 modulo-indexed, with 4-point DFT A[k]. Construct length-8 b[n]:\n\\[b[2r]=a[(r-1)\\bmod4],\\qquad b[2r+1]=\\frac12(a[r]+a[r+1]),\\quad r=0,1,2,3.\\]\n1. (5 points) Prove\n\\[B[k]=(e^{-j\\pi k/2}+\\cos(\\pi k/4))A[k\\bmod4].\\]\n2. (2 points) Derive DTFS coefficients and show \\(B[4]=0\\) for arbitrary a[n].",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Let \\(\\theta=\\pi k/4\\). DFT separates as\n\\[B=\\sum_ra[r-1]e^{-j2\\theta r}+\\tfrac12e^{-j\\theta}\\sum_r(a[r]+a[r+1])e^{-j2\\theta r}.\\]\nStep 2 — With circular substitution m=r−1, \\(\\sum_ra[r-1]e^{-j2\\theta r}=e^{-j2\\theta}A[k\\bmod4]\\).\nStep 3 — For odd branch, \\(\\sum_ra[r+1]e^{-j2\\theta r}=e^{j2\\theta}A\\). Therefore\n\\[B_{odd}=\\tfrac12e^{-j\\theta}(1+e^{j2\\theta})A=\\cos\\theta A.\\]\nStep 4 — Combine:\n\\[B[k]=(e^{-j\\pi k/2}+\\cos(\\pi k/4))A[k\\bmod4].\\]\nStep 5 — Period-8 DTFS coefficients are \\(c_k=(e^{-j\\pi k/2}+\\cos(\\pi k/4))A[k\\bmod4]/8\\). At k=4, \\(e^{-j2\\pi}=1\\), \\(\\cos\\pi=-1\\); multiplier zero, so \\(B[4]=0\\) for any a[n].",
+    "final_answer": "\\(B[k]=(e^{-j\\pi k/2}+\\cos(\\pi k/4))A[k\\bmod4]\\); \\(c_k=B[k]/8\\); \\(B[4]=0\\).",
+    "expected_methods": [
+      "Circular shift",
+      "interpolation",
+      "DFT",
+      "DTFS",
+      "frequency zero"
+    ],
+    "variation_strategy": "Mixed shift and interpolation across DFT branches",
+    "generation_rationale": "Combines a circular shift of even indices with interpolation on odd indices, requiring two separate DFT branch transformations.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_023",
+        "criterion_id": "GEN_023_R1",
+        "rubric_order": 1,
+        "criterion": "DFT setup",
+        "description": "DFT setup",
+        "max_points": 0.5,
+        "full_credit": "Correct even/odd branches",
+        "partial_credit": "0.25 for partial setup",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_023",
+        "criterion_id": "GEN_023_R2",
+        "rubric_order": 2,
+        "criterion": "Even shift",
+        "description": "Even shift",
+        "max_points": 1.5,
+        "full_credit": "Correct e^-jπk/2 phase",
+        "partial_credit": "0.75 for shift idea with phase error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_023",
+        "criterion_id": "GEN_023_R3",
+        "rubric_order": 3,
+        "criterion": "Odd interpolation",
+        "description": "Odd interpolation",
+        "max_points": 2.0,
+        "full_credit": "Correct cosine multiplier",
+        "partial_credit": "1 for correct sum with algebra error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_023",
+        "criterion_id": "GEN_023_R4",
+        "rubric_order": 4,
+        "criterion": "Combined formula",
+        "description": "Combined formula",
+        "max_points": 1.0,
+        "full_credit": "Correct B[k]",
+        "partial_credit": "0.5 for structure with isolated error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      },
+      {
+        "question_id": "GEN_023",
+        "criterion_id": "GEN_023_R5",
+        "rubric_order": 5,
+        "criterion": "DTFS and zero",
+        "description": "DTFS and zero",
+        "max_points": 2.0,
+        "full_credit": "Correct ck and B[4]=0 proof",
+        "partial_credit": "1 for DTFS without proof",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_006"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_024",
+    "reference_question_ids": [
+      "REF_007"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "First-Order Frequency Response",
+    "subtopic": "Mechanical system with nonunit derivative coefficient",
+    "concept_tags": [
+      "First-order ODE",
+      "Fourier transform",
+      "frequency response",
+      "magnitude",
+      "phase",
+      "low-pass behavior"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Modeling + Graph + Calculation",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Derive first-order frequency response and predict sinusoidal steady-state response.",
+    "question_text": "The velocity v(t) satisfies \\[2\\frac{dv}{dt}+4v(t)=F(t).\\] Assume zero initial conditions and LTI behavior.\n1. (2 points) Derive \\(H(j\\omega)=V(j\\omega)/F(j\\omega)\\).\n2. (2 points) Find magnitude and phase response; sketch qualitative behavior for positive and negative frequencies.\n3. (2 points) For \\(F(t)=10\\cos3t\\), find steady-state velocity and identify low-pass behavior.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Fourier-transform ODE: \\((2j\\omega+4)V=F\\), hence\n\\[H(j\\omega)=1/(4+2j\\omega).\\]\nStep 2 — Denominator modulus is \\(\\sqrt{16+4\\omega^2}\\), phase angle \\(\\tan^{-1}(\\omega/2)\\). Therefore\n\\[|H(j\\omega)|=1/\\sqrt{16+4\\omega^2}=1/(2\\sqrt{4+\\omega^2}),\\quad \\angle H=-\\tan^{-1}(\\omega/2).\\]\nMagnitude is even, peaks at 1/4 for ω=0 and tends to 0 as |ω|→∞. Phase odd, 0 at origin, tends to −π/2 at positive infinity and +π/2 at negative infinity. Sketch with these values.\nStep 3 — At ω=3, gain \\(1/(2\\sqrt{13})\\), phase \\(-\\tan^{-1}(3/2)\\). Input amplitude 10 produces output amplitude \\(5/\\sqrt{13}\\). Thus\n\\[v_{ss}(t)=(5/\\sqrt{13})\\cos(3t-\\tan^{-1}(3/2)).\\]\nDecreasing magnitude as |ω| rises implies low-pass response.",
+    "final_answer": "\\(H(j\\omega)=1/(4+2j\\omega)\\); \\(|H|=1/(2\\sqrt{4+\\omega^2})\\), \\(\\angle H=-\\tan^{-1}(\\omega/2)\\); \\(v_{ss}(t)=5/\\sqrt{13}\\cos(3t-\\tan^{-1}(3/2))\\). Low-pass.",
+    "expected_methods": [
+      "ODE transform",
+      "magnitude/phase",
+      "sinusoidal steady state",
+      "frequency interpretation"
+    ],
+    "variation_strategy": "Nonunit derivative coefficient and output phase",
+    "generation_rationale": "Adds nonunit derivative coefficient and requires complete sinusoidal output including phase, unlike amplitude-only discussion in REF_007.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_024",
+        "criterion_id": "GEN_024_R1",
+        "rubric_order": 1,
+        "criterion": "Transfer function",
+        "description": "Transfer function",
+        "max_points": 2.0,
+        "full_credit": "Correct Fourier transform and H(jω)",
+        "partial_credit": "1 for correct setup with algebra error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_007"
+        ]
+      },
+      {
+        "question_id": "GEN_024",
+        "criterion_id": "GEN_024_R2",
+        "rubric_order": 2,
+        "criterion": "Magnitude and phase",
+        "description": "Magnitude and phase",
+        "max_points": 2.0,
+        "full_credit": "Correct formulas limits and qualitative sketches",
+        "partial_credit": "1 for formulas without complete sketches",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_007"
+        ]
+      },
+      {
+        "question_id": "GEN_024",
+        "criterion_id": "GEN_024_R3",
+        "rubric_order": 3,
+        "criterion": "Steady-state response",
+        "description": "Steady-state response",
+        "max_points": 2.0,
+        "full_credit": "Correct amplitude phase and low-pass explanation",
+        "partial_credit": "1 for amplitude or phase only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_007"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_025",
+    "reference_question_ids": [
+      "REF_007"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "First-Order Frequency Response",
+    "subtopic": "Identify ODE parameters from frequency data",
+    "concept_tags": [
+      "First-order ODE",
+      "frequency-response identification",
+      "magnitude",
+      "phase",
+      "low-pass filter"
+    ],
+    "difficulty": "Medium",
+    "question_type": "System Identification + Calculation",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Recover unknown first-order parameters from two measured magnitudes and predict an output.",
+    "question_text": "Stable LTI system: \\[\\frac{dy}{dt}+ay(t)=Ku(t),\\quad a>0,K>0.\\]\nMeasurements: \\(|H(0)|=2\\), \\(|H(j3)|=8/5\\).\n1. (2 points) Determine a, K and H(jω).\n2. (2 points) Derive magnitude and phase and explain low-pass behavior.\n3. (2 points) Find steady-state output for \\(u(t)=5\\cos3t\\).",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — ODE CTFT gives \\(H(j\\omega)=K/(a+j\\omega)\\), \\(|H|=K/\\sqrt{a^2+\\omega^2}\\). DC measurement implies K/a=2, so K=2a. At ω=3:\n\\[2a/\\sqrt{a^2+9}=8/5.\\]\nSquaring: \\(100a^2=64(a^2+9)\\) ⇒ \\(36a^2=576\\), so \\(a=4\\), \\(K=8\\). Thus \\(H=8/(4+j\\omega)\\).\nStep 2 — \\(|H|=8/\\sqrt{16+\\omega^2}\\), \\(\\angle H=-\\tan^{-1}(\\omega/4)\\). Magnitude has DC value 2, decreases with |ω| and tends to 0, so low-pass. Phase odd, zero at origin, tends to -π/2 for large positive ω.\nStep 3 — At ω=3, gain 8/5 and phase \\(-\\tan^{-1}(3/4)\\). Input amplitude 5 gives output amplitude 8:\n\\[y_{ss}(t)=8\\cos(3t-\\tan^{-1}(3/4)).\\]",
+    "final_answer": "\\(a=4,K=8,H(j\\omega)=8/(4+j\\omega)\\); \\(y_{ss}(t)=8\\cos(3t-\\tan^{-1}(3/4))\\).",
+    "expected_methods": [
+      "ODE CTFT",
+      "magnitude equations",
+      "parameter solving",
+      "sinusoidal response"
+    ],
+    "variation_strategy": "Inverse system identification from measurements",
+    "generation_rationale": "Reverses problem: frequency-domain measurements determine unknown system parameters before predicting an output.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_025",
+        "criterion_id": "GEN_025_R1",
+        "rubric_order": 1,
+        "criterion": "Parameter identification",
+        "description": "Parameter identification",
+        "max_points": 2.0,
+        "full_credit": "Correct a=4 K=8 and transfer function",
+        "partial_credit": "1 for setup with arithmetic error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_007"
+        ]
+      },
+      {
+        "question_id": "GEN_025",
+        "criterion_id": "GEN_025_R2",
+        "rubric_order": 2,
+        "criterion": "Frequency response",
+        "description": "Frequency response",
+        "max_points": 2.0,
+        "full_credit": "Correct magnitude phase and low-pass explanation",
+        "partial_credit": "1 for formulas without interpretation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_007"
+        ]
+      },
+      {
+        "question_id": "GEN_025",
+        "criterion_id": "GEN_025_R3",
+        "rubric_order": 3,
+        "criterion": "Output calculation",
+        "description": "Output calculation",
+        "max_points": 2.0,
+        "full_credit": "Correct amplitude and phase",
+        "partial_credit": "1 for one component correct",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_007"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_026",
+    "reference_question_ids": [
+      "REF_007"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "First-Order Frequency Response",
+    "subtopic": "Compare two low-pass systems",
+    "concept_tags": [
+      "Transfer functions",
+      "magnitude comparison",
+      "phase shift",
+      "low-pass behavior",
+      "sinusoidal response"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Comparison + Calculation",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Compare attenuation and phase of two first-order systems having equal DC gain.",
+    "question_text": "System A: \\[\\frac{dy_A}{dt}+y_A=u(t).\\]\nSystem B: \\[\\frac{dy_B}{dt}+4y_B=4u(t).\\]\n1. (2 points) Derive HA(jω), HB(jω) and compare DC gains.\n2. (2 points) Find magnitudes and phases at ω=2; determine which attenuates less.\n3. (2 points) For \\(u(t)=6\\cos2t\\), find both steady-state outputs and explain low-pass behavior.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Fourier-transform ODEs:\n\\[H_A(j\\omega)=1/(1+j\\omega),\\quad H_B(j\\omega)=4/(4+j\\omega).\\]\nBoth have DC gain 1.\nStep 2 — At ω=2:\n\\[|H_A(j2)|=1/\\sqrt5,\\quad \\phi_A=-\\tan^{-1}2,\\]\n\\[|H_B(j2)|=4/\\sqrt{20}=2/\\sqrt5,\\quad\\phi_B=-\\tan^{-1}(1/2).\\]\nB has twice A's magnitude at ω=2, so attenuates less.\nStep 3 — For amplitude-6 cosine input:\n\\[y_{A,ss}(t)=6/\\sqrt5\\cos(2t-\\tan^{-1}2),\\]\n\\[y_{B,ss}(t)=12/\\sqrt5\\cos(2t-\\tan^{-1}(1/2)).\\]\nBoth systems are low-pass because |H| decreases as |ω| increases.",
+    "final_answer": "\\(H_A=1/(1+j\\omega)\\), \\(H_B=4/(4+j\\omega)\\); both DC gain 1, but B attenuates less at ω=2. Outputs \\(6/\\sqrt5\\cos(2t-\\tan^{-1}2)\\), \\(12/\\sqrt5\\cos(2t-\\tan^{-1}(1/2))\\).",
+    "expected_methods": [
+      "ODE transform",
+      "gain/phase evaluation",
+      "side-by-side sinusoidal outputs"
+    ],
+    "variation_strategy": "Two-system attenuation and phase comparison",
+    "generation_rationale": "Uses a comparison of two low-pass systems with same DC gain but distinct bandwidth and phase, rather than single-system evaluation.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_026",
+        "criterion_id": "GEN_026_R1",
+        "rubric_order": 1,
+        "criterion": "Transfer functions",
+        "description": "Transfer functions",
+        "max_points": 2.0,
+        "full_credit": "Correct models and equal DC gains",
+        "partial_credit": "1 for transfer functions without DC comparison",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_007"
+        ]
+      },
+      {
+        "question_id": "GEN_026",
+        "criterion_id": "GEN_026_R2",
+        "rubric_order": 2,
+        "criterion": "Magnitude and phase",
+        "description": "Magnitude and phase",
+        "max_points": 2.0,
+        "full_credit": "Correct values and attenuation comparison",
+        "partial_credit": "1 for magnitudes with incomplete phase analysis",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_007"
+        ]
+      },
+      {
+        "question_id": "GEN_026",
+        "criterion_id": "GEN_026_R3",
+        "rubric_order": 3,
+        "criterion": "Outputs",
+        "description": "Outputs",
+        "max_points": 2.0,
+        "full_credit": "Both steady-state outputs and low-pass reasoning",
+        "partial_credit": "1 for one correct output",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_007"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_027",
+    "reference_question_ids": [
+      "REF_007"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "First-Order Frequency Response",
+    "subtopic": "Two-tone steady-state response",
+    "concept_tags": [
+      "Fourier transform of ODE",
+      "frequency response",
+      "sinusoidal steady state",
+      "superposition",
+      "low-pass filtering"
+    ],
+    "difficulty": "Medium",
+    "question_type": "Modeling + Superposition",
+    "rubric_max_score": 6.0,
+    "learning_objective": "Predict response of a first-order LTI system to a two-frequency input.",
+    "question_text": "A first-order LTI system satisfies \\[2\\frac{dy}{dt}+6y(t)=4u(t).\\]\nInput: \\(u(t)=3\\cos t+5\\sin4t\\). Assume zero initial conditions for frequency-response determination.\n1. (2 points) Derive H(jω), magnitude and phase.\n2. (2 points) Calculate the steady-state response to each sinusoidal component separately.\n3. (2 points) Sum to obtain complete steady-state response and identify which component is attenuated more strongly.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Transform ODE: \\((2j\\omega+6)Y=4U\\), hence\n\\[H(j\\omega)=4/(6+2j\\omega)=2/(3+j\\omega).\\]\nThus \\(|H|=2/\\sqrt{9+\\omega^2}\\), \\(\\angle H=-\\tan^{-1}(\\omega/3)\\).\nStep 2 — At ω=1, gain \\(2/\\sqrt{10}\\), phase \\(-\\tan^{-1}(1/3)\\). For \\(3\\cos t\\),\n\\[y_{1,ss}(t)=6/\\sqrt{10}\\cos(t-\\tan^{-1}(1/3)).\\]\nAt ω=4, gain \\(2/\\sqrt{25}=2/5\\), phase \\(-\\tan^{-1}(4/3)\\). For \\(5\\sin4t\\),\n\\[y_{2,ss}(t)=2\\sin(4t-\\tan^{-1}(4/3)).\\]\nStep 3 — By LTI superposition,\n\\[y_{ss}(t)=6/\\sqrt{10}\\cos(t-\\tan^{-1}(1/3))+2\\sin(4t-\\tan^{-1}(4/3)).\\]\nAt ω=1, magnitude gain ≈0.632; at ω=4 it is 0.4, so higher frequency experiences greater relative attenuation.",
+    "final_answer": "\\(H(j\\omega)=2/(3+j\\omega)\\), \\(y_{ss}(t)=6/\\sqrt{10}\\cos(t-\\tan^{-1}(1/3))+2\\sin(4t-\\tan^{-1}(4/3))\\). Greater relative attenuation at ω=4.",
+    "expected_methods": [
+      "ODE CTFT",
+      "sinusoidal steady state",
+      "superposition",
+      "relative attenuation"
+    ],
+    "variation_strategy": "Two-tone input with componentwise response",
+    "generation_rationale": "Uses sum of two sinusoids and superposition to test frequency-dependent attenuation, unlike one-tone reference.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_027",
+        "criterion_id": "GEN_027_R1",
+        "rubric_order": 1,
+        "criterion": "Frequency response",
+        "description": "Frequency response",
+        "max_points": 2.0,
+        "full_credit": "Correct H magnitude and phase",
+        "partial_credit": "1 for H without complete properties",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_007"
+        ]
+      },
+      {
+        "question_id": "GEN_027",
+        "criterion_id": "GEN_027_R2",
+        "rubric_order": 2,
+        "criterion": "Component responses",
+        "description": "Component responses",
+        "max_points": 2.0,
+        "full_credit": "Correct amplitudes and phases for both",
+        "partial_credit": "1 for one correct component",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_007"
+        ]
+      },
+      {
+        "question_id": "GEN_027",
+        "criterion_id": "GEN_027_R3",
+        "rubric_order": 3,
+        "criterion": "Superposition",
+        "description": "Superposition",
+        "max_points": 2.0,
+        "full_credit": "Correct complete output and attenuation interpretation",
+        "partial_credit": "1 for combined output without interpretation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_007"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_028",
+    "reference_question_ids": [
+      "REF_008"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "LTI Inverse & Echo Cancellation",
+    "subtopic": "Two-echo inverse with second-order recurrence",
+    "concept_tags": [
+      "Inverse LTI system",
+      "convolution identity",
+      "multiple echoes",
+      "second-order recurrence",
+      "partial fractions"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Proof + Recurrence",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Derive a closed-form causal inverse filter for a two-echo channel.",
+    "question_text": "Acoustic channel\n\\[h(t)=\\delta(t)-\\frac34\\delta(t-T)+\\frac18\\delta(t-2T),\\quad T>0.\\]\nCompensation filter \\(g(t)=\\sum_{k=0}^{\\infty}g_k\\delta(t-kT)\\) should exactly recover arbitrary input.\n1. (2 points) Derive necessary and sufficient condition for perfect recovery.\n2. (1 point) Derive recurrence for gk, including g0,g1,g2.\n3. (2 points) Obtain closed form gk and write complete inverse impulse response.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Recorded output y=h*x; corrected signal z=g*y=(g*h)*x. Perfect recovery for every x iff \\(h*g=\\delta\\), the identity of convolution.\nStep 2 — Match coefficient of \\(\\delta(t-kT)\\): \\(g_k-(3/4)g_{k-1}+(1/8)g_{k-2}\\), with \\(g_{-1}=g_{-2}=0\\). Matching δ gives \\(g_0=1\\) and for k≥1\n\\[g_k=\\frac34g_{k-1}-\\frac18g_{k-2}.\\]\nThus \\(g_1=3/4\\) and \\(g_2=(3/4)^2-1/8=7/16\\).\nStep 3 — Formal delay transform \\(H(z)=1-(3/4)z+(1/8)z^2=(1-z/2)(1-z/4)\\). Invert:\n\\[G(z)=1/H(z)=\\frac2{1-z/2}-\\frac1{1-z/4}.\\]\nFor causal geometric powers, \\(g_k=2(1/2)^k-(1/4)^k\\) for k≥0, so\n\\[g(t)=\\sum_{k=0}^{\\infty}[2(1/2)^k-(1/4)^k]\\delta(t-kT).\\]\nBoth terms decay absolutely, so inverse is causal with summable coefficients.",
+    "final_answer": "\\(h*g=\\delta\\), \\(g_0=1,g_1=3/4,g_2=7/16\\), \\(g_k=2(1/2)^k-(1/4)^k\\) for k≥0.",
+    "expected_methods": [
+      "Inverse convolution identity",
+      "recurrence matching",
+      "delay-factor partial fractions"
+    ],
+    "variation_strategy": "Second-order echo recurrence",
+    "generation_rationale": "Two-echo model yields second-order rather than first-order inverse recurrence; requires factorization and two geometric components.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_028",
+        "criterion_id": "GEN_028_R1",
+        "rubric_order": 1,
+        "criterion": "Inverse condition",
+        "description": "Inverse condition",
+        "max_points": 2.0,
+        "full_credit": "Correct necessary/sufficient h*g=δ argument",
+        "partial_credit": "1 for condition without proof",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_008"
+        ]
+      },
+      {
+        "question_id": "GEN_028",
+        "criterion_id": "GEN_028_R2",
+        "rubric_order": 2,
+        "criterion": "Recurrence",
+        "description": "Recurrence",
+        "max_points": 1.0,
+        "full_credit": "Correct recurrence and initial coefficients",
+        "partial_credit": "0.5 for recurrence with coefficient error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_008"
+        ]
+      },
+      {
+        "question_id": "GEN_028",
+        "criterion_id": "GEN_028_R3",
+        "rubric_order": 3,
+        "criterion": "Closed form",
+        "description": "Closed form",
+        "max_points": 2.0,
+        "full_credit": "Correct factorization partial fractions and gk",
+        "partial_credit": "1 for correct method without complete closed form",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_008"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_029",
+    "reference_question_ids": [
+      "REF_008"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "LTI Inverse & Echo Cancellation",
+    "subtopic": "Noncausal inverse with unavoidable advance",
+    "concept_tags": [
+      "Delayed LTI system",
+      "inverse convolution",
+      "causality",
+      "noncausal filter",
+      "coefficient recurrence"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Causality Proof + Recurrence",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Determine whether a causal inverse exists and derive one with a required time advance.",
+    "question_text": "Acoustic channel\n\\[h(t)=\\delta(t-T)+\\frac13\\delta(t-2T),\\quad T>0.\\]\nCompensation filter requires exact zero-delay recovery \\(g*h*x=x\\) for arbitrary inputs.\n1. (2 points) Can a causal inverse achieve this without added delay? Justify.\n2. (3 points) Permit one advanced impulse:\n\\[g(t)=\\sum_{n=-1}^{\\infty}g_n\\delta(t-nT).\\]\nDerive coefficient recurrence and closed-form g_n.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — Exact recovery requires \\(h*g=\\delta\\). The channel has earliest support at t=T>0; convolving it with a causal g (support t≥0) cannot produce an impulse at t=0. Hence no causal zero-delay inverse.\nStep 2 — With \\(g(t)=\\sum_{n=-1}^{\\infty}g_n\\delta(t-nT)\\), the coefficient of \\(\\delta(t-mT)\\) in h*g is \\(g_{m-1}+(1/3)g_{m-2}\\), with coefficients below -1 zero.\nStep 3 — At m=0, \\(g_{-1}=1\\). For m≥1, \\(g_{m-1}+(1/3)g_{m-2}=0\\), or \\(g_n=-(1/3)g_{n-1}\\) for n≥0. Thus \\(g_{-1}=1,g_0=-1/3,g_1=1/9,g_2=-1/27\\).\nStep 4 — Closed form\n\\[g_n=(-1/3)^{n+1},\\quad n\\ge-1,\\]\n\\[g(t)=\\sum_{n=-1}^\\infty(-1/3)^{n+1}\\delta(t-nT).\\]\nEquivalently \\(g(t)=\\delta(t+T)-(1/3)\\delta(t)+(1/9)\\delta(t-T)-\\cdots\\). Delay-transform verification: \\(H(z)=z(1+z/3)\\), \\(G(z)=z^{-1}/(1+z/3)\\), product 1.",
+    "final_answer": "No causal perfect zero-delay inverse exists. \\(g(t)=\\sum_{n=-1}^{\\infty}(-1/3)^{n+1}\\delta(t-nT)\\), with a required impulse at t=-T.",
+    "expected_methods": [
+      "Convolution identity",
+      "support causality",
+      "recurrence with negative index"
+    ],
+    "variation_strategy": "Noncausal advance due to delayed echo",
+    "generation_rationale": "Adds noncausal invertibility and delay support, distinguishing mathematical inverse from implementable real-time inverse.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_029",
+        "criterion_id": "GEN_029_R1",
+        "rubric_order": 1,
+        "criterion": "Causality",
+        "description": "Causality",
+        "max_points": 2.0,
+        "full_credit": "Correct nonexistence with support reasoning",
+        "partial_credit": "1 for conclusion without proof",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_008"
+        ]
+      },
+      {
+        "question_id": "GEN_029",
+        "criterion_id": "GEN_029_R2",
+        "rubric_order": 2,
+        "criterion": "Coefficient matching",
+        "description": "Coefficient matching",
+        "max_points": 1.0,
+        "full_credit": "Correct initial coefficient and recurrence",
+        "partial_credit": "0.5 for structure with index error",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_008"
+        ]
+      },
+      {
+        "question_id": "GEN_029",
+        "criterion_id": "GEN_029_R3",
+        "rubric_order": 3,
+        "criterion": "Closed form",
+        "description": "Closed form",
+        "max_points": 2.0,
+        "full_credit": "Correct coefficients and full impulse response",
+        "partial_credit": "1 for pattern but incomplete indexing",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_008"
+        ]
+      }
+    ]
+  },
+  {
+    "question_id": "GEN_030",
+    "reference_question_ids": [
+      "REF_008"
+    ],
+    "subject": "Computer Engineering Mathematics II",
+    "topic": "LTI Inverse & Echo Cancellation",
+    "subtopic": "Finite inverse approximation and residual echo",
+    "concept_tags": [
+      "Inverse convolution",
+      "geometric recurrence",
+      "finite inverse filter",
+      "residual echo",
+      "approximation error"
+    ],
+    "difficulty": "Hard",
+    "question_type": "Proof + Approximation",
+    "rubric_max_score": 5.0,
+    "learning_objective": "Derive a finite inverse approximation and quantify residual echoes due to truncation.",
+    "question_text": "Echo channel\n\\[h(t)=\\delta(t)+\\frac23\\delta(t-T),\\quad T>0.\\]\nApproximate ideal inverse by \\(g_M(t)=\\sum_{k=0}^Mg_k\\delta(t-kT)\\).\n1. (1 point) State/justify perfect inverse condition.\n2. (1 point) Derive recurrence for ideal gk.\n3. (2 points) For M=2, obtain g2(t) and compute overall h*g2.\n4. (1 point) Find smallest integer M≥0 for which residual echo coefficient magnitude is strictly below 0.1.",
+    "question_language": "English",
+    "math_notation": "LaTeX",
+    "solution": "Step 1 — For arbitrary input exact recovery requires \\(h*g=\\delta\\), since δ is convolution identity.\nStep 2 — Match coefficients in \\((\\delta+(2/3)\\delta_T)*\\sum_{k\\ge0}g_k\\delta_{kT}\\): \\(g_0=1\\), \\(g_k+(2/3)g_{k-1}=0\\) for k≥1. Hence \\(g_k=(-2/3)^k\\).\nStep 3 — For M=2: \\(g_0=1,g_1=-2/3,g_2=4/9\\), so\n\\[g_2(t)=\\delta(t)-\\tfrac23\\delta(t-T)+\\tfrac49\\delta(t-2T).\\]\nConvolution with h cancels coefficients at delays T and 2T, leaving\n\\[(h*g_2)(t)=\\delta(t)+\\frac8{27}\\delta(t-3T).\\]\nThus for input x, output \\(z(t)=x(t)+(8/27)x(t-3T)\\).\nStep 4 — The finite geometric identity \\((1+az)\\sum_{k=0}^M(-az)^k=1-(-az)^{M+1}\\) yields\n\\[(h*g_M)(t)=\\delta(t)-(-2/3)^{M+1}\\delta(t-(M+1)T).\\]\nResidual magnitude \\((2/3)^{M+1}\\). Require \\((2/3)^{M+1}<0.1\\), so \\(M+1>\\ln(0.1)/\\ln(2/3)\\approx5.68\\). Smallest integer M=5. Check \\((2/3)^6=64/729\\approx0.0878<0.1\\), but \\((2/3)^5\\approx0.1317\\ge0.1\\).",
+    "final_answer": "\\(g_k=(-2/3)^k\\); \\(g_2(t)=\\delta(t)-(2/3)\\delta(t-T)+(4/9)\\delta(t-2T)\\); \\((h*g_2)(t)=\\delta(t)+(8/27)\\delta(t-3T)\\); \\(M_{min}=5\\).",
+    "expected_methods": [
+      "Echo recurrence",
+      "finite geometric series",
+      "convolution",
+      "logarithmic threshold"
+    ],
+    "variation_strategy": "Truncated echo inverse and residual error",
+    "generation_rationale": "Studies finite-length inverse and residual echo caused by truncation, extending beyond the infinite perfect inverse in REF_008.",
+    "validation_status": "PASS",
+    "validation_note": "Internal validation reported in original generation; independent external review not documented.",
+    "source_batch": "Batch 3–6",
+    "generation_status": "generated",
+    "solution_origin": "Assistant-generated in prior batches",
+    "rubric_criteria": [
+      {
+        "question_id": "GEN_030",
+        "criterion_id": "GEN_030_R1",
+        "rubric_order": 1,
+        "criterion": "Inverse condition",
+        "description": "Inverse condition",
+        "max_points": 1.0,
+        "full_credit": "Correct h*g=δ with explanation",
+        "partial_credit": "0.5 for condition only",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_008"
+        ]
+      },
+      {
+        "question_id": "GEN_030",
+        "criterion_id": "GEN_030_R2",
+        "rubric_order": 2,
+        "criterion": "Recurrence",
+        "description": "Recurrence",
+        "max_points": 1.0,
+        "full_credit": "Correct geometric coefficient formula",
+        "partial_credit": "0.5 for recurrence without closed form",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_008"
+        ]
+      },
+      {
+        "question_id": "GEN_030",
+        "criterion_id": "GEN_030_R3",
+        "rubric_order": 3,
+        "criterion": "Finite inverse",
+        "description": "Finite inverse",
+        "max_points": 2.0,
+        "full_credit": "Correct g2 and residual impulse",
+        "partial_credit": "1 for g2 without residual calculation",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_008"
+        ]
+      },
+      {
+        "question_id": "GEN_030",
+        "criterion_id": "GEN_030_R4",
+        "rubric_order": 4,
+        "criterion": "Truncation requirement",
+        "description": "Truncation requirement",
+        "max_points": 1.0,
+        "full_credit": "Correct M=5 with inequality",
+        "partial_credit": "0.5 for residual formula but wrong integer",
+        "common_mistakes": "",
+        "reference_question_ids": [
+          "REF_008"
+        ]
+      }
+    ]
+  }
+]
