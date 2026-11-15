@@ -40,6 +40,7 @@ For **question-only datasets**, omit `--answers`; answer report contains zero ro
 - `review_queue.csv` — flagged questions/responses for human inspection
 - `summary.json` — counts and limitations
 - `manifest.json` — input checksums
+- `training_candidates.csv` — original response columns, restricted to AI-pass questions and answers with complete core fields, matching total/criterion scores, and no generation-target mismatch. Dry-run exports no candidates. Human review status is preserved; these are provisional candidates, not verified gold labels.
 - `stages/*.json` — resumable raw Codex judgments
 
 **No input CSV is modified.** Treat AI judgments as provisional; manually adjudicate mathematical mistakes and score disagreements before training/evaluating a grader. Do not equate model `pass` with verified ground truth.
@@ -50,9 +51,11 @@ For **question-only datasets**, omit `--answers`; answer report contains zero ro
 - `--resume` checks input hashes and batch size; use the same output directory and unchanged inputs.
 - Each selected question makes one Codex question review call and one answer call per batch of up to 8 responses, unless resumed.
 - Existing `rubric_criteria` should contain JSON array with `criterion_id` and `max_score`, `max_points`, or `points`. `rubric_analysis` should contain `awarded_score` per criterion. If absent, those checks will flag the record, not fail silently.
+- Native question-generation CSVs can supply scoring guidance inside every criterion as nonempty `full_credit` and `partial_credit` strings. The evaluator uses these directly when `rubric_scoring_guide` is absent; incomplete guidance still requires review. This does not convert prose rules into validated numeric scoring anchors.
 - If the official `solution` is absent, independent answer grading is skipped; report it as missing instead of guessing.
 - Long problems/reference sets may exceed context; choose small batches or trim irrelevant references when necessary.
 - A second, independent judge or human expert is recommended for high-stakes use.
+- WRONG now means zero awarded points; partially correct work is PARTIAL. Authentic student mistakes alone should not trigger a quality-review verdict. Scoring uncertainty, inconsistent labels and inauthentic responses still require review. Use a new output directory for evaluation version 2; older cached judgments cannot be resumed.
 
 ## Run tests
 

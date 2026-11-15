@@ -117,7 +117,7 @@ def invoke_codex(prompt,schema,path,exe='codex'):
     if not shutil.which(exe): raise RuntimeError(f'{exe} is not installed or is not on PATH; run `codex login` first.')
     path.parent.mkdir(parents=True,exist_ok=True)
     command=[exe,'exec','--ephemeral','--sandbox','read-only','--output-schema',str(schema),'-o',str(path),'-']
-    result=subprocess.run(command,input=prompt,text=True,capture_output=True,cwd=str(ROOT))
+    result=subprocess.run(command,input=prompt,text=True,encoding='utf-8',capture_output=True,cwd=str(ROOT))
     if result.returncode!=0: raise RuntimeError('Codex failed: '+result.stderr[-3500:])
     try: return json.loads(path.read_text(encoding='utf-8'))
     except (ValueError,OSError) as e: raise RuntimeError('Codex output is not valid JSON: '+str(e))

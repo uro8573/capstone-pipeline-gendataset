@@ -95,6 +95,22 @@ def score_analysis(row,criteria):
         except (ValueError,TypeError,KeyError):issues.append('invalid_label_score:'+c['id']);scores.append(None)
     return scores,issues
 
+def scoring_guide(row):
+    explicit = row.get('rubric_scoring_guide')
+    if explicit and str(explicit).strip():
+        return jload(explicit, explicit)
+    criteria = jload(row.get('rubric_criteria'))
+    if isinstance(criteria, list) and criteria and all(
+        isinstance(c, dict) and isinstance(c.get('full_credit'), str)
+        and c['full_credit'].strip() and isinstance(c.get('partial_credit'), str)
+        and c['partial_credit'].strip() for c in criteria
+    ):
+        return [{'criterion_id': c.get('criterion_id'),
+                 'full_credit': c['full_credit'], 'partial_credit': c['partial_credit']}
+                for c in criteria]
+    return None
+
+
 def check_question(row, reference_texts):
     issues=[]
     qid=row.get('question_id','')
@@ -102,7 +118,7 @@ def check_question(row, reference_texts):
     if not qid.strip():issues.append('missing_question_id')
     if not question.strip():issues.append('missing_question_text')
     if not str(row.get('solution','')).strip():issues.append('missing_solution')
-    if not str(row.get('rubric_scoring_guide','')).strip():issues.append('missing_scoring_guide')
+    if not scoring_guide(row):issues.append('missing_scoring_guide')
     try: criteria=rubric(row)
     except (ValueError,TypeError) as ex:criteria=[];issues.append('invalid_rubric:'+str(ex))
     near=[]
@@ -134,7 +150,9 @@ def check_answer(row, question, criteria):
     kind=norm(row.get('sample_type',''))
     if claimed is not None and kind=='partial' and not 0<claimed<limit:issues.append('partial_score_not_partial')
     if claimed is not None and kind=='full' and not math.isclose(claimed,limit,abs_tol=1e-5):issues.append('full_score_not_full')
-    if claimed is not None and kind=='wrong' and math.isclose(claimed,limit,abs_tol=1e-5):issues.append('wrong_sample_full_credit')
+    if claimed is not None and kind=='wrong' and claimed != 0:issues.append('wrong_sample_nonzero_credit')
+    if kind not in ('full','partial','wrong'):issues.append('invalid_sample_type')
+    if row.get('generation_target_status')=='mismatch':issues.append('generation_target_mismatch')
     if re.search(r'\b(synthetic answer|according to the rubric|i intentionally made|as an ai)\b',row.get('answer_text',''),re.I):
         issues.append('meta_student_response')
     return original,claimed,issues
@@ -142,9 +160,9 @@ def check_answer(row, question, criteria):
 def call_codex(payload, instruction, schema, path, executable):
     if not shutil.which(executable):raise RuntimeError(f'{executable} not found. Install/authenticate Codex CLI, or use --dry-run.')
     prompt=(instruction+'\nINPUT_JSON:\n'+json.dumps(payload,ensure_ascii=False))
-    cmd=[executable,'exec','--ephemeral','--sandbox','read-only','--output-schema',str(schema),'-o',str(path),'-']
+    cmd=[executable,'exec','--ephemeral','--skip-git-repo-check','--sandbox','read-only','--output-schema',str(schema),'-o',str(path),'-']
     path.parent.mkdir(parents=True,exist_ok=True)
-    res=subprocess.run(cmd,input=prompt,text=True,capture_output=True,cwd=BASE)
+    res=subprocess.run(cmd,input=prompt,text=True,encoding='utf-8',capture_output=True,cwd=BASE)
     if res.returncode:raise RuntimeError('Codex CLI failed: '+res.stderr[-2500:])
     try:return json.loads(path.read_text(encoding='utf-8'))
     except (OSError,ValueError) as err:raise RuntimeError('Invalid Codex JSON: '+str(err))
@@ -152,6 +170,22 @@ def call_codex(payload, instruction, schema, path, executable):
 QUESTION_INSTRUCTIONS='''You are a university mathematics/engineering exam audit reviewer, NOT a question generator.
 Assess the generated question, its solution, and each rubric criterion. Independently solve/check the problem; do not assume the provided solution is correct. Check solvability, ambiguity, self-contained statement, conceptual alignment, difficulty plausibility, mathematical correctness of EACH solution step, rubric coverage and fair independent scoring. If reference questions are provided, assess mathematical originality beyond superficial number changes; if not, report originality as unverifiable. Do not claim web-based plagiarism checking. Answer in the required JSON shape. Use 0-4 for clarity, solvability, solution_correctness, rubric_alignment, originality (if no references, set originality=0 and add limitation). Return verdict pass/review/fail and concrete issues with cited mathematics, but do not rewrite the input. Do not access files or tools; use only INPUT_JSON.'''
 ANSWER_INSTRUCTIONS='''You are an independent rubric grader and student response quality reviewer. Check each response AS WRITTEN against question, official solution and rubric. Treat official solution as a reference, accept mathematically equivalent methods; do not reward missing evidence. Preserve partial-credit anchors if listed. Report per criterion score with evidence, and overall student-like authenticity, meaningful mistake, answer/label match, and semantic overlap among provided answers. Do not force scores to be partial merely because input label says partial. Grade without using the provided expected_score (it is deliberately withheld). Detect copied/near-identical responses, rubric mentions and fabricated metacommentary. Return one evaluation per response_id in input order, with exact IDs and criterion IDs. If an answer is wrong or full, report actual score. Verdict pass/review/fail refers to validity of the student response and scoring evidence, not that it achieved the target label. No external files/tools. JSON only.'''
+
+ANSWER_INSTRUCTIONS += ''' A valid dataset response can be FULL (all credit), PARTIAL (some credit), or WRONG (zero credit). An authentic student's mathematical mistake is expected data, not by itself a reason for a review/fail verdict. Use review/fail for ambiguous grading evidence, unsupported scores, inauthentic text, copying, or other dataset-quality problems. For a fully correct response meaningful_error=false is appropriate. Never repair student mistakes. Keep genuine uncertainty for review.'''
+
+
+def training_rows(rows, question_report, answer_report, dry_run=False):
+    if dry_run: return []
+    good_questions={r['question_id'] for r in question_report
+                    if r['ai_verdict']=='pass' and r['review_required']=='no'}
+    good_answers={signature(r) for r in answer_report
+                  if r['ai_verdict']=='pass' and r['review_required']=='no'}
+    required=('question_id','response_id','question_text','solution','rubric_criteria',
+              'rubric_max_score','answer_text','sample_type','expected_score','rubric_analysis')
+    return [r for r in rows if r.get('question_id') in good_questions
+            and signature(r) in good_answers and all(str(r.get(k) or '').strip() for k in required)
+            and r.get('generation_target_status')!='mismatch']
+
 
 def assess_question_response(result):
     dims=result.get('dimensions',{})
@@ -209,6 +243,7 @@ def main(argv=None):
     if args.answers:
         afields,arows=read_csv(args.answers)
     else:afields,arows=fields,qrows if 'answer_text' in fields else []
+    answer_source_fields=list(afields)
     reftexts=[]
     if args.references:
         _, refs=read_csv(args.references)
@@ -217,9 +252,9 @@ def main(argv=None):
     manifest_path=args.out/'manifest.json'
     if args.resume and manifest_path.exists():
         manifest=json.loads(manifest_path.read_text(encoding='utf-8'))
-        if manifest['hashes']!=inputs or manifest['batch_size']!=args.batch_size:raise ValueError('Resume input/config mismatch; use a new --out folder')
+        if manifest['hashes']!=inputs or manifest['batch_size']!=args.batch_size or manifest.get('evaluation_version')!=2:raise ValueError('Resume input/config mismatch; use a new --out folder')
     args.out.mkdir(parents=True,exist_ok=True)
-    dump(manifest_path,{'hashes':inputs,'batch_size':args.batch_size,'dry_run':args.dry_run,'questions_total':len(questions),'answers_total':len(arows)})
+    dump(manifest_path,{'hashes':inputs,'evaluation_version':2,'batch_size':args.batch_size,'dry_run':args.dry_run,'questions_total':len(questions),'answers_total':len(arows)})
     selected=list(questions)
     if args.max_questions is not None:selected=selected[:args.max_questions]
     count_by_q=Counter(r.get('question_id','') for r in arows)
@@ -239,6 +274,7 @@ def main(argv=None):
                 else:
                     qp={k:q.get(k,'') for k in ('question_id','subject','topic','concept_tags','difficulty','question_type','question_text','solution','rubric_criteria','rubric_scoring_guide','rubric_max_score')}
                     qp['rubric_criteria']=jload(qp['rubric_criteria'],qp['rubric_criteria'])
+                    qp['rubric_scoring_guide']=scoring_guide(q)
                     closest=sorted(((difflib.SequenceMatcher(None,norm(q.get('question_text','')),norm(t),autojunk=False).ratio(),rid,t) for rid,t in reftexts if rid!=qid),reverse=True)[:12]
                     qp['references']=[{'question_id':rid,'question_text':t} for _,rid,t in closest]
                     question_ai=call_codex(qp,QUESTION_INSTRUCTIONS,QSCHEMA,path,args.codex_bin)
@@ -271,7 +307,7 @@ def main(argv=None):
                     else:
                         payload={'question_id':qid,'question_text':q.get('question_text',''), 'solution':q.get('solution',''),
                           'rubric_criteria':jload(q.get('rubric_criteria'),q.get('rubric_criteria')),
-                          'rubric_scoring_guide':jload(q.get('rubric_scoring_guide'),q.get('rubric_scoring_guide')),
+                          'rubric_scoring_guide':scoring_guide(q),
                           'student_responses':[{'response_id':r.get('response_id'),'answer_text':r.get('answer_text','')} for r in batch]}
                         evaluated=call_codex(payload,ANSWER_INSTRUCTIONS,ASCHEMA,path,args.codex_bin)
                     parsed=assess_answers_result(evaluated,batch,criteria)
@@ -307,12 +343,17 @@ def main(argv=None):
     write_csv(args.out/'answer_evaluation.csv',answer_report,afields)
     flagged_questions=[r for r in question_report if r['review_required']=='yes']
     flagged_answers=[r for r in answer_report if r['review_required']=='yes']
+    candidates=training_rows(arows,question_report,answer_report,args.dry_run)
+    write_csv(args.out/'training_candidates.csv',candidates,answer_source_fields)
     write_csv(args.out/'review_queue.csv',
          [{'entity':'question','question_id':r['question_id'],'response_id':'','reason':r['deterministic_issues']+' '+r['ai_issues']} for r in flagged_questions]+
          [{'entity':'answer','question_id':r['question_id'],'response_id':r['response_id'],'reason':r['deterministic_issues']+' '+r['ai_issues']} for r in flagged_answers],
          ['entity','question_id','response_id','reason'])
     report={'mode':'deterministic_only' if args.dry_run else 'deterministic_plus_codex_provisional',
         'question_count':len(question_report),'answer_count':len(answer_report),
+        'training_candidate_count':len(candidates),
+        'training_sample_types':dict(Counter(r['sample_type'].upper() for r in candidates)),
+        'training_score_bands':dict(Counter(r.get('actual_score_band','unknown') for r in candidates)),
         'questions_flagged':len(flagged_questions),'answers_flagged':len(flagged_answers),
         'questions_not_model_assessed':sum(not r['ai_verdict'] for r in question_report),
         'answers_not_model_assessed':sum(not r['ai_verdict'] for r in answer_report),

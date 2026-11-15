@@ -16,7 +16,8 @@ ANSWER_FIELDS = ['sample_type','answer_text','expected_score','rubric_analysis',
     'covered_rubric_points','missed_rubric_points','partially_covered_rubric_points',
     'missed_concepts','error_categories','error_location','grader_feedback',
     'improvement_suggestion','response_id','student_id','attempt_id','response_origin',
-    'adjudication_status','label_review_status','label_source']
+    'adjudication_status','label_review_status','label_source',
+    'requested_sample_type','target_score_band','actual_score_band','generation_target_status']
 
 
 def read_csv(path):
@@ -108,25 +109,44 @@ def save_json(path, obj):
     tmp.replace(path)
 
 
-def generation_payload(q, existing, count):
+def sample_plan(count):
+    bands=['FULL','LOW','MID','HIGH','WRONG']
+    return [{'sample_type': b if b in ('FULL','WRONG') else 'PARTIAL', 'score_band': b}
+            for b in (bands[i % len(bands)] for i in range(count))]
+
+
+def score_band(total, maximum):
+    if total == 0: return 'WRONG'
+    if math.isclose(total, maximum, rel_tol=0, abs_tol=1e-6): return 'FULL'
+    return 'LOW' if total/maximum < 1/3 else ('MID' if total/maximum < 2/3 else 'HIGH')
+
+
+def generation_payload(q, existing, count, mode='partial'):
     r=existing[0]
     # Deliberately no solution, answer, canonical_* or previous grading from solution.
     # Existing examples are provided strictly as student RESPONSE text and optional score pattern.
     previous=[{'answer_text':x.get('answer_text','')} for x in existing if x.get('sample_type','').lower()=='partial']
-    return {'question_id':q,'question_text':r['question_text'],
+    payload={'question_id':q,'question_text':r['question_text'],
             'rubric_criteria':as_json(r['rubric_criteria']),
             'rubric_scoring_guide':scoring_guide(r),
             'rubric_max_score':r['rubric_max_score'], 'existing_partial_examples':previous,
             'requested_count':count}
+    if mode=='balanced': payload['requested_samples']=sample_plan(count)
+    return payload
 
 
 def generation_prompt(payload):
     return ('You generate authentic exam student responses, not grading commentary. '
        'Use ONLY the attached JSON context; do not read local files, tools, repositories or official solutions. '
-       'Produce exactly requested_count additional PARTIAL answers. Write as unaware students; realistic work and varied errors. '
+       'Produce exactly requested_count answers in requested_samples order when supplied; otherwise all PARTIAL. '
+       'FULL should earn all rubric credit, WRONG should earn zero, PARTIAL earns some but not all credit. '
+       'For PARTIAL aim for LOW (0 < fraction < 1/3), MID (1/3 <= fraction < 2/3), HIGH (2/3 <= fraction < 1). '
+       'These are generation goals only; a separate grader will determine actual scores. Never include target scores in answers. '
+       'Write as unaware students; realistic work and varied errors. '
        'Prioritize novel rubric satisfaction/failure patterns and distinct mathematical misunderstandings. '
        'Never paste or paraphrase previous answers, never mention rubrics in answer_text. '
-       'Each answer should have some correct and some incorrect work, with genuine steps. '
+       'PARTIAL answers should mix correct and incorrect work. FULL answers need complete reasoning; WRONG answers should contain plausible fundamental misconceptions. '
+       'For FULL use error_pattern to describe its distinct correct approach, without inventing an error. '
        'Different error_pattern labels must reflect different substantive mistakes. '
        'Return ONLY JSON matching the schema.\n\nCONTEXT:\n'+json.dumps(payload,ensure_ascii=False))
 
@@ -144,8 +164,8 @@ def grading_prompt(payload):
 def invoke_codex(prompt,schema,path,exe='codex'):
     if not shutil.which(exe): raise RuntimeError(f'{exe} is not installed or is not on PATH; run `codex login` first.')
     path.parent.mkdir(parents=True,exist_ok=True)
-    command=[exe,'exec','--ephemeral','--sandbox','read-only','--output-schema',str(schema),'-o',str(path),'-']
-    result=subprocess.run(command,input=prompt,text=True,capture_output=True,cwd=str(ROOT))
+    command=[exe,'exec','--ephemeral','--skip-git-repo-check','--sandbox','read-only','--output-schema',str(schema),'-o',str(path),'-']
+    result=subprocess.run(command,input=prompt,text=True,encoding='utf-8',capture_output=True,cwd=str(ROOT))
     if result.returncode!=0: raise RuntimeError('Codex failed: '+result.stderr[-3500:])
     try: return json.loads(path.read_text(encoding='utf-8'))
     except (ValueError,OSError) as e: raise RuntimeError('Codex output is not valid JSON: '+str(e))
@@ -169,7 +189,7 @@ def validate_generation(result, count, existing):
     return samples
 
 
-def score_evaluations(result, samples, criteria, question_id):
+def score_evaluations(result, samples, criteria, question_id, partial_only=True):
     ev=result.get('evaluations')
     if not isinstance(ev,list) or len(ev)!=len(samples): raise ValueError('Wrong number of evaluations')
     ids=[c[0] for c in criteria]
@@ -194,10 +214,13 @@ def score_evaluations(result, samples, criteria, question_id):
             if status=='covered': covered.append(cid)
             else: missed.append(cid)
             if status=='partial': partly.append(cid)
-        if not (0 < total < sum(c[1] for c in criteria)):
+        if partial_only and not (0 < total < sum(c[1] for c in criteria)):
             raise ValueError(f'Sample is not PARTIAL in {question_id}, actual score={total}')
         for k in ('grader_feedback','improvement_suggestion','error_location'):
-            if not str(e.get(k,'')).strip(): raise ValueError(f'Blank {k}')
+            if not str(e.get(k,'')).strip():
+                if k != 'grader_feedback' and math.isclose(total,sum(c[1] for c in criteria),rel_tol=0,abs_tol=1e-6):
+                    e=dict(e);e[k]='not_applicable'
+                else: raise ValueError(f'Blank {k}')
         concepts=e.get('missed_concepts',[])
         categories=e.get('error_categories',[])
         if not isinstance(concepts,list) or not all(isinstance(v,str) for v in concepts):raise ValueError('Invalid missed_concepts')
@@ -221,10 +244,17 @@ def build_rows(fields, groups, question_id, gen, scored, used_ids):
         for k in fields:
             if k in ('reviewer_feedback','reviewed_answer','reviewed_solution','label_review_notes','label_reviewer','answer_image_path','answer_excerpt','grader_feedback_v2','improvement_suggestion_v2','missed_concept_ids'):
                 r[k]=''
-        r['response_id']=unique_id(f'{question_id}_SYN_PARTIAL',used_ids)
+        band=score_band(g['total'],float(base['rubric_max_score']))
+        kind=band if band in ('FULL','WRONG') else 'PARTIAL'
+        r['response_id']=unique_id(f'{question_id}_SYN_{kind}',used_ids)
         if 'student_id' in r:r['student_id']=f"SYN_{question_id}_{i:02d}"
         if 'attempt_id' in r:r['attempt_id']=f"SYN_{question_id}_{i:02d}_A1"
-        r['sample_type']='partial' if base.get('sample_type','').islower() and base.get('sample_type','') else 'PARTIAL'
+        r['sample_type']=kind.lower() if base.get('sample_type','').islower() else kind
+        target=s.get('target',{'sample_type':'PARTIAL','score_band':'PARTIAL'})
+        r['requested_sample_type']=target['sample_type']
+        r['target_score_band']=target['score_band']
+        r['actual_score_band']=band
+        r['generation_target_status']='matched' if target['score_band'] in (band,kind) else 'mismatch'
         r['answer_text']=s['answer_text'];r['expected_score']=str(g['total'])
         r['rubric_analysis']=json.dumps(g['analysis'],ensure_ascii=False,separators=(',',':'))
         r['covered_rubric_points']=';'.join(g['covered']);r['missed_rubric_points']=';'.join(g['missed'])
@@ -254,19 +284,21 @@ def main(argv=None):
     p.add_argument('--input',required=True,type=Path)
     p.add_argument('--out',type=Path,default=ROOT/'output')
     p.add_argument('--count',type=int,default=5)
+    p.add_argument('--mode',choices=['balanced','partial'],default='balanced',help='Balanced cycles FULL/LOW/MID/HIGH/WRONG; count is total per question')
     p.add_argument('--max-questions',type=int,default=None,help='Limit questions for a pilot')
     p.add_argument('--codex-bin',default='codex')
     p.add_argument('--dry-run',action='store_true',help='Prepare manifest only; no model calls')
     p.add_argument('--resume',action='store_true',help='Reuse completed stages (hash-checked)')
     args=p.parse_args(argv)
     if args.count<1: p.error('--count must be positive')
+    if args.mode=='balanced' and args.count<5: p.error('Balanced mode requires --count >= 5')
     fields,rows=read_csv(args.input);groups=get_questions(rows)
     qs=list(groups)
     if args.max_questions is not None: qs=qs[:args.max_questions]
     args.out.mkdir(parents=True,exist_ok=True)
     manifest={'input':str(args.input),'input_sha256':hashlib.sha256(args.input.read_bytes()).hexdigest(),
               'original_rows':len(rows),'questions_total':len(groups),'questions_selected':len(qs),
-              'count_per_question':args.count,'columns':len(fields),'question_ids':qs,
+              'count_per_question':args.count,'mode':args.mode,'columns':len(fields),'question_ids':qs,
               'input_mode':'existing_answers' if any(r['answer_text'].strip() for r in rows) else 'question_pipeline_direct'}
     save_json(args.out/'manifest.json',manifest)
     print(f"Input: {len(rows)} rows, {len(groups)} questions, {len(fields)} columns; selected {len(qs)} x {args.count}",flush=True)
@@ -274,8 +306,8 @@ def main(argv=None):
     used={r['response_id'] for r in rows};generated=[];report=[]
     stages=args.out/'stages';stages.mkdir(exist_ok=True)
     for n,q in enumerate(qs,1):
-        rr=groups[q];criteria=criteria_for(rr[0]);gp=generation_payload(q,rr,args.count)
-        key=digest({'input_sha256':manifest['input_sha256'],'generation_payload':gp,'schema_version':1})
+        rr=groups[q];criteria=criteria_for(rr[0]);gp=generation_payload(q,rr,args.count,args.mode)
+        key=digest({'input_sha256':manifest['input_sha256'],'generation_payload':gp,'schema_version':2})
         stage=stages/f'{n:03d}_{hashlib.sha256(q.encode()).hexdigest()[:10]}'
         stage.mkdir(exist_ok=True)
         meta=stage/'meta.json';gen_file=stage/'generation.json';grading_file=stage/'grading.json'
@@ -286,6 +318,8 @@ def main(argv=None):
                 gen=invoke_codex(generation_prompt(gp),GEN_SCHEMA,gen_file,args.codex_bin)
                 save_json(meta,{'key':key,'question_id':q})
             samples=validate_generation(gen,args.count,rr)
+            if args.mode=='balanced':
+                samples=[dict(s,target=t) for s,t in zip(samples,sample_plan(args.count))]
             grade_input={'question_id':q,'question_text':rr[0]['question_text'],
                 'solution':rr[0].get('solution',''),'rubric_criteria':as_json(rr[0]['rubric_criteria']),
                 'rubric_scoring_guide':scoring_guide(rr[0]),
@@ -296,20 +330,24 @@ def main(argv=None):
                 raise ValueError('Official solution is empty; cannot validate scores')
             if match and grading_file.exists():grade=as_json(grading_file.read_text(encoding='utf-8'))
             else:grade=invoke_codex(grading_prompt(grade_input),GRADE_SCHEMA,grading_file,args.codex_bin)
-            scored=score_evaluations(grade,samples,criteria,q)
+            scored=score_evaluations(grade,samples,criteria,q,partial_only=args.mode=='partial')
             vector=[tuple(g['analysis'][j]['awarded_score'] for j in range(len(criteria))) for g in scored]
             added=build_rows(fields,groups,q,samples,scored,used)
             generated+=added
             report.append({'question_id':q,'status':'accepted_provisionally','samples':len(added),
                            'distinct_score_vectors':len(set(vector)),'rubric_count':len(criteria),
+                           'actual_score_bands':dict(Counter(r['actual_score_band'] for r in added)),
+                           'target_mismatches':sum(r['generation_target_status']=='mismatch' for r in added),
                            'note':'Model-graded; independent human/adjudicated review not performed'})
             print(f'[{n}/{len(qs)}] {q}: {len(added)} provisionally validated samples',flush=True)
         except (ValueError,RuntimeError,KeyError,TypeError) as exc:
-            report.append({'question_id':q,'status':'failed','error':str(exc)})
+            report.append({'question_id':q,'status':'failed','error':str(exc),'error_type':type(exc).__name__})
             print(f'[{n}/{len(qs)}] {q}: FAILED: {exc}',file=sys.stderr,flush=True)
         save_json(args.out/'validation_report.json',{'manifest':manifest,'questions':report,
               'generated_rows':len(generated),'warning':'Model assessments are provisional, not independently verified ground truth.'})
-        write_csv(args.out/'new_partial_samples.csv',fields,generated)
+        write_csv(args.out/'new_samples.csv',fields,generated)
+        write_csv(args.out/'new_partial_samples.csv',fields,[r for r in generated if r['sample_type'].upper()=='PARTIAL'])
+        write_csv(args.out/'generation_review_queue.csv',fields,[r for r in generated if r['generation_target_status']=='mismatch'])
         write_csv(args.out/'expanded_dataset.csv',fields,rows+generated)
     failures=sum(x['status']=='failed' for x in report)
     print(f'Done: {len(generated)} new samples, {failures} failed questions. Files in {args.out}',flush=True)

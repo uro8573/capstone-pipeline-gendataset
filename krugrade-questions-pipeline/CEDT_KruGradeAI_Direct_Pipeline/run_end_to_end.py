@@ -15,6 +15,7 @@ def main():
     ap.add_argument('--question-csv',type=Path,default=DEFAULT_INPUT)
     ap.add_argument('--out',type=Path,default=ROOT/'answer_generation'/'output'/'cedt')
     ap.add_argument('--count',type=int,default=5)
+    ap.add_argument('--mode',choices=['balanced','partial'],default='balanced')
     ap.add_argument('--max-questions',type=int)
     ap.add_argument('--dry-run',action='store_true')
     ap.add_argument('--resume',action='store_true')
@@ -25,7 +26,7 @@ def main():
     if not args.question_csv.is_file():
         ap.error(f'Question CSV not found: {args.question_csv}')
     cmd=[sys.executable,str(ROOT/'answer_generation'/'pipeline'/'run.py'),
-         '--input',str(args.question_csv.resolve()),'--out',str(args.out.resolve()),'--count',str(args.count)]
+         '--input',str(args.question_csv.resolve()),'--out',str(args.out.resolve()),'--count',str(args.count),'--mode',args.mode]
     if args.max_questions is not None: cmd.extend(['--max-questions',str(args.max_questions)])
     if args.dry_run: cmd.append('--dry-run')
     if args.resume: cmd.append('--resume')

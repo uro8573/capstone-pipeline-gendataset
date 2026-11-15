@@ -64,8 +64,8 @@ To retry a failed review, archive/remove that question's review stage first, the
 generate again. Review-stage failures are not automatically rewritten into a PASS.
 
 Training a grader additionally requires student answers at varied score levels and
-reviewed labels. The existing answer generator creates PARTIAL responses only;
-it does not yet produce a balanced FULL/PARTIAL/WRONG response dataset. Preserve
+reviewed labels. The sibling answer generator now defaults to FULL/PARTIAL/WRONG
+with low/mid/high PARTIAL targets; actual grading may leave coverage gaps. Preserve
 question family and split fields in all downstream responses.
 
 Tests: `python -B -m unittest discover -s tests -v` (offline, mocked model calls).

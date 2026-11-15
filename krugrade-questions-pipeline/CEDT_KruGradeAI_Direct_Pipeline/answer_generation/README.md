@@ -1,10 +1,35 @@
-# KruGradeAI — PARTIAL sample pipeline for Codex CLI
+# KruGradeAI — FULL / PARTIAL / WRONG response pipeline
 
-Generates **5 new PARTIAL student answers per question** (configurable), scores them with a **second, solution-aware Codex call**, and creates schema-compatible CSV files. Works with Statistics, Signals and Optimization input formats (rubrics remain subject-specific). Does not claim independent validation.
+Generates **5 responses per question** by default: FULL, low/middle/high PARTIAL, and WRONG. A separate solution-aware call scores the actual work. Labels are derived from scores: FULL = maximum, WRONG = zero, PARTIAL = strictly between. All labels remain synthetic and unreviewed by humans.
+
+## Balanced generation and training export
+
+`--mode balanced --count 5` is the default. Larger counts repeat the five-slot cycle;
+use multiples of five for equal slot counts. PARTIAL bands are fractions of maximum:
+LOW (0, 1/3), MID [1/3, 2/3), HIGH [2/3, 1). Targets never enter the grading prompt.
+`--mode partial` retains the previous all-PARTIAL mode.
+
+```powershell
+python -X utf8 pipeline/run.py --input ../question_generation/output/university_math_1000/dataset/all_in_one.csv --out output/balanced --mode balanced --count 5 --resume
+```
+
+- `new_samples.csv`: all generated responses with actual scores and actual types.
+- `new_partial_samples.csv`: PARTIAL subset only; use `new_samples.csv` for all types.
+- `generation_review_queue.csv`: target-band mismatches, preserving the actual score.
+- `validation_report.json`: actual bands, distinct score vectors, failures and mismatches.
+
+No score is forced and no retry loop silently fills missing bands. Some rubrics cannot
+produce all three PARTIAL bands. Inspect coverage before expanding a run. Use a fresh
+output folder for this version; resume uses a new cache key. Generation alone does
+not qualify a row for training: run the sibling evaluation pipeline with
+`--answers <path/to/new_samples.csv>`. Its `training_candidates.csv` contains only rows
+whose question and answer both passed AI review, with complete core fields, matching
+scores and no target mismatch. Candidates still require your chosen label-validation
+process. Optional fields and fields not applicable to FULL/WRONG can be empty.
 
 ## Direct CEDT Question Pipeline input (no adapter)
 
-The native `CEDT_Exam_Pipeline/output/dataset/all_in_one.csv` is accepted **as-is**.
+The native `question_generation/output/dataset/all_in_one.csv` is accepted **as-is**.
 There is no conversion/adapter step, no renaming of columns and no need to add
 student-answer fields manually. The answer pipeline reads the source
 `rubric_criteria` JSON array (`max_points`, `full_credit`, `partial_credit`,
@@ -12,15 +37,14 @@ student-answer fields manually. The answer pipeline reads the source
 exported files. The source question CSV remains untouched.
 
 ```bash
-python pipeline/run.py --input ../CEDT_Exam_Pipeline/output/dataset/all_in_one.csv --dry-run
-python pipeline/run.py --input ../CEDT_Exam_Pipeline/output/dataset/all_in_one.csv --out output/cedt_pilot --count 5 --max-questions 2
-python pipeline/run.py --input ../CEDT_Exam_Pipeline/output/dataset/all_in_one.csv --out output/cedt_full --count 5 --resume
+python pipeline/run.py --input ../question_generation/output/dataset/all_in_one.csv --dry-run
+python pipeline/run.py --input ../question_generation/output/dataset/all_in_one.csv --out output/cedt_pilot --count 5 --max-questions 2
+python pipeline/run.py --input ../question_generation/output/dataset/all_in_one.csv --out output/cedt_full --count 5 --resume
 ```
 
-A question-only input yields `new_partial_samples.csv` (only new answers) and
+A question-only input yields `new_samples.csv` (all new answers) and
 `expanded_dataset.csv` (30 original question rows with blank answer fields plus
-new answer rows). For downstream training use `new_partial_samples.csv` or
-filter `expanded_dataset.csv` by non-empty `answer_text`/`sample_type`.
+new answer rows). Evaluate `new_samples.csv` before selecting training candidates.
 
 When CEDT `partial_credit` is prose rather than a structured scoring-anchor
 list, the model grades against that text but numeric anchor membership cannot
@@ -57,9 +81,9 @@ macOS/Linux: substitute `python3` for `python` if necessary.
 ## Pipeline steps
 
 1. **Load & audit.** Read UTF-8 CSV and check question-level consistency and rubric maximums.
-2. **Generation (blind).** Send question, criteria, guide and existing PARTIAL response patterns to Codex with `--output-schema`; **do not send the official solution**.
+2. **Generation (blind).** Send question, criteria, guide and requested response slots to Codex with `--output-schema`; **do not send the official solution**.
 3. **Independent scoring stage.** Send the already-generated answers, official solution and rubric to a separate Codex call, producing per-criterion scores and feedback.
-4. **Deterministic checks.** Check answer count, duplicate exact text, distinct error pattern labels, criterion ID order, score limits and explicit scoring anchors, and strict partial total (`0 < score < max`). Failed questions are excluded and reported; completed stages can be resumed.
+4. **Deterministic checks.** Check count, duplicate text, distinct pattern labels, criterion order, score limits and explicit anchors. Classify by actual score; record target-band mismatches. In `--mode partial`, require `0 < score < max`. Failed questions are excluded and reported; completed stages can be resumed.
 5. **Export.** Preserve original columns, write new IDs, `missed_concepts` JSON arrays, original question difficulty descriptions, `adjudication_status=not_required` and `label_review_status=unreviewed` when those columns exist.
 
 ## Operational notes

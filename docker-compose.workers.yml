@@ -1,0 +1,35 @@
+name: krugrade-dataset
+x-worker: &worker
+  build: ./docker/parallel
+  image: krugrade-dataset-worker:0.169.0
+  init: true
+  restart: "no"
+  cpus: 1.5
+  mem_limit: 2g
+  volumes:
+    - .:/workspace
+    - ${CODEX_AUTH_FILE:?Set CODEX_AUTH_FILE}:/run/secrets/codex_auth.json:ro
+  environment:
+    KRUGRADE_MODEL: ${KRUGRADE_MODEL:-gpt-6-astra}
+    KRUGRADE_REASONING: ${KRUGRADE_REASONING:-medium}
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "3"
+services:
+  worker0:
+    <<: *worker
+    command: ["--index", "0", "--workers", "5"]
+  worker1:
+    <<: *worker
+    command: ["--index", "1", "--workers", "5"]
+  worker2:
+    <<: *worker
+    command: ["--index", "2", "--workers", "5"]
+  worker3:
+    <<: *worker
+    command: ["--index", "3", "--workers", "5"]
+  worker4:
+    <<: *worker
+    command: ["--index", "4", "--workers", "5"]
