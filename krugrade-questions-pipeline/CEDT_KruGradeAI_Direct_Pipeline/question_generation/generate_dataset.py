@@ -194,7 +194,9 @@ def prepare(config, output):
     return slots
 
 
-def generate(config, slots, output, limit, executable):
+def generate(config, slots, output, limit, executable, registry_path=None):
+    registry_path = Path(registry_path or ROOT / "output/question_registry.sqlite3").resolve()
+    run_id = digest({"config": config, "output": str(output.resolve())})
     attempted = 0
     for slot in slots:
         prior, folder = {}, output / "stages" / slot["question_id"]
@@ -202,22 +204,61 @@ def generate(config, slots, output, limit, executable):
         needed = False
         try:
             for stage in STAGES:
-                text = prompt(stage, slot, prior, config)
-                key = digest({"prompt": text, "schema": SCHEMAS[stage], "model": config.get("model")})
                 path = folder / (stage + ".json")
+                duplicate_text = None
+                duplicate_kind = None
+                duplicate_attempt = 0
                 cached = json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
-                if cached and cached.get("key") == key:
-                    result = cached["result"]
-                else:
-                    if not needed:
-                        if attempted >= limit:
-                            return
-                        attempted += 1
-                        needed = True
-                    result = call_model(text, SCHEMAS[stage], path, config, executable)
+                if stage == "questions" and cached and cached.get("duplicate_context"):
+                    duplicate_text = cached["duplicate_context"]
+                while True:
+                    text = prompt(stage, slot, prior, config)
+                    if stage == "questions" and duplicate_text:
+                        text += ("\n\nDo not repeat or lightly reword this already-generated question. "
+                                 "Create a mathematically distinct problem with a different reasoning structure. "
+                                 "Previously used question: " + duplicate_text)
+                    key = digest({"prompt": text, "schema": SCHEMAS[stage], "model": config.get("model")})
+                    if cached and cached.get("key") == key:
+                        result = cached["result"]
+                    else:
+                        if not needed:
+                            if attempted >= limit:
+                                return
+                            attempted += 1
+                            needed = True
+                        result = call_model(text, SCHEMAS[stage], path, config, executable)
+                        check_result(stage, result, slot)
+                        json_dump(path, {"key": key, "result": result,
+                                         "duplicate_context": duplicate_text if stage == "questions" else None})
                     check_result(stage, result, slot)
-                    json_dump(path, {"key": key, "result": result})
-                check_result(stage, result, slot)
+                    if stage != "questions":
+                        break
+
+                    # Reserve each unique question immediately. The short SQLite
+                    # transaction makes this safe across parallel workers without
+                    # holding a database lock while a model call is in progress.
+                    with QuestionRegistry(registry_path, config["near_duplicate_threshold"]) as registry:
+                        match = registry.reserve(
+                            run_id, slot["question_id"], result["question_text"],
+                            slot["split"], slot["family_id"], str(output.resolve()),
+                        )
+                        if match:
+                            duplicate_row = next(
+                                (row for row in registry.rows
+                                 if row["run_id"] == match["matched_run_id"]
+                                 and row["question_id"] == match["matched_question_id"]),
+                                None,
+                            )
+                            duplicate_text = (duplicate_row or {}).get("question_text", result["question_text"])
+                            duplicate_kind = match["kind"]
+                    if not match:
+                        break
+                    duplicate_attempt += 1
+                    if duplicate_attempt >= 5:
+                        raise ValueError(
+                            f"Could not generate a unique question after {duplicate_attempt} attempts "
+                            f"({duplicate_kind}: {match['matched_question_id']})"
+                        )
                 prior[stage] = result
             json_dump(folder / "status.json", {"status": "complete", "review": prior["review"]["status"]})
             print(slot["question_id"], prior["review"]["status"], flush=True)
@@ -310,7 +351,7 @@ def main():
         if args.command == "plan":
             print(f"Planned {len(slots)} questions; no model calls. Full generation: {len(slots)*4} calls before retries.")
         elif args.command == "generate":
-            generate(config, slots, args.out.resolve(), len(slots) if args.all else args.limit, args.codex_bin)
+            generate(config, slots, args.out.resolve(), len(slots) if args.all else args.limit, args.codex_bin, args.registry)
             export(config, slots, args.out.resolve(), args.registry)
         else:
             export(config, slots, args.out.resolve(), args.registry)

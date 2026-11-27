@@ -59,7 +59,10 @@ Only structurally valid questions with model PASS and no reported issues are
 exported. These still have `label_review_status=unreviewed`. Other results stay in
 the review queue and raw stages. Exact/near text similarity is checked across
 splits; semantic uniqueness is NOT proven. A model error/timeout/quota failure
-stops further calls and preserves completed stages. There are no automatic retries.
+stops further calls and preserves completed stages. When a generated question
+matches the registry, the generator asks for a replacement up to five times and
+includes the matched question in its retry prompt. If every attempt still matches,
+generation stops for that slot instead of exporting a duplicate.
 To retry a failed review, archive/remove that question's review stage first, then
 generate again. Review-stage failures are not automatically rewritten into a PASS.
 
@@ -77,18 +80,20 @@ Every `generate`/`export` command now checks a persistent SQLite registry, by de
 output folders share this default automatically. `plan` never registers questions.
 No embeddings, paid API calls or external services are used for duplicate checks.
 
-Checks run after the four generation stages and before accepting export rows:
+Checks run immediately after each question is generated, before the solution,
+rubric and review stages. Unique questions are reserved in SQLite at that point,
+so sequential runs and parallel workers sharing the registry see one another's
+questions. The checks also run again before accepting export rows:
 
 1. Unicode/whitespace/case normalization and exact-text comparison.
 2. Numeric-constant masking: likely variants differing only in numeric values.
 3. Near-text similarity using `near_duplicate_threshold` (default 0.90).
 
-Matches are withheld from the new dataset and recorded in `review_queue.csv`, with
-match type, similarity, original run/question ID, split, family, source path and
-whether the match crosses splits. Nothing rewrites or deletes the old question.
-Existing stages remain available for review. Re-exporting the same output with the
-same config and question text/split/family does not flag the question against itself.
-Changing those fields under an existing identity produces `identity_conflict`.
+Matches cause a replacement generation attempt; if the retry limit is exhausted,
+the slot is marked failed and is not exported. Nothing rewrites or deletes the old
+question. Re-exporting the same output with the same config and question
+text/split/family does not flag the question against itself. Changing those fields
+under an existing identity produces `identity_conflict`.
 
 ### Import questions generated before this feature
 
@@ -117,11 +122,13 @@ copies. Separate registry files do NOT check one another. Keep and back up the
 registry: removing/replacing it removes cross-run history. The database and generated
 outputs are intentionally excluded from Git; teammates must share/import historical
 CSV data or use the same registry. SQLite serializes write transactions; a run waits
-up to 30 seconds for another exporter, then fails explicitly rather than bypassing
-checks. Re-run export after the other writer finishes.
+up to 30 seconds for another generator/exporter, then fails explicitly rather than
+bypassing checks. Resume generation after the other writer finishes.
 
-Reservations commit only if dataset export succeeds; a failed export rolls them
-back. Output CSV files themselves are not a single atomic transaction: if interrupted,
+Question reservations commit as soon as a unique question is generated, even if a
+later solution, rubric or review stage fails. This keeps other workers from generating
+the same question. Export remains transactional for its own writes. Output CSV files
+themselves are not a single atomic transaction: if interrupted,
 rerun `export` successfully before consuming them. Historical reservations are kept
 conservatively even if a later review rejects an older question. Do not reset the
 registry to force a flagged question into a different split.
@@ -129,7 +136,6 @@ registry to force a flagged question into a different split.
 These are duplicate-screening heuristics, not a mathematical-equivalence proof.
 Numeric variants may be legitimate exercises but are held for review; variable
 renaming, translations and substantially reworded equivalents can escape detection.
-There is no automatic adjudication/override or automatic replacement generation yet.
-The final accepted count can therefore be lower than the requested count. Review
-semantic families before building a benchmark; synthetic test is not a substitute
-for an independent human-verified real dataset.
+There is no automatic adjudication/override, and the five-attempt retry cap may leave
+a slot incomplete. Review semantic families before building a benchmark; synthetic
+test is not a substitute for an independent human-verified real dataset.

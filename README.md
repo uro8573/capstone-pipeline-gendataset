@@ -153,7 +153,7 @@ python -B -X utf8 parallel_dataset.py supervise
 
 ## การกันซ้ำและการใช้ร่วมกันหลาย clone
 
-ตัวรวมผลบน host ตรวจประวัติใน `question_generation/output/question_registry.sqlite3` ก่อนเผยแพร่แถวลงชุดรวม โดยตรวจข้อความหลัง normalize, รูปแบบที่เปลี่ยนเฉพาะตัวเลข และข้อความใกล้เคียงตาม threshold 0.90 พร้อมบันทึกหลักฐานใน review queue การตรวจนี้ไม่ใช่การพิสูจน์ความสมมูลทางคณิตศาสตร์
+ตัวสร้างโจทย์ตรวจ registry ใน `question_generation/output/question_registry.sqlite3` ทันทีหลังสร้างโจทย์ และจองโจทย์ที่ไม่ซ้ำก่อนสร้างเฉลย/รูบริก เพื่อให้ workers ที่ใช้ฐานเดียวกันเห็นโจทย์ของกันและกัน หากซ้ำจะลองสร้างใหม่ได้สูงสุด 5 ครั้ง; ถ้ายังซ้ำจะหยุด slot นั้น ไม่ส่งข้อซ้ำเข้า dataset การตรวจใช้การ normalize, รูปแบบที่ต่างเฉพาะตัวเลข และข้อความใกล้เคียง threshold 0.90 ซึ่งไม่ใช่การพิสูจน์ความสมมูลทางคณิตศาสตร์
 
 **Clone โค้ดอย่างเดียวไม่ส่งต่อประวัติการสร้าง** เพราะ SQLite และ outputs ถูก ignore ผู้ร่วมทีมต้องรับ historical question CSV แล้ว import ก่อนรัน จากโฟลเดอร์ `question_generation`:
 
