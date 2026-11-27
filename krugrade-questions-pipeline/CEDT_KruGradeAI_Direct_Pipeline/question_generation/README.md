@@ -7,6 +7,28 @@ pipeline, batch/resume commands, family-based splits and persistent cross-run
 duplicate screening. Its config is `config/generation.university_math.json`.
 The original seed-data workflow below remains available unchanged.
 
+## duplicate questions check
+
+ตัวสร้างชุดข้อสอบแบบกำหนดค่าได้ (`generate_dataset.py`) จะตรวจข้อสอบทันทีหลัง
+สร้างโจทย์ และก่อนสร้างเฉลย รูบริก และผล review โจทย์ที่ไม่ซ้ำจะถูกจองไว้ในฐานข้อมูล
+SQLite กลาง (ค่าเริ่มต้นคือ `output/question_registry.sqlite3`) เพื่อให้ worker อื่นที่ใช้
+registry เดียวกันเห็นโจทย์นั้นก่อนสร้างข้อของตนเอง ใช้ `--registry PATH` หากต้องการ
+ระบุ registry อื่น โดยคำสั่ง `generate` และ `export` ต้องใช้ไฟล์เดียวกัน
+
+ระบบเปรียบเทียบข้อความหลังปรับ Unicode ช่องว่าง และตัวพิมพ์เล็ก/ใหญ่ รวมถึงเปรียบเทียบ
+รูปแบบข้อความเมื่อแทนค่าตัวเลขด้วยตัวบ่งชี้ และตรวจความคล้ายของข้อความ ตั้งค่า
+`near_duplicate_threshold` ใน config เพื่อปรับเกณฑ์ความคล้าย โดยค่าเริ่มต้นคือ `0.90`
+หากพบข้อที่ตรงกัน ระบบจะใส่โจทย์ที่พบลงใน prompt แล้วลองสร้างใหม่ได้สูงสุด 5 ครั้ง
+หากยังซ้ำครบทั้ง 5 ครั้ง คำสั่งหรือ worker ที่กำลังสร้างจะหยุดพร้อมแจ้งข้อผิดพลาดที่ slot
+นั้น และจะไม่นำโจทย์ซ้ำเข้า dataset ส่วนขั้น `export` จะตรวจซ้ำและบันทึกข้อที่ถูกกันออก
+หรือยังไม่ครบไว้ใน `review_queue.csv`
+
+การตรวจนี้ใช้เกณฑ์จากข้อความ ไม่ได้พิสูจน์ว่าโจทย์ไม่ซ้ำในเชิงคณิตศาสตร์ โจทย์ที่เขียนใหม่
+แปลภาษา หรือมีความหมายเทียบเท่ากันอาจตรวจไม่พบ หาก clone repository ใหม่ จะไม่มี
+ประวัติโจทย์เดิมจนกว่าจะใช้หรือ import registry ดูคำแนะนำเรื่อง registry ข้ามรอบได้ที่
+[BULK_GENERATION.md](BULK_GENERATION.md) เนื้อหาในหัวข้อนี้ใช้กับตัวสร้างชุดข้อสอบแบบ
+กำหนดค่าได้ ส่วน workflow seed เดิมใน `run_pipeline.py` แยกจากระบบนี้
+
 
 ระบบ Pipeline แบบ reproducible สำหรับข้อสอบ **GEN_001–GEN_030** ที่สร้างไว้แล้ว รวมถึงเป็นต้นแบบสำหรับสร้าง/แก้ไขชุดข้อสอบใหม่ตาม Blueprint เดิม
 
